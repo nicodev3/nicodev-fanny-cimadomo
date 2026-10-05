@@ -2,78 +2,135 @@
     "schemaVersion": 25,
     "profession": "psychologue",
     "business": {
-        "fullName": "Pierre Janet",
+        "fullName": "Fanny CIMADOMO",
         "title": "Psychologue",
-        "city": "Lyon",
-        "addressLine1": "12 rue de la Paix",
-        "addressLine2": "2e étage, digicode 1234",
-        "postalCode": "69001",
-        "phone": "06 12 34 56 78",
-        "email": "claire.bernard@cabinet-psy.fr",
-        "siret": "83412567800012"
+        "city": "Chambéry",
+        "addressLine1": "173 rue Emile Romanet",
+        "postalCode": "73000",
+        "phone": "07 83 04 85 64",
+        "email": "fanny.cimadomo.psy@gmail.com",
+        "siret": "10618658800013",
+        "siretPending": false
     },
     "social": {
         "links": [
             {
                 "label": "LinkedIn",
-                "href": "https://www.linkedin.com/in/exemple-psychologue"
+                "href": "https://www.linkedin.com/in/fanny-c-2544581a4"
             }
         ]
     },
     "practice": {
         "audience": [
-            "adultes",
-            "adolescents",
-            "familles"
+            "adultes"
         ],
         "audienceOther": "",
-        "specialties": [],
-        "approaches": [],
+        "specialties": [
+            "Troubles anxieux et phobiques",
+            "ESPT et adaptation au stress après événement traumatique",
+            "Deuil, violences, harcèlement et troubles relationnels sévères",
+            "Troubles dépressifs et dysthymie",
+            "Automutilation non suicidaire",
+            "Troubles du sommeil",
+            "Difficultés relationnelles, familiales et isolement social",
+            "Souffrance au travail, épuisement professionnel et reconversion",
+            "Questionnement identitaire, estime de soi et orientation"
+        ],
+        "approaches": [
+            "Thérapies TCC",
+            "Approche intégrative",
+            "EMDR"
+        ],
         "languages": [
-            "Français",
-            "Anglais"
+            "Français"
         ],
         "consultationModes": [
-            "cabinet",
-            "visio"
+            "cabinet"
         ],
         "waitingListNote": "Les délais varient selon la période ; contactez-moi pour connaître les disponibilités.",
         "reimbursement": {
             "monSoutienPsy": {
                 "enabled": false,
-                "note": "A verifier selon votre situation."
+                "note": "Certaines mutuelles proposent une participation financière pour les consultations psychologiques. Je vous encourage à contacter votre mutuelle pour connaître les modalités de prise en charge. Une facture vous sera fournie pour faciliter vos démarches de remboursement."
             }
         }
     },
     "credentials": {
         "license": {
-            "rppsOrAdeli": "75 93 12345 67",
-            "registrationLabel": "adeli"
+            "rppsOrAdeli": "10009900746",
+            "rppsOrAdeliPending": false,
+            "registrationLabel": "rpps"
         },
         "degrees": [
             {
-                "label": "Master 2 Psychologie clinique et psychopathologie",
-                "institution": "Université Lyon 2",
-                "year": "2015"
+                "label": "Master 2 Psychologie clinique, psychopathologie et psychologie de la santé parcours psychologie légale",
+                "institution": "Université Champagne-Ardenne",
+                "year": "2021"
+            },
+            {
+                "label": "Licence psychologie",
+                "institution": "Université Grenoble Alpes",
+                "year": "2019"
             }
         ],
         "trainings": [
             {
-                "label": "Formation EMDR niveau 1 et 2",
+                "label": "Formation EMDR niveau 1",
                 "provider": "Institut EMDR France",
-                "year": "2018"
+                "year": "2025"
+            },
+            {
+                "label": "Repérage et diagnostique du TSPT chez l'enfant et l'adolescent",
+                "provider": "Centre Régional du Psychotraumatisme de Bordeaux",
+                "year": "2025"
+            },
+            {
+                "label": "Premiers secours en santé mentale",
+                "provider": "PSSM France",
+                "year": "2024"
+            },
+            {
+                "label": "L’enfant dans la tourmente, violence et conflits de haut niveau",
+                "provider": "IFACT",
+                "year": "2024"
+            },
+            {
+                "label": "Sensibilisation à la systèmie et aux objets flottants",
+                "provider": "Institut d’études systémiques",
+                "year": "2023"
+            },
+            {
+                "label": "Technicien en hypnose ericksonienne",
+                "provider": "PSYNAPSE",
+                "year": "2023"
+            },
+            {
+                "label": "Initiation à la clinique des auteurs de violences sexuelles",
+                "provider": "CRIAVS-RA",
+                "year": "2023"
+            },
+            {
+                "label": "Repérage de la crise suicidaire",
+                "provider": "Le Vinatier",
+                "year": "2023"
+            },
+            {
+                "label": "Les fondamentaux de la procédure pénale",
+                "provider": "FunMooc",
+                "year": "2020"
+            },
+            {
+                "label": "Les addictions",
+                "provider": "ASADIS",
+                "year": "2020"
             }
         ],
-        "affiliations": [
-            "Fédération Française des Psychologues et de Psychologie (FFPP)",
-            "Société Française de Psychologie (SFP)"
-        ],
-        "experienceYears": 10
+        "affiliations": []
     },
     "conditions": {
         "cancellation": {
-            "noticeHours": 24,
-            "feePolicy": "Toute séance annulée moins de 24h avant peut être due, sauf cas de force majeure."
+            "noticeHours": 48,
+            "feePolicy": "Toute annulation ou report de séance doit être effectué au moins 48 heures à l'avance (jours ouvrés). N'hésitez pas à me contacter pour m'en faire part afin que nous puissions en échanger. Dans le cas contraire, la séance fera l'objet d'un dédommagement du montant de la consultation. Cette règle permet de respecter le temps de chacun et d'offrir une place à d'autres patients en attente."
         },
         "delay": {
             "graceMinutes": 10,
@@ -85,14 +142,14 @@
         }
     },
     "seo": {
-        "description": "Psychologue à Lyon, Pierre Janet accompagne adultes, adolescents et familles en cabinet ou en visio, avec une écoute confidentielle et un suivi adapté à chacun.",
+        "description": "Psychologue à Chambéry, Fanny Cimadomo accompagne les adultes en cabinet, avec une approche intégrative (TCC, EMDR) et un suivi confidentiel.",
         "baseUrl": "https://exemple.fr",
         "ogImage": "https://exemple.fr/og.jpg"
     },
     "practicePageEnabled": {
-        "tcc": false,
+        "tcc": true,
         "act": false,
-        "schemaTherapy": true,
+        "schemaTherapy": false,
         "dbt": false,
         "mbct": false,
         "rebt": false,
@@ -108,10 +165,10 @@
         "solutionFocused": false,
         "narrativeTherapy": false,
         "strategicTherapy": false,
-        "integrative": false,
+        "integrative": true,
         "ipt": false,
         "eft": false,
-        "emdr": false,
+        "emdr": true,
         "clinicalHypnosis": false,
         "mindfulnessMbsr": false,
         "sexTherapy": false,
@@ -131,25 +188,25 @@
         "sexology": []
     },
     "aboutPage": {
-        "intro": "Psychologue clinicien passionné, je m’appelle Pierre Jeanet. Depuis plus de 10 ans, j’accompagne enfants, adolescents et adultes dans les moments clés de leur parcours. Mon approche est centrée sur l’écoute bienveillante, la confiance et des méthodes scientifiquement validées. Je veille à proposer un suivi personnalisé, adapté à vos besoins, en cabinet ou à distance. Chaque consultation est un espace d’échange, de respect et de confidentialité, pour vous aider à mieux comprendre vos difficultés, à mieux vivre avec vos émotions et à retrouver un équilibre durable.",
-        "sidebarSummary": "Psychologue à Montfaucon-les-Etoiles, j’accueille enfants, adolescents et adultes en cabinet et à distance. Approche bienveillante et méthodes validées."
+        "intro": "Psychologue clinicienne à Chambéry, j'accompagne des adultes par le biais de différents outils dans une approche intégrative. En effet, elle combine les thérapies cognitive-comportementales et émotionnelles (TCCE), la clinique du psychotraumatisme avec la thérapie EMDR, la systèmie ou encore des apports de la thérapie des schémas.",
+        "sidebarSummary": "Psychologue clinicienne à Chambéry, j'accompagne des adultes par le biais de différents outils dans une approche intégrative (TCC, EMDR, etc)."
     },
     "contact": {
         "hours": {
             "monday": {
-                "enabled": true,
+                "enabled": false,
                 "value": "9h00 - 18h00"
             },
             "tuesday": {
-                "enabled": true,
+                "enabled": false,
                 "value": "9h00 - 18h00"
             },
             "wednesday": {
-                "enabled": true,
+                "enabled": false,
                 "value": "9h00 - 13h00"
             },
             "thursday": {
-                "enabled": true,
+                "enabled": false,
                 "value": "9h00 - 18h00"
             },
             "friday": {
@@ -157,7 +214,7 @@
                 "value": "9h00 - 17h00"
             },
             "saturday": {
-                "enabled": true,
+                "enabled": false,
                 "value": "9h - 13h"
             },
             "sunday": {
@@ -165,38 +222,28 @@
                 "value": ""
             }
         },
-        "bookingUrl": "https://www.doctolib.fr/psychologue/lyon/exemple",
-        "accessNote": "Métro Hôtel de Ville. Ascenseur. Digicode à l’entrée du bâtiment.",
+        "bookingUrl": "https://perfactive.fr/fanny-cimadomo/new",
+        "accessNote": "Parking et stationnement gratuit\nArrêt Croix de Bissy (lignes C / D)",
         "channels": {
             "selected": [
-                "form",
                 "email",
-                "phone",
-                "whatsapp",
-                "doctolib"
-            ],
-            "whatsappPhone": "06 12 34 56 78"
+                "phone"
+            ]
         }
     },
     "pricing": {
         "items": [
             {
                 "name": "Consultation individuelle",
-                "price": 70,
-                "durationMinutes": 50,
-                "note": "Adultes / adolescents"
-            },
-            {
-                "name": "Bilan psychologique",
-                "price": 120,
-                "durationMinutes": 90
+                "price": 65,
+                "durationMinutes": 45,
+                "note": "Adultes"
             }
         ],
         "payment": [
-            "CB",
             "Virement",
-            "Chèque"
-        ],
-        "reducedRateNote": "Un tarif adapté peut être envisagé pour les étudiants ou selon la situation."
+            "Chèque",
+            "Espèces"
+        ]
     }
 }
