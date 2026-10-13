@@ -9,6 +9,36 @@ import llmsMd from "./src/integrations/llms-md.mjs";
 /** Pages techniques, jamais indexées (sitemap + robots.txt). */
 export const NON_INDEXABLE_PATHS = ["/admin/", "/client-config/"];
 
+/**
+ * Astro 7.3 + Vite 8 : le plugin des server islands réécrit le marqueur
+ * `$$server-islands-map$$` jusque dans le chunk qui contient son propre code source
+ * (`serverIslandPlaceholderMap = "'$$server-islands-map$$'"`), ce qui casse le build
+ * (« Unterminated string »). On renomme les marqueurs dans ce seul chunk.
+ * Le manifeste virtuel n’a pas `serverIslandPlaceholderMap` : Astro le remplace normalement.
+ *
+ * @returns {import("vite").Plugin}
+ */
+function guardServerIslandPlaceholder() {
+  return {
+    name: "guard-server-island-placeholder",
+    enforce: "pre",
+    renderChunk(code) {
+      if (
+        !code.includes("serverIslandPlaceholderMap") ||
+        !code.includes("$$server-islands-map$$")
+      ) {
+        return null;
+      }
+      return {
+        code: code
+          .replaceAll("$$server-islands-map$$", "$$server-islands-map-source$$")
+          .replaceAll("$$server-islands-name-map$$", "$$server-islands-name-map-source$$"),
+        map: null,
+      };
+    },
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: client.seo.baseUrl,
@@ -48,6 +78,6 @@ export default defineConfig({
   },
   fonts: siteFonts,
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [guardServerIslandPlaceholder(), tailwindcss()],
   },
 });
