@@ -1,16 +1,538 @@
 /**
- * Design client — généré ou enrichi via Google Stitch + MCP Cursor.
+ * Design client — Google Stitch « Site Psychologue Moderne » (écran Accueil).
  * Voir .cursor/skills/appliquer-design-stitch/SKILL.md
  *
- * 1. Surcharger les tokens du socle (déclarés dans global.css, bloc `@theme`) :
- *
- *    :root {
- *      --color-primary: #166534;
- *      --color-primary-fg: #ffffff;
- *      --font-sans: var(--font-inter);   ← police déclarée dans src/design/fonts.mjs
- *      --radius-xl: 1rem;
- *    }
- *
- * 2. Styler les éléments (h1, h2, p, .lead, .note), les hooks `[data-component="…"]`
- *    et les classes sémantiques (.cta-primary, .cta-secondary, .form-field, .page-block…).
+ * Palette minérale : écru / sable / taupe, accent terracotta, encre charbon.
+ * Polices : EB Garamond (titres) + Manrope (texte), déclarées dans src/design/fonts.mjs.
  */
+
+/* === Tokens === */
+:root {
+  --color-bg: #faf9f7;
+  --color-fg: #1a1c1b;
+  --color-primary: #2a2826;
+  --color-primary-fg: #f9f8f6;
+  --color-accent: #efece6;
+  --color-muted: #6b635c;
+
+  --font-sans: var(--font-manrope);
+  --font-serif: var(--font-eb-garamond);
+
+  --radius-xl: 1rem;
+
+  /* Tokens propres au design (hors socle) */
+  --stitch-ecru: #f9f8f6;
+  --stitch-surface-low: #f4f3f1;
+  --stitch-surface: #efeeec;
+  --stitch-white: #ffffff;
+  --stitch-terracotta: #c27d60;
+  --stitch-terracotta-text: #a4573a;
+  --stitch-taupe: #8c827a;
+  --stitch-sand-warm: #ede0d7;
+  --stitch-ink-hover: #494644;
+  --stitch-shadow-soft: 0 1px 8px rgb(42 40 38 / 6%);
+  --stitch-shadow-card: 0 4px 24px rgb(42 40 38 / 8%);
+}
+
+/* === Base === */
+body {
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--stitch-sand-warm);
+  color: var(--color-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--stitch-terracotta);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--color-primary);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 4.5vw + 1rem, 3.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(2rem, 2vw + 1.25rem, 2.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 1.375rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.lead {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.note {
+  color: var(--color-muted);
+}
+
+a {
+  transition: color 0.2s ease;
+}
+
+/* === Boutons === */
+.cta-primary,
+.cta-secondary {
+  border-radius: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.cta-primary {
+  background: var(--color-primary);
+  color: var(--stitch-ecru);
+  box-shadow: var(--stitch-shadow-soft);
+}
+
+.cta-primary:hover {
+  background: var(--stitch-ink-hover);
+  color: var(--stitch-ecru);
+}
+
+.cta-secondary {
+  background: var(--stitch-white);
+  color: var(--color-primary);
+  box-shadow: var(--stitch-shadow-soft);
+}
+
+.cta-secondary:hover {
+  background: var(--color-accent);
+}
+
+/* === Formulaires === */
+.form-field {
+  border: 0;
+  border-radius: 0.5rem;
+  background: var(--stitch-surface-low);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+}
+
+.form-field::placeholder {
+  color: var(--stitch-taupe);
+}
+
+.form-field:focus {
+  outline: 1px solid var(--color-primary);
+  outline-offset: 0;
+}
+
+/* === Mise en page : conteneur élargi (Stitch : max-w-7xl) === */
+[data-component="home-page"],
+[data-component="ui.header"] .site-container,
+[data-component="ui.header-bar"] .site-container,
+[data-component="ui.footer"] .site-container {
+  max-width: 80rem;
+}
+
+@media (min-width: 1024px) {
+  [data-component="home-page"],
+  [data-component="ui.header"] .site-container,
+  [data-component="ui.header-bar"] .site-container,
+  [data-component="ui.footer"] .site-container {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* === En-tête === */
+[data-component="ui.header-stack"] {
+  background: var(--stitch-ecru);
+  box-shadow: var(--stitch-shadow-soft);
+}
+
+[data-component="ui.header-bar"] {
+  background: var(--color-accent);
+  color: var(--color-muted);
+}
+
+[data-component="ui.header-bar"] a:not(.cta-primary) {
+  color: var(--color-primary);
+}
+
+[data-component="ui.header-bar"] a:not(.cta-primary):hover {
+  color: var(--stitch-terracotta-text);
+}
+
+[data-component="ui.header"] {
+  background: var(--stitch-ecru);
+}
+
+/* Nom + titre : EB Garamond / étiquette en capitales */
+[data-component="ui.header"] > .site-container > div > a:first-child {
+  text-decoration: none;
+}
+
+[data-component="ui.header"] > .site-container > div > a:first-child > span:first-child {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+  color: var(--color-primary);
+  transition: color 0.2s ease;
+}
+
+[data-component="ui.header"] > .site-container > div > a:first-child:hover > span:first-child {
+  color: var(--stitch-terracotta-text);
+}
+
+[data-component="ui.header"] > .site-container > div > a:first-child > span:last-child {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Navigation */
+[data-component="ui.header"] nav a,
+[data-component="ui.header"] nav summary {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #4b4640;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+[data-component="ui.header"] nav a:hover,
+[data-component="ui.header"] nav summary:hover {
+  color: var(--color-primary);
+}
+
+[data-component="ui.header"] nav a[aria-current="page"],
+[data-component="ui.header"] nav summary[aria-current="page"] {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* Menus déroulants / menu mobile */
+[data-component="ui.header"] details > div {
+  background: var(--stitch-white);
+  border-radius: 0.75rem;
+  box-shadow: var(--stitch-shadow-card);
+}
+
+[data-component="ui.header"] details > div a {
+  border-bottom: 0;
+  border-radius: 0.5rem;
+}
+
+[data-component="ui.header"] details > div a:hover {
+  background: var(--stitch-surface-low);
+}
+
+[data-component="ui.header"] details > summary {
+  border-radius: 0.5rem;
+}
+
+/* === Accueil — conteneur === */
+[data-component="home-page"] {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-block: 2.5rem 4rem;
+}
+
+[data-component="home-page"] > .section-spacing {
+  padding-block: 0;
+}
+
+/* === Accueil — section.hero === */
+[data-component="section.hero"] {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: var(--stitch-white);
+  padding: 2.5rem 1.5rem 3rem;
+  box-shadow: var(--stitch-shadow-soft);
+}
+
+@media (min-width: 1024px) {
+  [data-component="section.hero"] {
+    padding: 4rem 4rem 4.5rem;
+  }
+}
+
+/* Angle géométrique inspiré de la carte de visite */
+[data-component="section.hero"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 9rem;
+  height: 9rem;
+  background: var(--stitch-taupe);
+  opacity: 0.2;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  [data-component="section.hero"]::before {
+    width: 14rem;
+    height: 14rem;
+  }
+}
+
+[data-component="HeroSection"] {
+  position: relative;
+  max-width: 56rem;
+}
+
+/* Badge (eyebrow) */
+[data-component="HeroSection"] > div:first-child > p:first-child:not(:last-child) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+[data-component="HeroSection"] > div:first-child > p:first-child:not(:last-child)::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--stitch-terracotta);
+}
+
+[data-component="HeroSection"] > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+[data-component="HeroSection"] h1 {
+  line-height: 1.1;
+}
+
+[data-component="HeroSection"] > div:first-child > p:last-child {
+  color: #4b4640;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+[data-component="HeroSection"] p {
+  color: #4b4640;
+}
+
+[data-component="HeroSection"] > div:first-child > p:first-child:not(:last-child) {
+  color: var(--color-primary);
+}
+
+/* === Accueil — services / motifs === */
+[data-component="section.services-wrapper"] {
+  border-radius: 1.5rem;
+  background: var(--stitch-surface-low);
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+@media (min-width: 1024px) {
+  [data-component="section.services-wrapper"] {
+    padding: 4rem;
+  }
+}
+
+[data-component="section.services"] h2 {
+  max-width: 40rem;
+}
+
+[data-component="section.services"] ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+[data-component="section.services"] li {
+  position: relative;
+  border-radius: 0.75rem;
+  background: var(--stitch-white);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--stitch-shadow-soft);
+  color: #4b4640;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  transition: box-shadow 0.3s ease;
+}
+
+[data-component="section.services"] li::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 0.25rem;
+  margin-bottom: 0.75rem;
+  border-radius: 9999px;
+  background: var(--stitch-terracotta);
+}
+
+[data-component="section.services"] li:hover {
+  box-shadow: var(--stitch-shadow-card);
+}
+
+/* === Accueil — Mon Soutien Psy === */
+[data-component="MonSoutienPsyCallout"] {
+  margin-block: 0;
+  border-left: 4px solid var(--stitch-terracotta);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--color-accent) 70%, transparent);
+  padding: 2rem 2rem;
+}
+
+[data-component="MonSoutienPsyCallout"] > p:first-child {
+  color: var(--stitch-terracotta-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+[data-component="MonSoutienPsyCallout"] > h2,
+[data-component="MonSoutienPsyCallout"] > h3 {
+  font-size: 1.875rem;
+  line-height: 1.35;
+}
+
+/* === FAQ === */
+[data-component="panel.faq"] {
+  margin-block: 0;
+  padding: 2.5rem 0 0;
+}
+
+[data-component="panel.faq"] > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  [data-component="panel.faq"] > div {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+[data-component="faq.item"] {
+  border-radius: 1rem;
+  background: var(--stitch-white);
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--stitch-shadow-soft);
+  transition: box-shadow 0.3s ease;
+}
+
+[data-component="faq.item"]:hover,
+[data-component="faq.item"][open] {
+  box-shadow: var(--stitch-shadow-card);
+}
+
+[data-component="faq.item"] > summary {
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-primary);
+}
+
+[data-component="faq.item"] > summary::marker {
+  color: var(--stitch-terracotta);
+}
+
+[data-component="faq.item"] > p {
+  margin-top: 0.75rem;
+  color: #4b4640;
+}
+
+/* === Pied de page === */
+[data-component="ui.footer"] {
+  margin-top: 2rem;
+  background: var(--stitch-surface-low);
+  color: #4b4640;
+}
+
+/* Bandeau d'urgence */
+[data-component="ui.footer"] > p:first-child {
+  max-width: 80rem;
+  margin: 0 auto;
+  border-left: 4px solid var(--stitch-terracotta);
+  background: color-mix(in srgb, var(--color-accent) 80%, transparent);
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+[data-component="ui.footer"] h2 {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+[data-component="ui.footer"] a:not(.cta-primary) {
+  color: inherit;
+  text-decoration: none;
+}
+
+[data-component="ui.footer"] a:not(.cta-primary):hover {
+  color: var(--stitch-terracotta-text);
+}
+
+[data-component="footer.contact"] > p:first-child {
+  font-family: var(--font-serif);
+  font-size: 1.875rem;
+  line-height: 1.35;
+  color: var(--color-primary);
+}
+
+[data-component="footer.booking"] > a:not(.cta-primary) {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+[data-component="footer.legal"] {
+  border-top: 1px solid var(--color-accent);
+  color: var(--color-muted);
+}

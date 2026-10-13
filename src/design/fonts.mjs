@@ -1,4 +1,5 @@
 // @ts-check
+import { fontProviders } from "astro/config";
 /**
  * Polices du design client, servies par l’API Fonts d’Astro (téléchargement au build,
  * self-hosting, `@font-face`, préchargement et fallbacks optimisés).
@@ -23,4 +24,23 @@
  *
  * @type {import("astro").AstroUserConfig["fonts"]}
  */
-export const siteFonts = [];
+export const siteFonts = [
+  {
+    provider: fontProviders.google(),
+    name: "EB Garamond",
+    cssVariable: "--font-eb-garamond",
+    weights: [400, 500, 600],
+    styles: ["normal", "italic"],
+    subsets: ["latin"],
+    fallbacks: ["Georgia", "serif"],
+  },
+  {
+    provider: fontProviders.google(),
+    name: "Manrope",
+    cssVariable: "--font-manrope",
+    weights: [400, 500, 600, 700],
+    styles: ["normal"],
+    subsets: ["latin"],
+    fallbacks: ["system-ui", "sans-serif"],
+  },
+];
