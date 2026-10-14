@@ -24,12 +24,11 @@ const postalCity = `${b.postalCode} ${b.city}`;
   <div
     class="site-container flex flex-col gap-3 py-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2"
   >
-    <p class="min-w-0 pb-2 text-sm leading-snug sm:flex-1 sm:pb-0">
-      <span class="flex flex-col gap-0.5 sm:hidden">
-        <span>{street}</span>
-        <span>{postalCity}</span>
-      </span>
-      <span class="hidden sm:inline">{street} · {postalCity}</span>
+    <p
+      class="min-w-0 truncate pb-2 text-sm leading-snug sm:flex-1 sm:pb-0"
+      title={`${street} · ${postalCity}`}
+    >
+      {street} · {postalCity}
     </p>
     <div class="flex min-h-11 flex-row items-center gap-3 sm:contents">
       <a
