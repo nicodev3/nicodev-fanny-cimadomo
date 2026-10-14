@@ -2,6 +2,7 @@
 title: "EMDR"
 description: "Présentation de cette approche — texte à personnaliser."
 draft: false
+questionnaire: pcl5
 ---
 
 ## Présentation
