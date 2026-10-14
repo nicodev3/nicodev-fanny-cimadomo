@@ -1,6 +1,7 @@
 ---
 import Header from "./Header.astro";
 import HeroSection from "./sections/HeroSection.astro";
+import PractitionerCard from "./sections/PractitionerCard.astro";
 import ServicesSection from "./sections/ServicesSection.astro";
 import FaqSection from "./FaqSection.astro";
 import MonSoutienPsyCallout from "./MonSoutienPsyCallout.astro";
@@ -10,7 +11,10 @@ import MonSoutienPsyCallout from "./MonSoutienPsyCallout.astro";
 
 <main class="site-container" data-component="home-page">
   <section class="section-spacing" data-component="section.hero">
-    <HeroSection />
+    <div data-component="hero-layout">
+      <HeroSection />
+      <PractitionerCard />
+    </div>
   </section>
   <section class="section-spacing" data-component="section.services-wrapper">
     <ServicesSection />
