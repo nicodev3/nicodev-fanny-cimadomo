@@ -14,6 +14,8 @@ interface Props {
   ogType?: "website" | "article";
   /** Repris tel quel depuis le frontmatter `updatedAt`, s’il existe. */
   modifiedTime?: string;
+  /** Identifiant exposé en `data-page` pour cibler une page dans stitch.css. */
+  pageId?: string;
 }
 
 const {
@@ -23,6 +25,7 @@ const {
   hidePageHeader = false,
   ogType = "website",
   modifiedTime,
+  pageId,
 } = Astro.props;
 ---
 
@@ -36,7 +39,7 @@ const {
   <Header />
   <Breadcrumb currentLabel={title} />
 
-  <main class="site-container page" data-component="page">
+  <main class="site-container page" data-component="page" data-page={pageId}>
     {
       !hidePageHeader && (
         <header class:list={["page-header", Astro.slots.has("actions") && "page-header--actions"]}>

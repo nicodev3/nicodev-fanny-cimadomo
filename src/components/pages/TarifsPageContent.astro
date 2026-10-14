@@ -1,59 +1,174 @@
 ---
+import {
+  Banknote,
+  CalendarDays,
+  Check,
+  Clock,
+  MapPin,
+  MessagesSquare,
+  ReceiptText,
+} from "@lucide/astro";
 import ConditionsPanel from "../ConditionsPanel.astro";
 import MonSoutienPsyCallout from "../MonSoutienPsyCallout.astro";
 import { client } from "../../lib/client";
 import { getSiteCopy } from "../../lib/siteCopy";
+import { formatConsultationModesPhrase } from "../../lib/client/consultationModesDisplay";
+import {
+  bookingPrimaryIsExternal,
+  resolvedBookingPrimaryHref,
+  SITE_BOOKING_PRIMARY_LABEL,
+} from "../../lib/client/siteBooking";
 import {
   REIMBURSEMENT_MUTUELLE_NOTICE,
   SITE_BOOKING_SECONDARY_HREF,
   SITE_BOOKING_SECONDARY_LABEL,
 } from "../../lib/constants";
 
+interface Props {
+  title: string;
+  intro?: string;
+}
+
+const { title, intro = "" } = Astro.props;
+
 const copy = await getSiteCopy("tarifs");
 const pricingItems =
   copy.data.items && copy.data.items.length > 0 ? copy.data.items : client.pricing.items;
-const hasMultiplePricingItems = pricingItems.length > 1;
+const hasSinglePricingItem = pricingItems.length === 1;
 const reducedRateNote = client.pricing.reducedRateNote ?? "";
+const consultationModes = formatConsultationModesPhrase(client.practice.consultationModes);
+const bookingHref = resolvedBookingPrimaryHref(client);
+const bookingExternal = bookingPrimaryIsExternal(bookingHref);
+const priceFormatter = new Intl.NumberFormat("fr-FR", {
+  style: "currency",
+  currency: "EUR",
+  maximumFractionDigits: 2,
+  minimumFractionDigits: 0,
+});
 ---
 
-<section class="page-block" data-component="pricing.list">
-  <ul class:list={[hasMultiplePricingItems ? "grid gap-6 md:grid-cols-3" : "divide-y"]}>
+<section
+  class:list={["pricing-hero", hasSinglePricingItem && "pricing-hero--single"]}
+  data-component="pricing.hero"
+  aria-labelledby="pricing-title"
+>
+  <div class="pricing-hero__intro">
+    <p class="pricing-eyebrow">Honoraires &amp; modalités</p>
+    <h1 id="pricing-title">{title}</h1>
+    {intro && <p class="lead">{intro}</p>}
     {
-      pricingItems.map((it) => (
-        <li data-component="pricing.item">
-          <p>{it.name}</p>
-          <p>{it.price} €</p>
-          <p class="note">Durée : {it.durationMinutes} min</p>
-          {it.note && <p class="note">{it.note}</p>}
-        </li>
-      ))
+      consultationModes && (
+        <p class="pricing-hero__meta">
+          <MapPin size={16} aria-hidden="true" />
+          Consultations {consultationModes} · {client.business.city}
+        </p>
+      )
     }
-  </ul>
-  {reducedRateNote && <p class="mt-4">{reducedRateNote}</p>}
+    <div class="pricing-hero__actions">
+      <a
+        href={bookingHref}
+        class="cta-primary cta-primary--sm"
+        {...bookingExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
+      >
+        <CalendarDays size={16} aria-hidden="true" />
+        {SITE_BOOKING_PRIMARY_LABEL}
+        {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
+      </a>
+      <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-secondary cta-secondary--sm">
+        <MessagesSquare size={16} aria-hidden="true" />
+        {SITE_BOOKING_SECONDARY_LABEL}
+      </a>
+    </div>
+  </div>
+
+  <div class="pricing-hero__offers" data-component="pricing.list">
+    <h2 class="sr-only">Grille tarifaire</h2>
+    <ul class="pricing-cards">
+      {
+        pricingItems.map((it) => (
+          <li class="pricing-card" data-component="pricing.item">
+            {it.note && <p class="pricing-card__tag">{it.note}</p>}
+            <h3 class="pricing-card__name">{it.name}</h3>
+            <p class="pricing-card__price">
+              <span class="pricing-card__amount">{priceFormatter.format(it.price)}</span>
+              <span class="pricing-card__unit">/ séance</span>
+            </p>
+            <ul class="pricing-card__facts">
+              <li>
+                <Clock size={16} aria-hidden="true" />
+                <span>Durée : {it.durationMinutes} minutes</span>
+              </li>
+              {consultationModes && (
+                <li>
+                  <MapPin size={16} aria-hidden="true" />
+                  <span>Séance {consultationModes}</span>
+                </li>
+              )}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+    {reducedRateNote && <p class="pricing-hero__reduced note">{reducedRateNote}</p>}
+  </div>
 </section>
 
-<section class="page-block" data-component="pricing.payment">
-  <h2>Moyens de paiement</h2>
-  <ul>
-    {client.pricing.payment.map((payment) => <li>{payment}</li>)}
-  </ul>
-</section>
+<section
+  class="pricing-section pricing-section--surface"
+  data-component="pricing.settlement"
+  aria-labelledby="pricing-settlement-title"
+>
+  <div class="pricing-section__head">
+    <p class="pricing-eyebrow">Règlement</p>
+    <h2 id="pricing-settlement-title">Paiement et remboursement</h2>
+  </div>
 
-<section class="page-block" data-component="pricing.reimbursement">
-  <h2>Remboursement</h2>
-  <p>
-    Les consultations ne sont pas remboursées par la Sécurité sociale. {
-      REIMBURSEMENT_MUTUELLE_NOTICE
-    }
-  </p>
+  <div class="pricing-settlement-grid">
+    <div class="pricing-panel" data-component="pricing.payment">
+      <span class="pricing-panel__icon" aria-hidden="true"><Banknote size={20} /></span>
+      <h3>Moyens de paiement</h3>
+      <ul class="pricing-chips">
+        {
+          client.pricing.payment.map((payment) => (
+            <li>
+              <Check size={14} aria-hidden="true" />
+              {payment}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="pricing-panel" data-component="pricing.reimbursement">
+      <span class="pricing-panel__icon" aria-hidden="true"><ReceiptText size={20} /></span>
+      <h3>Remboursement</h3>
+      <p>
+        Les consultations ne sont pas remboursées par la Sécurité sociale. {
+          REIMBURSEMENT_MUTUELLE_NOTICE
+        }
+      </p>
+      <p class="note">Renseignez-vous auprès de votre mutuelle pour connaître ses modalités.</p>
+    </div>
+  </div>
+
   <MonSoutienPsyCallout headingLevel={3} />
 </section>
 
 <ConditionsPanel />
 
-<section class="page-block" data-component="pricing.contact-cta" aria-label="Rappel contact">
-  <p>Une question ? Écrivez-moi : je réponds dans les meilleurs délais.</p>
-  <p>
-    <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary">{SITE_BOOKING_SECONDARY_LABEL}</a>
-  </p>
+<section
+  class="pricing-contact"
+  data-component="pricing.contact-cta"
+  aria-labelledby="pricing-contact-title"
+>
+  <div>
+    <h2 id="pricing-contact-title">Une question sur les tarifs ?</h2>
+    <p>Écrivez-moi : je vous réponds dans les meilleurs délais.</p>
+  </div>
+  <div class="pricing-contact__actions">
+    <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary cta-primary--sm">
+      <MessagesSquare size={16} aria-hidden="true" />
+      {SITE_BOOKING_SECONDARY_LABEL}
+    </a>
+  </div>
 </section>

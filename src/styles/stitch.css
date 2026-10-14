@@ -661,3 +661,450 @@ main a:not([class]):hover {
   border-top: 1px solid var(--color-accent);
   color: var(--color-muted);
 }
+
+/* === Tarifs — mise en page === */
+body:has([data-page="tarifs"]) [data-component="ui.breadcrumb"],
+[data-page="tarifs"] {
+  max-width: 80rem;
+}
+
+[data-page="tarifs"] {
+  padding-block: 1rem 4rem;
+}
+
+@media (min-width: 1024px) {
+  body:has([data-page="tarifs"]) [data-component="ui.breadcrumb"],
+  [data-page="tarifs"] {
+    padding-inline: 2.5rem;
+  }
+}
+
+[data-page="tarifs"] > .page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+[data-page="tarifs"] > .page-content > * {
+  margin-top: 0;
+}
+
+/* Étiquette de section (même langage que le badge du hero d'accueil) */
+.pricing-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--stitch-terracotta-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.pricing-eyebrow::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--stitch-terracotta);
+}
+
+.pricing-section__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+/* === Tarifs — hero === */
+[data-component="pricing.hero"] {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 2.5rem;
+  border-radius: 1.5rem;
+  background: var(--stitch-white);
+  padding: 2.5rem 1.5rem 3rem;
+  box-shadow: var(--stitch-shadow-soft);
+}
+
+[data-component="pricing.hero"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 9rem;
+  height: 9rem;
+  background: var(--stitch-taupe);
+  opacity: 0.2;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  [data-component="pricing.hero"] {
+    padding: 4rem;
+  }
+
+  [data-component="pricing.hero"]::before {
+    width: 14rem;
+    height: 14rem;
+  }
+
+  .pricing-hero--single {
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    gap: 3rem;
+    align-items: center;
+  }
+}
+
+.pricing-hero__intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  max-width: 40rem;
+}
+
+.pricing-hero__intro .pricing-eyebrow {
+  padding: 0.25rem 1rem;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.pricing-hero__intro h1 {
+  line-height: 1.1;
+}
+
+.pricing-hero__intro .lead {
+  color: #4b4640;
+}
+
+.pricing-hero__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+}
+
+.pricing-hero__meta svg {
+  flex-shrink: 0;
+  color: var(--stitch-terracotta);
+}
+
+.pricing-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.pricing-hero__offers {
+  position: relative;
+}
+
+.pricing-hero__reduced {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* === Tarifs — cartes de prix === */
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  list-style: none;
+}
+
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem 1.75rem 1.75rem;
+  border-radius: 1.25rem;
+  background: var(--stitch-surface-low);
+  box-shadow: var(--stitch-shadow-card);
+  text-align: center;
+}
+
+.pricing-card__tag {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: var(--stitch-sand-warm);
+  color: var(--stitch-terracotta-text);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pricing-card__name {
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.pricing-card__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.375rem;
+  margin-block: 0.25rem 0.5rem;
+  color: var(--color-primary);
+}
+
+.pricing-card__amount {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.pricing-card__unit {
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+}
+
+.pricing-card__facts {
+  width: 100%;
+  padding-top: 1rem;
+  border-top: 1px solid var(--stitch-sand-warm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  list-style: none;
+  text-align: left;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: #4b4640;
+}
+
+.pricing-card__facts li {
+  display: flex;
+  gap: 0.625rem;
+  align-items: flex-start;
+}
+
+.pricing-card__facts svg {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: var(--stitch-terracotta);
+}
+
+/* === Tarifs — paiement et remboursement === */
+.pricing-section--surface {
+  border-radius: 1.5rem;
+  background: var(--stitch-surface-low);
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+@media (min-width: 1024px) {
+  .pricing-section--surface {
+    padding: 4rem;
+  }
+}
+
+.pricing-settlement-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .pricing-settlement-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.pricing-panel,
+.condition-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  border-radius: 1rem;
+  background: var(--stitch-white);
+  padding: 1.75rem;
+  box-shadow: var(--stitch-shadow-soft);
+  color: #4b4640;
+}
+
+.pricing-panel h3,
+.condition-card h3 {
+  font-size: 1.5rem;
+}
+
+.pricing-panel__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  background: var(--stitch-sand-warm);
+  color: var(--stitch-terracotta-text);
+}
+
+.pricing-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.pricing-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  background: var(--stitch-surface-low);
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.pricing-chips svg {
+  color: var(--stitch-link);
+}
+
+.pricing-section--surface [data-component="MonSoutienPsyCallout"] {
+  margin-top: 1rem;
+  background: var(--stitch-white);
+}
+
+/* === Tarifs — conditions du suivi === */
+[data-component="panel.conditions"] {
+  padding: 2.5rem 0 0;
+}
+
+@media (min-width: 1024px) {
+  [data-component="panel.conditions"] {
+    padding-inline: 4rem;
+  }
+}
+
+.conditions-grid {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .conditions-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.condition-card {
+  transition: box-shadow 0.3s ease;
+}
+
+.condition-card:hover {
+  box-shadow: var(--stitch-shadow-card);
+}
+
+.condition-card__key {
+  color: var(--stitch-link);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.condition-card .note {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.conditions-notes {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .conditions-notes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.conditions-note {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  border-radius: 1rem;
+  background: var(--color-accent);
+  padding: 1.25rem 1.5rem;
+  color: #4b4640;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.conditions-note > svg {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: var(--stitch-link);
+}
+
+.conditions-note--alert {
+  border-left: 4px solid var(--stitch-terracotta);
+  background: color-mix(in srgb, var(--stitch-sand-warm) 60%, var(--stitch-white));
+}
+
+.conditions-note--alert > svg {
+  color: var(--stitch-terracotta-text);
+}
+
+.conditions-note__title {
+  margin-bottom: 0.25rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.conditions-note ul {
+  list-style: none;
+}
+
+/* === Tarifs — bandeau contact === */
+[data-component="pricing.contact-cta"] {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  border-radius: 1.5rem;
+  background: var(--color-primary);
+  padding: 2.5rem 1.5rem;
+  color: color-mix(in srgb, var(--stitch-ecru) 85%, transparent);
+}
+
+[data-component="pricing.contact-cta"] h2 {
+  color: var(--stitch-ecru);
+  font-size: clamp(1.75rem, 1.5vw + 1.25rem, 2.25rem);
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  [data-component="pricing.contact-cta"] {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3rem 4rem;
+  }
+}
+
+[data-component="pricing.contact-cta"] .cta-primary {
+  background: var(--stitch-ecru);
+  color: var(--color-primary);
+}
+
+[data-component="pricing.contact-cta"] .cta-primary:hover {
+  background: var(--stitch-sand-warm);
+  color: var(--color-primary);
+}
+
+[data-component="pricing.contact-cta"] :focus-visible {
+  outline-color: var(--stitch-sand-warm);
+}
