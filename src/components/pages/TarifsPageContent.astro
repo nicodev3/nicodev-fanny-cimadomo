@@ -1,28 +1,13 @@
 ---
-import {
-  Banknote,
-  CalendarDays,
-  Check,
-  Clock,
-  MapPin,
-  MessagesSquare,
-  ReceiptText,
-} from "@lucide/astro";
+import { Banknote, Check, Clock, MapPin, ReceiptText } from "@lucide/astro";
 import ConditionsPanel from "../ConditionsPanel.astro";
 import MonSoutienPsyCallout from "../MonSoutienPsyCallout.astro";
+import BookingActions from "../ui/BookingActions.astro";
+import ContactBand from "../ui/ContactBand.astro";
 import { client } from "../../lib/client";
 import { getSiteCopy } from "../../lib/siteCopy";
 import { formatConsultationModesPhrase } from "../../lib/client/consultationModesDisplay";
-import {
-  bookingPrimaryIsExternal,
-  resolvedBookingPrimaryHref,
-  SITE_BOOKING_PRIMARY_LABEL,
-} from "../../lib/client/siteBooking";
-import {
-  REIMBURSEMENT_MUTUELLE_NOTICE,
-  SITE_BOOKING_SECONDARY_HREF,
-  SITE_BOOKING_SECONDARY_LABEL,
-} from "../../lib/constants";
+import { REIMBURSEMENT_MUTUELLE_NOTICE } from "../../lib/constants";
 
 interface Props {
   title: string;
@@ -37,8 +22,6 @@ const pricingItems =
 const hasSinglePricingItem = pricingItems.length === 1;
 const reducedRateNote = client.pricing.reducedRateNote ?? "";
 const consultationModes = formatConsultationModesPhrase(client.practice.consultationModes);
-const bookingHref = resolvedBookingPrimaryHref(client);
-const bookingExternal = bookingPrimaryIsExternal(bookingHref);
 const priceFormatter = new Intl.NumberFormat("fr-FR", {
   style: "currency",
   currency: "EUR",
@@ -48,37 +31,23 @@ const priceFormatter = new Intl.NumberFormat("fr-FR", {
 ---
 
 <section
-  class:list={["pricing-hero", hasSinglePricingItem && "pricing-hero--single"]}
+  class:list={["page-hero pricing-hero", hasSinglePricingItem && "pricing-hero--single"]}
   data-component="pricing.hero"
   aria-labelledby="pricing-title"
 >
-  <div class="pricing-hero__intro">
-    <p class="pricing-eyebrow">Honoraires &amp; modalités</p>
+  <div class="page-hero__intro">
+    <p class="section-eyebrow section-eyebrow--pill">Honoraires &amp; modalités</p>
     <h1 id="pricing-title">{title}</h1>
     {intro && <p class="lead">{intro}</p>}
     {
       consultationModes && (
-        <p class="pricing-hero__meta">
+        <p class="hero-meta">
           <MapPin size={16} aria-hidden="true" />
           Consultations {consultationModes} · {client.business.city}
         </p>
       )
     }
-    <div class="pricing-hero__actions">
-      <a
-        href={bookingHref}
-        class="cta-primary cta-primary--sm"
-        {...bookingExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
-      >
-        <CalendarDays size={16} aria-hidden="true" />
-        {SITE_BOOKING_PRIMARY_LABEL}
-        {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
-      </a>
-      <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-secondary cta-secondary--sm">
-        <MessagesSquare size={16} aria-hidden="true" />
-        {SITE_BOOKING_SECONDARY_LABEL}
-      </a>
-    </div>
+    <BookingActions />
   </div>
 
   <div class="pricing-hero__offers" data-component="pricing.list">
@@ -114,20 +83,20 @@ const priceFormatter = new Intl.NumberFormat("fr-FR", {
 </section>
 
 <section
-  class="pricing-section pricing-section--surface"
+  class="surface-panel"
   data-component="pricing.settlement"
   aria-labelledby="pricing-settlement-title"
 >
-  <div class="pricing-section__head">
-    <p class="pricing-eyebrow">Règlement</p>
+  <div class="section-head">
+    <p class="section-eyebrow">Règlement</p>
     <h2 id="pricing-settlement-title">Paiement et remboursement</h2>
   </div>
 
-  <div class="pricing-settlement-grid">
-    <div class="pricing-panel" data-component="pricing.payment">
-      <span class="pricing-panel__icon" aria-hidden="true"><Banknote size={20} /></span>
+  <div class="card-grid card-grid--2">
+    <div class="info-card" data-component="pricing.payment">
+      <span class="icon-badge" aria-hidden="true"><Banknote size={20} /></span>
       <h3>Moyens de paiement</h3>
-      <ul class="pricing-chips">
+      <ul class="chip-list">
         {
           client.pricing.payment.map((payment) => (
             <li>
@@ -139,8 +108,8 @@ const priceFormatter = new Intl.NumberFormat("fr-FR", {
       </ul>
     </div>
 
-    <div class="pricing-panel" data-component="pricing.reimbursement">
-      <span class="pricing-panel__icon" aria-hidden="true"><ReceiptText size={20} /></span>
+    <div class="info-card" data-component="pricing.reimbursement">
+      <span class="icon-badge" aria-hidden="true"><ReceiptText size={20} /></span>
       <h3>Remboursement</h3>
       <p>
         Les consultations ne sont pas remboursées par la Sécurité sociale. {
@@ -156,19 +125,4 @@ const priceFormatter = new Intl.NumberFormat("fr-FR", {
 
 <ConditionsPanel />
 
-<section
-  class="pricing-contact"
-  data-component="pricing.contact-cta"
-  aria-labelledby="pricing-contact-title"
->
-  <div>
-    <h2 id="pricing-contact-title">Une question sur les tarifs ?</h2>
-    <p>Écrivez-moi : je vous réponds dans les meilleurs délais.</p>
-  </div>
-  <div class="pricing-contact__actions">
-    <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary cta-primary--sm">
-      <MessagesSquare size={16} aria-hidden="true" />
-      {SITE_BOOKING_SECONDARY_LABEL}
-    </a>
-  </div>
-</section>
+<ContactBand title="Une question sur les tarifs ?" />

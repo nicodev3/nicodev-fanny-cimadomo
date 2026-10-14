@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import Pcl5Questionnaire from "../components/Pcl5Questionnaire.astro";
 import StandardPageLayout from "../layouts/StandardPageLayout.astro";
+import ContactBand from "../components/ui/ContactBand.astro";
+import PageAside from "../components/ui/PageAside.astro";
 import { client } from "../lib/client";
 import { isPublishedEntry } from "../lib/contentNavigation";
 import {
@@ -34,9 +36,17 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<StandardPageLayout title={entry.data.title} description={entry.data.description ?? ""}>
-  <article class="content-rich" data-component="content.practice-page">
-    <Content />
-  </article>
+<StandardPageLayout
+  title={entry.data.title}
+  description={entry.data.description ?? ""}
+  eyebrow="Mes pratiques"
+>
+  <div class="reading-layout">
+    <article class="content-rich prose-card" data-component="content.practice-page">
+      <Content />
+    </article>
+    <PageAside />
+  </div>
   {entry.data.questionnaire === "pcl5" && <Pcl5Questionnaire />}
+  <ContactBand />
 </StandardPageLayout>

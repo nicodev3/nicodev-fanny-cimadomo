@@ -1,0 +1,43 @@
+---
+import { Clock, MapPin, Phone } from "@lucide/astro";
+import { Image } from "astro:assets";
+import BookingActions from "./BookingActions.astro";
+import { client } from "../../lib/client";
+import { enabledContactHoursRows } from "../../lib/client/contactHours";
+import photo from "../../assets/Fanny-CIMADOMO.webp";
+
+const { business, contact } = client;
+const hours = enabledContactHoursRows(contact.hours);
+const phoneHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
+---
+
+<aside class="page-aside" aria-label="Prendre rendez-vous" data-component="ui.page-aside">
+  <div class="practitioner-card page-aside__card">
+    <div class="practitioner-card__photo page-aside__photo">
+      <Image src={photo} alt="" width={160} height={160} densities={[1, 2]} />
+    </div>
+    <p class="practitioner-card__role">{business.title} · {business.city}</p>
+    <p class="practitioner-card__name page-aside__name">{business.fullName}</p>
+
+    <ul class="practitioner-card__facts">
+      <li>
+        <MapPin size={16} aria-hidden="true" />
+        <span>{business.addressLine1}, {business.postalCode} {business.city}</span>
+      </li>
+      {
+        hours.length > 0 && (
+          <li>
+            <Clock size={16} aria-hidden="true" />
+            <span>{hours.map((h) => `${h.label} ${h.value}`).join(" · ")}</span>
+          </li>
+        )
+      }
+      <li>
+        <Phone size={16} aria-hidden="true" />
+        <a href={phoneHref}>{business.phone}</a>
+      </li>
+    </ul>
+
+    <BookingActions class="page-aside__actions" />
+  </div>
+</aside>

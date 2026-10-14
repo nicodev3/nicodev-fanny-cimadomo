@@ -10,30 +10,30 @@ const c = client.conditions;
 ---
 
 <section class="page-block" data-component="panel.conditions" aria-labelledby="conditions-title">
-  <div class="pricing-section__head">
-    <p class="pricing-eyebrow">Cadre</p>
+  <div class="section-head">
+    <p class="section-eyebrow">Cadre</p>
     <h2 id="conditions-title">Conditions du suivi</h2>
   </div>
 
-  <ul class="conditions-grid">
-    <li class="condition-card" data-component="conditions.cancellation">
-      <span class="pricing-panel__icon" aria-hidden="true"><CalendarX size={20} /></span>
+  <ul class="card-grid card-grid--3">
+    <li class="info-card" data-component="conditions.cancellation">
+      <span class="icon-badge" aria-hidden="true"><CalendarX size={20} /></span>
       <h3>Annulation</h3>
-      <p class="condition-card__key">{c.cancellation.noticeHours} h à l’avance</p>
+      <p class="info-card__key">{c.cancellation.noticeHours} h à l’avance</p>
       <p class="note">{c.cancellation.feePolicy}</p>
     </li>
 
-    <li class="condition-card" data-component="conditions.delay">
-      <span class="pricing-panel__icon" aria-hidden="true"><Hourglass size={20} /></span>
+    <li class="info-card" data-component="conditions.delay">
+      <span class="icon-badge" aria-hidden="true"><Hourglass size={20} /></span>
       <h3>Retard</h3>
-      <p class="condition-card__key">Tolérance : {c.delay.graceMinutes} min</p>
+      <p class="info-card__key">Tolérance : {c.delay.graceMinutes} min</p>
       <p class="note">{c.delay.note}</p>
     </li>
 
-    <li class="condition-card" data-component="conditions.no-show">
-      <span class="pricing-panel__icon" aria-hidden="true"><UserX size={20} /></span>
+    <li class="info-card" data-component="conditions.no-show">
+      <span class="icon-badge" aria-hidden="true"><UserX size={20} /></span>
       <h3>Absence non signalée</h3>
-      <p class="condition-card__key">{c.noShow.charged ? "Séance due" : "Non facturée"}</p>
+      <p class="info-card__key">{c.noShow.charged ? "Séance due" : "Non facturée"}</p>
       <p class="note">{c.noShow.note}</p>
     </li>
   </ul>
