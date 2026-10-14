@@ -17,7 +17,10 @@ const pages = defineCollection({
 
 const practicePages = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/practice-pages" }),
-  schema: markdownPageSchema,
+  schema: markdownPageSchema.extend({
+    /** Questionnaire interactif affiché sous le contenu de la page. */
+    questionnaire: z.enum(["pcl5"]).optional(),
+  }),
 });
 
 const siteCopy = defineCollection({

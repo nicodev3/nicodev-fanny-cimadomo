@@ -1,0 +1,247 @@
+---
+const items = [
+  "Des souvenirs répétés, pénibles et involontaires de l’expérience stressante ?",
+  "Des rêves répétés et pénibles de l’expérience stressante ?",
+  "Avoir soudain l’impression de revivre l’expérience stressante, ou agir comme si elle se produisait à nouveau (comme si vous étiez réellement en train de la revivre) ?",
+  "Être très bouleversé(e) quand quelque chose vous a rappelé l’expérience stressante ?",
+  "Avoir de fortes réactions physiques quand quelque chose vous a rappelé l’expérience stressante (par exemple, battements de cœur, difficultés à respirer, sueurs) ?",
+  "Éviter les souvenirs, pensées ou sentiments liés à l’expérience stressante ?",
+  "Éviter les rappels externes de l’expérience stressante (par exemple, des personnes, des endroits, des conversations, des activités, des objets ou des situations) ?",
+  "Avoir du mal à vous rappeler des parties importantes de l’expérience stressante ?",
+  "Avoir de fortes croyances négatives à propos de vous-même, des autres ou du monde (par exemple, avoir des pensées telles que : je suis mauvais(e), il y a quelque chose qui ne va vraiment pas chez moi, on ne peut faire confiance à personne, le monde est complètement dangereux) ?",
+  "Vous blâmer ou blâmer quelqu’un d’autre pour l’expérience stressante ou ce qui s’est produit après ?",
+  "Avoir de fortes émotions négatives telles que la peur, l’horreur, la colère, la culpabilité ou la honte ?",
+  "Perdre de l’intérêt pour des activités que vous aimiez auparavant ?",
+  "Vous sentir distant(e) ou coupé(e) des autres ?",
+  "Avoir du mal à ressentir des émotions positives (par exemple, être incapable de ressentir de la joie ou de l’affection envers vos proches) ?",
+  "Un comportement irritable, des bouffées de colère ou un comportement agressif ?",
+  "Prendre trop de risques ou faire des choses qui pourraient vous blesser ?",
+  "Être en état de « super-alerte », vigilant(e) ou sur vos gardes ?",
+  "Sursauter facilement ?",
+  "Avoir du mal à vous concentrer ?",
+  "Avoir du mal à vous endormir ou à rester endormi(e) ?",
+];
+
+const scale = [
+  { value: 0, label: "Pas du tout" },
+  { value: 1, label: "Un petit peu" },
+  { value: 2, label: "Modérément" },
+  { value: 3, label: "Beaucoup" },
+  { value: 4, label: "Extrêmement" },
+];
+---
+
+<section
+  id="pcl5"
+  class="pcl5 page-block"
+  aria-labelledby="pcl5-heading"
+  data-component="questionnaire.pcl5"
+>
+  <h2 id="pcl5-heading">Questionnaire PCL-5 : repérer les symptômes post-traumatiques</h2>
+  <p>
+    La PCL-5 (<em>PTSD Checklist for DSM-5</em>) est un questionnaire de 20 questions qui évalue les
+    symptômes du stress post-traumatique au cours du dernier mois.
+  </p>
+  <p class="note">
+    Ce questionnaire est un outil de repérage : il ne constitue pas un diagnostic. Vos réponses
+    restent sur votre appareil, elles ne sont ni enregistrées ni transmises. Seul(e) un(e)
+    professionnel(le) peut interpréter ces résultats avec vous.
+  </p>
+
+  <form class="pcl5__form space-y-6" novalidate>
+    <p>
+      <strong>Consigne.</strong> Voici une liste de problèmes que les gens ont parfois à la suite d’une
+      expérience très stressante. Pensez à cette expérience et lisez attentivement chaque problème. Indiquez
+      à quel point vous avez été gêné(e) par chacun d’eux <strong>au cours du dernier mois</strong>.
+    </p>
+
+    <p class="pcl5__lead"><strong>Au cours du dernier mois, avez-vous été gêné(e) par :</strong></p>
+
+    {
+      items.map((text, i) => (
+        <fieldset class="pcl5__item" data-item>
+          <legend>
+            <span class="pcl5__num">{i + 1}.</span> {text}
+          </legend>
+          <div class="pcl5__choices">
+            {scale.map((s) => (
+              <label class="pcl5__choice">
+                <input type="radio" name={`q${i + 1}`} value={s.value} />
+                <span>
+                  <span class="pcl5__score" aria-hidden="true">
+                    {s.value}
+                  </span>
+                  {s.label}
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ))
+    }
+
+    <p class="pcl5__error" role="alert" hidden></p>
+
+    <div class="pcl5__actions">
+      <button type="submit" class="cta-primary">Calculer mon score</button>
+      <button type="reset" class="cta-secondary">Recommencer</button>
+    </div>
+  </form>
+
+  <div class="pcl5__result" role="status" aria-live="polite" tabindex="-1" hidden>
+    <h3>Votre résultat</h3>
+    <p>
+      Score total : <strong><span data-total></span> / 80</strong>
+    </p>
+    <p data-message></p>
+    <ul class="pcl5__details">
+      <li>Reviviscences (questions 1 à 5) : <span data-b></span> / 20</li>
+      <li>Évitement (questions 6 et 7) : <span data-c></span> / 8</li>
+      <li>Cognitions et humeur (questions 8 à 14) : <span data-d></span> / 28</li>
+      <li>Hyperactivation (questions 15 à 20) : <span data-e></span> / 24</li>
+    </ul>
+    <p class="note">
+      Un score égal ou supérieur à 33 suggère la présence possible d’un trouble de stress
+      post-traumatique et justifie une évaluation clinique. Un score plus bas n’exclut pas une
+      souffrance réelle. En cas de détresse importante ou d’idées suicidaires, contactez le 3114
+      (numéro national de prévention du suicide, 24 h/24) ou le 15.
+    </p>
+  </div>
+</section>
+
+<style>
+  .pcl5__item {
+    border: 1px solid var(--stitch-sand-warm, #ede0d7);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    background: var(--stitch-white, #fff);
+  }
+  .pcl5__item legend {
+    padding: 0 0.5rem;
+    font-weight: 500;
+  }
+  .pcl5__item[data-missing] {
+    border-color: var(--stitch-terracotta-text, #a4573a);
+  }
+  .pcl5__num {
+    color: var(--stitch-terracotta-text, #a4573a);
+    font-weight: 700;
+  }
+  .pcl5__choices {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .pcl5__choice {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  .pcl5__choice:has(input:checked) {
+    background: var(--stitch-sand-warm, #ede0d7);
+  }
+  .pcl5__choice input {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--stitch-terracotta-text, #a4573a);
+  }
+  .pcl5__score {
+    color: var(--color-muted, #6b635c);
+    margin-right: 0.35rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .pcl5__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .pcl5__error {
+    color: var(--stitch-terracotta-text, #a4573a);
+    font-weight: 600;
+  }
+  .pcl5__result {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: var(--stitch-surface-low, #f4f3f1);
+    box-shadow: var(--stitch-shadow-soft);
+  }
+  .pcl5__result > * + * {
+    margin-top: 0.75rem;
+  }
+  .pcl5__details {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-component="questionnaire.pcl5"]');
+  if (root) {
+    const form = root.querySelector<HTMLFormElement>(".pcl5__form")!;
+    const error = root.querySelector<HTMLElement>(".pcl5__error")!;
+    const result = root.querySelector<HTMLElement>(".pcl5__result")!;
+    const set = (sel: string, v: number) => {
+      root.querySelector(sel)!.textContent = String(v);
+    };
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const values: number[] = [];
+      const missing: number[] = [];
+      for (let i = 1; i <= 20; i++) {
+        const checked = form.querySelector<HTMLInputElement>(`input[name="q${i}"]:checked`);
+        const fieldset = form.querySelectorAll<HTMLElement>("[data-item]")[i - 1];
+        if (checked) {
+          values.push(Number(checked.value));
+          fieldset.removeAttribute("data-missing");
+        } else {
+          values.push(0);
+          missing.push(i);
+          fieldset.setAttribute("data-missing", "");
+        }
+      }
+
+      if (missing.length) {
+        error.hidden = false;
+        error.textContent = `Merci de répondre à toutes les questions (manquantes : ${missing.join(", ")}).`;
+        result.hidden = true;
+        form.querySelectorAll<HTMLElement>("[data-item]")[missing[0] - 1].scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        return;
+      }
+
+      error.hidden = true;
+      const sum = (from: number, to: number) =>
+        values.slice(from - 1, to).reduce((a, b) => a + b, 0);
+      const total = sum(1, 20);
+
+      set("[data-total]", total);
+      set("[data-b]", sum(1, 5));
+      set("[data-c]", sum(6, 7));
+      set("[data-d]", sum(8, 14));
+      set("[data-e]", sum(15, 20));
+      root.querySelector("[data-message]")!.textContent =
+        total >= 33
+          ? "Votre score se situe au-dessus du seuil de repérage (33). Il peut être utile d’en parler avec un(e) psychologue ou un(e) médecin pour faire le point."
+          : "Votre score se situe en dessous du seuil de repérage (33). Si vous ressentez malgré tout une gêne, n’hésitez pas à en parler à un(e) professionnel(le).";
+
+      result.hidden = false;
+      result.focus();
+      result.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    form.addEventListener("reset", () => {
+      error.hidden = true;
+      result.hidden = true;
+      form.querySelectorAll("[data-missing]").forEach((el) => el.removeAttribute("data-missing"));
+    });
+  }
+</script>

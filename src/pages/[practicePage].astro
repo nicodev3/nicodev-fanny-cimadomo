@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import Pcl5Questionnaire from "../components/Pcl5Questionnaire.astro";
 import StandardPageLayout from "../layouts/StandardPageLayout.astro";
 import { client } from "../lib/client";
 import { isPublishedEntry } from "../lib/contentNavigation";
@@ -37,4 +38,5 @@ const { Content } = await render(entry);
   <article class="content-rich" data-component="content.practice-page">
     <Content />
   </article>
+  {entry.data.questionnaire === "pcl5" && <Pcl5Questionnaire />}
 </StandardPageLayout>
