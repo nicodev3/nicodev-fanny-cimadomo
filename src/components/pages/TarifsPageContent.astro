@@ -1,59 +1,128 @@
 ---
+import { Banknote, Check, Clock, MapPin, ReceiptText } from "@lucide/astro";
 import ConditionsPanel from "../ConditionsPanel.astro";
 import MonSoutienPsyCallout from "../MonSoutienPsyCallout.astro";
+import BookingActions from "../ui/BookingActions.astro";
+import ContactBand from "../ui/ContactBand.astro";
 import { client } from "../../lib/client";
 import { getSiteCopy } from "../../lib/siteCopy";
-import {
-  REIMBURSEMENT_MUTUELLE_NOTICE,
-  SITE_BOOKING_SECONDARY_HREF,
-  SITE_BOOKING_SECONDARY_LABEL,
-} from "../../lib/constants";
+import { formatConsultationModesPhrase } from "../../lib/client/consultationModesDisplay";
+import { REIMBURSEMENT_MUTUELLE_NOTICE } from "../../lib/constants";
+
+interface Props {
+  title: string;
+  intro?: string;
+}
+
+const { title, intro = "" } = Astro.props;
 
 const copy = await getSiteCopy("tarifs");
 const pricingItems =
   copy.data.items && copy.data.items.length > 0 ? copy.data.items : client.pricing.items;
-const hasMultiplePricingItems = pricingItems.length > 1;
+const hasSinglePricingItem = pricingItems.length === 1;
 const reducedRateNote = client.pricing.reducedRateNote ?? "";
+const consultationModes = formatConsultationModesPhrase(client.practice.consultationModes);
+const priceFormatter = new Intl.NumberFormat("fr-FR", {
+  style: "currency",
+  currency: "EUR",
+  maximumFractionDigits: 2,
+  minimumFractionDigits: 0,
+});
 ---
 
-<section class="page-block" data-component="pricing.list">
-  <ul class:list={[hasMultiplePricingItems ? "grid gap-6 md:grid-cols-3" : "divide-y"]}>
+<section
+  class:list={["page-hero pricing-hero", hasSinglePricingItem && "pricing-hero--single"]}
+  data-component="pricing.hero"
+  aria-labelledby="pricing-title"
+>
+  <div class="page-hero__intro">
+    <p class="section-eyebrow section-eyebrow--pill">Honoraires &amp; modalités</p>
+    <h1 id="pricing-title">{title}</h1>
+    {intro && <p class="lead">{intro}</p>}
     {
-      pricingItems.map((it) => (
-        <li data-component="pricing.item">
-          <p>{it.name}</p>
-          <p>{it.price} €</p>
-          <p class="note">Durée : {it.durationMinutes} min</p>
-          {it.note && <p class="note">{it.note}</p>}
-        </li>
-      ))
+      consultationModes && (
+        <p class="hero-meta">
+          <MapPin size={16} aria-hidden="true" />
+          Consultations {consultationModes} · {client.business.city}
+        </p>
+      )
     }
-  </ul>
-  {reducedRateNote && <p class="mt-4">{reducedRateNote}</p>}
+    <BookingActions />
+  </div>
+
+  <div class="pricing-hero__offers" data-component="pricing.list">
+    <h2 class="sr-only">Grille tarifaire</h2>
+    <ul class="pricing-cards">
+      {
+        pricingItems.map((it) => (
+          <li class="pricing-card" data-component="pricing.item">
+            {it.note && <p class="pricing-card__tag">{it.note}</p>}
+            <h3 class="pricing-card__name">{it.name}</h3>
+            <p class="pricing-card__price">
+              <span class="pricing-card__amount">{priceFormatter.format(it.price)}</span>
+              <span class="pricing-card__unit">/ séance</span>
+            </p>
+            <ul class="pricing-card__facts">
+              <li>
+                <Clock size={16} aria-hidden="true" />
+                <span>Durée : {it.durationMinutes} minutes</span>
+              </li>
+              {consultationModes && (
+                <li>
+                  <MapPin size={16} aria-hidden="true" />
+                  <span>Séance {consultationModes}</span>
+                </li>
+              )}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+    {reducedRateNote && <p class="pricing-hero__reduced note">{reducedRateNote}</p>}
+  </div>
 </section>
 
-<section class="page-block" data-component="pricing.payment">
-  <h2>Moyens de paiement</h2>
-  <ul>
-    {client.pricing.payment.map((payment) => <li>{payment}</li>)}
-  </ul>
-</section>
+<section
+  class="surface-panel"
+  data-component="pricing.settlement"
+  aria-labelledby="pricing-settlement-title"
+>
+  <div class="section-head">
+    <p class="section-eyebrow">Règlement</p>
+    <h2 id="pricing-settlement-title">Paiement et remboursement</h2>
+  </div>
 
-<section class="page-block" data-component="pricing.reimbursement">
-  <h2>Remboursement</h2>
-  <p>
-    Les consultations ne sont pas remboursées par la Sécurité sociale. {
-      REIMBURSEMENT_MUTUELLE_NOTICE
-    }
-  </p>
+  <div class="card-grid card-grid--2">
+    <div class="info-card" data-component="pricing.payment">
+      <span class="icon-badge" aria-hidden="true"><Banknote size={20} /></span>
+      <h3>Moyens de paiement</h3>
+      <ul class="chip-list">
+        {
+          client.pricing.payment.map((payment) => (
+            <li>
+              <Check size={14} aria-hidden="true" />
+              {payment}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="info-card" data-component="pricing.reimbursement">
+      <span class="icon-badge" aria-hidden="true"><ReceiptText size={20} /></span>
+      <h3>Remboursement</h3>
+      <p>
+        Les consultations ne sont pas remboursées par la Sécurité sociale. {
+          REIMBURSEMENT_MUTUELLE_NOTICE
+        }
+      </p>
+      <p class="note">Renseignez-vous auprès de votre mutuelle pour connaître ses modalités.</p>
+    </div>
+  </div>
+
   <MonSoutienPsyCallout headingLevel={3} />
 </section>
 
 <ConditionsPanel />
 
-<section class="page-block" data-component="pricing.contact-cta" aria-label="Rappel contact">
-  <p>Une question ? Écrivez-moi : je réponds dans les meilleurs délais.</p>
-  <p>
-    <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary">{SITE_BOOKING_SECONDARY_LABEL}</a>
-  </p>
-</section>
+<ContactBand title="Une question sur les tarifs ?" />

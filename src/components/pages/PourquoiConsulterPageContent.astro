@@ -1,19 +1,25 @@
 ---
 import { client } from "../../lib/client";
 import { getSpecialtyMotifSummary } from "../../lib/client/specialtyMotifSummaries.ts";
+import ContactBand from "../ui/ContactBand.astro";
 
 const specialtyLabels = client.practice.specialties;
 ---
 
-<section class="page-block" data-component="motifs.list">
-  <ul>
+<section class="surface-panel" data-component="motifs.list" aria-label="Motifs de consultation">
+  <ul class="motif-grid">
     {
       specialtyLabels.map((label) => (
-        <li data-component="motifs.item">
-          <p class="font-medium">{label}</p>
+        <li class="motif-card" data-component="motifs.item">
+          <h2 class="motif-card__title">{label}</h2>
           <p>{getSpecialtyMotifSummary(label)}</p>
         </li>
       ))
     }
   </ul>
 </section>
+
+<ContactBand
+  title="Vous vous reconnaissez dans l’une de ces situations ?"
+  text="Parlons-en : un premier échange permet de faire le point sur votre demande."
+/>

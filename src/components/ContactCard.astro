@@ -1,5 +1,5 @@
 ---
-import { MessageCircle, CalendarDays } from "@lucide/astro";
+import { CalendarDays, Mail, MapPin, MessageCircle, Phone } from "@lucide/astro";
 import { client } from "../lib/client";
 import { businessAddressText, businessStreetLines } from "../lib/client/businessAddress";
 import { resolvedBookingPrimaryHref } from "../lib/client/siteBooking";
@@ -15,35 +15,54 @@ const channels = new Set(client.contact.channels.selected);
 const accessNote = client.contact.accessNote ?? "";
 ---
 
-<section data-component="contact.card">
-  <div class:list={["grid gap-6", !stacked && "md:grid-cols-2"]}>
-    <div class="space-y-3">
-      <p>Cabinet {b.fullName}</p>
-      {businessStreetLines(b).map((line) => <p>{line}</p>)}
-      <p>{b.postalCode} {b.city}</p>
-      {accessNote && <p class="note">{accessNote}</p>}
-      {
-        channels.has("phone") && (
-          <p>
-            <a href={`tel:${b.phone.replace(/\s/g, "")}`}>{b.phone}</a>
-          </p>
-        )
-      }
-      {
-        channels.has("email") && (
-          <p>
-            <a href={`mailto:${b.email}`}>{b.email}</a>
-          </p>
-        )
-      }
-      {
-        channels.has("other") && client.contact.channels.other && (
-          <p>{client.contact.channels.other}</p>
-        )
-      }
+<section class="info-card contact-card" data-component="contact.card">
+  <div class:list={["contact-card__grid", !stacked && "contact-card__grid--split"]}>
+    <div class="contact-card__body">
+      <span class="icon-badge" aria-hidden="true"><MapPin size={20} /></span>
+      <h2>Le cabinet</h2>
+      <address class="contact-card__address">
+        Cabinet {b.fullName}<br />
+        {
+          businessStreetLines(b).map((line) => (
+            <>
+              {line}
+              <br />
+            </>
+          ))
+        }
+        {`${b.postalCode} ${b.city}`}
+      </address>
+      {accessNote && <p class="contact-card__access note">{accessNote}</p>}
+
+      <ul class="contact-card__channels">
+        {
+          channels.has("phone") && (
+            <li>
+              <Phone size={18} aria-hidden="true" />
+              <a href={`tel:${b.phone.replace(/\s/g, "")}`}>{b.phone}</a>
+            </li>
+          )
+        }
+        {
+          channels.has("email") && (
+            <li>
+              <Mail size={18} aria-hidden="true" />
+              <a href={`mailto:${b.email}`}>{b.email}</a>
+            </li>
+          )
+        }
+        {
+          channels.has("other") && client.contact.channels.other && (
+            <li>
+              <MessageCircle size={18} aria-hidden="true" />
+              <span>{client.contact.channels.other}</span>
+            </li>
+          )
+        }
+      </ul>
       {
         (channels.has("whatsapp") || channels.has("doctolib")) && (
-          <div class="flex flex-wrap gap-3 pt-2">
+          <div class="booking-actions">
             {channels.has("whatsapp") && (
               <a
                 href={resolvedWhatsappHref(client)}
@@ -53,6 +72,7 @@ const accessNote = client.contact.accessNote ?? "";
               >
                 <MessageCircle class="size-4 shrink-0" size={16} aria-hidden="true" />
                 WhatsApp
+                <span class="sr-only">(nouvel onglet)</span>
               </a>
             )}
             {channels.has("doctolib") && (
@@ -64,6 +84,7 @@ const accessNote = client.contact.accessNote ?? "";
               >
                 <CalendarDays class="size-4 shrink-0" size={16} aria-hidden="true" />
                 Message via Doctolib
+                <span class="sr-only">(nouvel onglet)</span>
               </a>
             )}
           </div>
@@ -71,10 +92,12 @@ const accessNote = client.contact.accessNote ?? "";
       }
     </div>
     <div
-      class="min-h-64 w-full"
+      class="contact-card__map"
       data-component="contact.map"
       data-map-address={businessAddressText(b)}
       data-map-name={b.fullName}
+      role="region"
+      aria-label={`Plan d’accès au cabinet, ${businessAddressText(b)}`}
     >
     </div>
   </div>

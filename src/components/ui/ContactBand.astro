@@ -1,0 +1,26 @@
+---
+import { MessagesSquare } from "@lucide/astro";
+import { SITE_BOOKING_SECONDARY_HREF, SITE_BOOKING_SECONDARY_LABEL } from "../../lib/constants";
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+
+const {
+  title = "Une question avant de prendre rendez-vous ?",
+  text = "Écrivez-moi : je vous réponds dans les meilleurs délais.",
+} = Astro.props;
+const headingId = "contact-band-title";
+---
+
+<section class="contact-band" data-component="ui.contact-band" aria-labelledby={headingId}>
+  <div>
+    <h2 id={headingId}>{title}</h2>
+    <p>{text}</p>
+  </div>
+  <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary cta-primary--sm">
+    <MessagesSquare size={16} aria-hidden="true" />
+    {SITE_BOOKING_SECONDARY_LABEL}
+  </a>
+</section>

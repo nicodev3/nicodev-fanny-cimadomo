@@ -9,6 +9,8 @@ interface Props {
   description?: string;
   /** Chapô sous le titre ; par défaut la description SEO. */
   intro?: string;
+  /** Petite étiquette affichée au-dessus du titre. */
+  eyebrow?: string;
   /** La page fournit son propre en-tête (ex. à propos avec portrait). */
   hidePageHeader?: boolean;
   ogType?: "website" | "article";
@@ -20,6 +22,7 @@ const {
   title,
   description = "",
   intro = description,
+  eyebrow = "",
   hidePageHeader = false,
   ogType = "website",
   modifiedTime,
@@ -39,10 +42,21 @@ const {
   <main class="site-container page" data-component="page">
     {
       !hidePageHeader && (
-        <header class:list={["page-header", Astro.slots.has("actions") && "page-header--actions"]}>
+        <header
+          class:list={[
+            "page-header page-hero",
+            Astro.slots.has("actions") && "page-header--actions",
+          ]}
+          data-component="page.header"
+        >
+          {eyebrow && <p class="section-eyebrow section-eyebrow--pill">{eyebrow}</p>}
           <h1>{title}</h1>
           {intro && <p class="lead">{intro}</p>}
-          <slot name="actions" />
+          {Astro.slots.has("actions") && (
+            <div class="page-header__actions">
+              <slot name="actions" />
+            </div>
+          )}
         </header>
       )
     }

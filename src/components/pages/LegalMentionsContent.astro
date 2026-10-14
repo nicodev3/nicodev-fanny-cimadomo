@@ -1,4 +1,5 @@
 ---
+import { Building2, Cookie, Server, ShieldCheck } from "@lucide/astro";
 import { client } from "../../lib/client";
 import { businessAddressText } from "../../lib/client/businessAddress";
 import {
@@ -12,36 +13,74 @@ const license = client.credentials.license;
 const regLabel = license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
 ---
 
-<section class="page-block" data-component="legal.editor">
-  <h2>Éditeur du site</h2>
-  <p>{b.fullName} — {b.title}</p>
-  <p>Adresse : {businessAddressText(b)}</p>
-  <p>Email : {b.email}</p>
-  {b.siret && <p>SIRET : {b.siret}</p>}
-  {
-    license.rppsOrAdeli && (
-      <p>
-        {regLabel} : {license.rppsOrAdeli}
-      </p>
-    )
-  }
-</section>
+<div class="card-grid card-grid--2 legal-grid">
+  <section class="info-card" data-component="legal.editor" aria-labelledby="legal-editor">
+    <span class="icon-badge" aria-hidden="true"><Building2 size={20} /></span>
+    <h2 id="legal-editor">Éditeur du site</h2>
+    <dl class="definition-list">
+      <div>
+        <dt>Responsable</dt>
+        <dd>{b.fullName} — {b.title}</dd>
+      </div>
+      <div>
+        <dt>Adresse</dt>
+        <dd>{businessAddressText(b)}</dd>
+      </div>
+      <div>
+        <dt>E-mail</dt>
+        <dd><a href={`mailto:${b.email}`}>{b.email}</a></dd>
+      </div>
+      {
+        b.siret && (
+          <div>
+            <dt>SIRET</dt>
+            <dd>{b.siret}</dd>
+          </div>
+        )
+      }
+      {
+        license.rppsOrAdeli && (
+          <div>
+            <dt>{regLabel}</dt>
+            <dd>{license.rppsOrAdeli}</dd>
+          </div>
+        )
+      }
+    </dl>
+  </section>
 
-<section class="page-block" data-component="legal.hosting">
-  <h2>Hébergement</h2>
-  <p>{LEGAL_HOSTING_NAME}</p>
-  <p>{LEGAL_HOSTING_ADDRESS}</p>
-</section>
+  <section class="info-card" data-component="legal.hosting" aria-labelledby="legal-hosting">
+    <span class="icon-badge" aria-hidden="true"><Server size={20} /></span>
+    <h2 id="legal-hosting">Hébergement</h2>
+    <dl class="definition-list">
+      <div>
+        <dt>Hébergeur</dt>
+        <dd>{LEGAL_HOSTING_NAME}</dd>
+      </div>
+      <div>
+        <dt>Adresse</dt>
+        <dd>{LEGAL_HOSTING_ADDRESS}</dd>
+      </div>
+    </dl>
+  </section>
 
-<section id="donnees-personnelles" class="page-block" data-component="legal.privacy">
-  <h2>Données personnelles</h2>
-  <p>
-    Les informations transmises via email ou prise de rendez-vous sont utilisées uniquement pour
-    répondre à votre demande. Pour toute question : <a href={`mailto:${b.email}`}>{b.email}</a>.
-  </p>
-</section>
+  <section
+    id="donnees-personnelles"
+    class="info-card"
+    data-component="legal.privacy"
+    aria-labelledby="legal-privacy"
+  >
+    <span class="icon-badge" aria-hidden="true"><ShieldCheck size={20} /></span>
+    <h2 id="legal-privacy">Données personnelles</h2>
+    <p>
+      Les informations transmises via email ou prise de rendez-vous sont utilisées uniquement pour
+      répondre à votre demande. Pour toute question : <a href={`mailto:${b.email}`}>{b.email}</a>.
+    </p>
+  </section>
 
-<section class="page-block" data-component="legal.cookies">
-  <h2>Cookies / traceurs</h2>
-  <p>{LEGAL_NO_TRACKING_NOTICE}</p>
-</section>
+  <section class="info-card" data-component="legal.cookies" aria-labelledby="legal-cookies">
+    <span class="icon-badge" aria-hidden="true"><Cookie size={20} /></span>
+    <h2 id="legal-cookies">Cookies / traceurs</h2>
+    <p>{LEGAL_NO_TRACKING_NOTICE}</p>
+  </section>
+</div>

@@ -1,24 +1,31 @@
 ---
+import { ArrowRight } from "@lucide/astro";
 import { getArticleNavigation } from "../lib/contentNavigation";
 
 const articles = await getArticleNavigation();
 ---
 
-<section data-component="content.article-list">
+<section data-component="content.article-list" aria-label="Liste des articles">
   {
     articles.length > 0 ? (
-      <ul>
+      <ul class="article-grid">
         {articles.map((article) => (
           <li>
-            <a href={article.href}>
-              <p class="font-medium">{article.title}</p>
+            <a href={article.href} class="article-card">
+              <h2 class="article-card__title">{article.title}</h2>
               {article.description && <p class="note">{article.description}</p>}
+              <span class="article-card__more" aria-hidden="true">
+                Lire l’article
+                <ArrowRight size={16} />
+              </span>
             </a>
           </li>
         ))}
       </ul>
     ) : (
-      <p>Aucun article publié pour le moment.</p>
+      <div class="info-card empty-state">
+        <p>Aucun article publié pour le moment.</p>
+      </div>
     )
   }
 </section>

@@ -1,4 +1,5 @@
 ---
+import { Clock } from "@lucide/astro";
 import ContactCard from "../ContactCard.astro";
 import ContactHoursBlock from "../ContactHoursBlock.astro";
 import ContactForm from "../ContactForm.astro";
@@ -10,26 +11,31 @@ const hasHours = enabledContactHoursRows(client.contact.hours).length > 0;
 const waitingListNote = client.practice.waitingListNote ?? "";
 ---
 
-<section class="page-block grid items-start gap-6 md:grid-cols-2" data-component="contact.info">
+<section class="contact-layout" data-component="contact.info" aria-label="Coordonnées">
   <ContactCard stacked />
 
-  {
-    hasHours && (
-      <div data-component="contact.hours">
-        <ContactHoursBlock />
-        {waitingListNote && <p class="mt-4">{waitingListNote}</p>}
-      </div>
-    )
-  }
-</section>
+  <div class="contact-layout__side">
+    {
+      hasHours && (
+        <div class="info-card" data-component="contact.hours">
+          <span class="icon-badge" aria-hidden="true">
+            <Clock size={20} />
+          </span>
+          <ContactHoursBlock />
+          {waitingListNote && <p class="note">{waitingListNote}</p>}
+        </div>
+      )
+    }
 
-{
-  waitingListNote && !hasHours && (
-    <section class="page-block" data-component="contact.waiting">
-      <p>{waitingListNote}</p>
-    </section>
-  )
-}
+    {
+      waitingListNote && !hasHours && (
+        <div class="info-card" data-component="contact.waiting">
+          <p>{waitingListNote}</p>
+        </div>
+      )
+    }
+  </div>
+</section>
 
 {client.contact.channels.selected.includes("form") && <ContactForm />}
 

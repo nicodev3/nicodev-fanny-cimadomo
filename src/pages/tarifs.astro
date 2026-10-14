@@ -6,15 +6,15 @@ export const pageNav = {
 
 import StandardPageLayout from "../layouts/StandardPageLayout.astro";
 import TarifsPageContent from "../components/pages/TarifsPageContent.astro";
-import { SITE_BOOKING_SECONDARY_HREF, SITE_BOOKING_SECONDARY_LABEL } from "../lib/constants";
 ---
 
 <StandardPageLayout
   title="Tarifs"
   description="Les tarifs sont indiqués à titre informatif. N'hésitez pas à me contacter si besoin."
+  hidePageHeader
 >
-  <a slot="actions" href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary">
-    {SITE_BOOKING_SECONDARY_LABEL}
-  </a>
-  <TarifsPageContent />
+  <TarifsPageContent
+    title="Tarifs"
+    intro="Les tarifs sont indiqués à titre informatif. N'hésitez pas à me contacter si besoin."
+  />
 </StandardPageLayout>

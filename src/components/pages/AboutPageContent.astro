@@ -1,21 +1,50 @@
 ---
+import { MapPin, ShieldCheck } from "@lucide/astro";
+import { Image } from "astro:assets";
 import CredentialsPanel from "../CredentialsPanel.astro";
-import PractitionerPortrait from "../PractitionerPortrait.astro";
+import BookingActions from "../ui/BookingActions.astro";
+import ContactBand from "../ui/ContactBand.astro";
 import { client } from "../../lib/client";
+import photo from "../../assets/Fanny-CIMADOMO.webp";
 
-const sidebarSummary = client.aboutPage.sidebarSummary ?? "";
+const { business, credentials } = client;
+const registrationLabel = credentials.license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
 ---
 
-<header
-  class="page-block flex flex-col gap-6 md:flex-row md:items-start"
-  data-component="about.intro"
->
-  <PractitionerPortrait class="mx-auto w-full max-w-xs shrink-0 md:mx-0 md:max-w-sm" />
-  <div class="min-w-0 flex-1 space-y-2">
-    <h1>{client.business.fullName}</h1>
-    {sidebarSummary && <p class="note">{sidebarSummary}</p>}
+<header class="page-hero about-hero" data-component="about.intro">
+  <div class="about-hero__portrait">
+    <Image
+      src={photo}
+      alt={`Portrait de ${business.fullName}, ${business.title.toLowerCase()} à ${business.city}`}
+      width={320}
+      height={320}
+      densities={[1, 1.5]}
+      loading="eager"
+    />
+  </div>
+
+  <div class="page-hero__intro">
+    <p class="section-eyebrow section-eyebrow--pill">{business.title} · {business.city}</p>
+    <h1>{business.fullName}</h1>
     <p class="lead">{client.aboutPage.intro}</p>
+    <ul class="hero-facts">
+      {
+        credentials.license.rppsOrAdeli && (
+          <li>
+            <ShieldCheck size={16} aria-hidden="true" />
+            {registrationLabel} {credentials.license.rppsOrAdeli}
+          </li>
+        )
+      }
+      <li>
+        <MapPin size={16} aria-hidden="true" />
+        <span>{`${business.addressLine1}, ${business.postalCode} ${business.city}`}</span>
+      </li>
+    </ul>
+    <BookingActions />
   </div>
 </header>
 
 <CredentialsPanel />
+
+<ContactBand />
