@@ -118,28 +118,15 @@ const summaryResetClass =
                 ))
               }
               {
-                showPracticesNav && (
-                  <details>
-                    <summary class:list={[mobileNavLinkClass, summaryResetClass]}>
-                      Mes pratiques
-                    </summary>
-                    <div
-                      class="mt-1 flex flex-col gap-1 pl-3"
-                      role="group"
-                      aria-label="Pages pratiques"
-                    >
-                      {practices.map((it) => (
-                        <a
-                          class="px-3 py-2 text-sm"
-                          href={it.href}
-                          aria-current={navLinkIsActive(it.href) ? "page" : undefined}
-                        >
-                          {it.label}
-                        </a>
-                      ))}
-                    </div>
-                  </details>
-                )
+                practices.map((it) => (
+                  <a
+                    class={mobileNavLinkClass}
+                    href={it.href}
+                    aria-current={navLinkIsActive(it.href) ? "page" : undefined}
+                  >
+                    {it.label}
+                  </a>
+                ))
               }
               {
                 contactNavItem && (
