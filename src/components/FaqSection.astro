@@ -1,4 +1,5 @@
 ---
+import { ChevronRight } from "@lucide/astro";
 import { client } from "../lib/client";
 import { resolvedFaqEntries } from "../lib/client/faqPresets.ts";
 
@@ -28,7 +29,10 @@ const faqPageJsonLd =
     {
       items.map((item) => (
         <details data-component="faq.item">
-          <summary>{item.question}</summary>
+          <summary>
+            <span class="faq-chevron" aria-hidden="true"><ChevronRight size={18} /></span>
+            <span>{item.question}</span>
+          </summary>
           <p>{item.answer}</p>
         </details>
       ))
