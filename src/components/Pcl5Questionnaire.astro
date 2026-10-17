@@ -111,20 +111,20 @@ const scale = [
 
 <style>
   .pcl5__item {
-    border: 1px solid var(--stitch-sand-warm, #ede0d7);
+    border: 1px solid var(--color-surface-warm, #ede0d7);
     border-radius: 0.75rem;
     padding: 1rem;
-    background: var(--stitch-white, #fff);
+    background: var(--color-surface, #fff);
   }
   .pcl5__item legend {
     padding: 0 0.5rem;
     font-weight: 500;
   }
   .pcl5__item[data-missing] {
-    border-color: var(--stitch-terracotta-text, #a4573a);
+    border-color: var(--color-accent-strong, #a4573a);
   }
   .pcl5__num {
-    color: var(--stitch-terracotta-text, #a4573a);
+    color: var(--color-accent-strong, #a4573a);
     font-weight: 700;
   }
   .pcl5__choices {
@@ -143,12 +143,12 @@ const scale = [
     cursor: pointer;
   }
   .pcl5__choice:has(input:checked) {
-    background: var(--stitch-sand-warm, #ede0d7);
+    background: var(--color-surface-warm, #ede0d7);
   }
   .pcl5__choice input {
     width: 1.1rem;
     height: 1.1rem;
-    accent-color: var(--stitch-terracotta-text, #a4573a);
+    accent-color: var(--color-accent-strong, #a4573a);
   }
   .pcl5__score {
     color: var(--color-muted, #6b635c);
@@ -161,15 +161,15 @@ const scale = [
     gap: 0.75rem;
   }
   .pcl5__error {
-    color: var(--stitch-terracotta-text, #a4573a);
+    color: var(--color-accent-strong, #a4573a);
     font-weight: 600;
   }
   .pcl5__result {
     margin-top: 2rem;
     padding: 1.5rem;
     border-radius: 1rem;
-    background: var(--stitch-surface-low, #f4f3f1);
-    box-shadow: var(--stitch-shadow-soft);
+    background: var(--color-surface-subtle, #f4f3f1);
+    box-shadow: var(--shadow-soft);
   }
   .pcl5__result > * + * {
     margin-top: 0.75rem;

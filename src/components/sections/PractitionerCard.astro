@@ -12,8 +12,8 @@ const hours = enabledContactHoursRows(contact.hours);
 const phoneHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
 ---
 
-<aside class="practitioner-card" aria-labelledby="practitioner-name">
-  <div class="practitioner-card__photo">
+<aside class="hero-profile" aria-labelledby="practitioner-name">
+  <div class="hero-profile__photo">
     <Image
       src={photo}
       alt={`Portrait de ${business.fullName}`}
@@ -24,15 +24,15 @@ const phoneHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
     />
   </div>
 
-  <p class="practitioner-card__role">Psychologue clinicienne · {business.city}</p>
-  <h2 id="practitioner-name" class="practitioner-card__name">{business.fullName}</h2>
+  <p class="hero-profile__role">Psychologue clinicienne · {business.city}</p>
+  <h2 id="practitioner-name" class="hero-profile__name">{business.fullName}</h2>
 
-  <p class="practitioner-card__bio">
+  <p class="hero-profile__bio">
     J’accompagne les adultes face à l’anxiété, au psychotraumatisme, au deuil ou à l’épuisement,
     dans un cadre confidentiel et sans jugement.
   </p>
 
-  <ul class="practitioner-card__facts">
+  <ul class="hero-profile__facts">
     {
       credentials.license.rppsOrAdeli && (
         <li>
@@ -58,9 +58,9 @@ const phoneHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
     }
   </ul>
 
-  <div class="practitioner-card__actions">
+  <div class="hero-profile__actions">
     <a href="/a-propos/" class="cta-primary cta-primary--sm">
-      Mon parcours
+      Découvrir mon parcours
       <ArrowRight size={16} aria-hidden="true" />
     </a>
     <a href={phoneHref} class="cta-secondary cta-secondary--sm" aria-label={`Appeler le ${business.phone}`}>
