@@ -6,9 +6,12 @@ export const pageNav = {
 
 import StandardPageLayout from "../layouts/StandardPageLayout.astro";
 import PourquoiConsulterPageContent from "../components/pages/PourquoiConsulterPageContent.astro";
+import pelote from "../assets/pelote.png";
 ---
 
 <StandardPageLayout
+  heroImage={pelote}
+  heroImageAlt="Deux personnes en fauteuil déroulent ensemble le fil d’une pelote de laine."
   title="Pourquoi consulter ?"
   description="Découvrez les principaux motifs de consultation et l'accompagnement proposé selon votre situation."
   eyebrow="Motifs de consultation"

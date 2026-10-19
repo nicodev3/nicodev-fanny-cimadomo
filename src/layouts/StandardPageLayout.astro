@@ -3,8 +3,13 @@ import BaseLayout from "./BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Breadcrumb from "../components/Breadcrumb.astro";
 import { client } from "../lib/client";
+import { Image } from "astro:assets";
+import defaultHeroImage from "../assets/forest-hero.avif";
+import type { ImageMetadata } from "astro";
 
 interface Props {
+  heroImage?: ImageMetadata;
+  heroImageAlt?: string;
   title: string;
   description?: string;
   /** Chapô sous le titre ; par défaut la description SEO. */
@@ -19,6 +24,8 @@ interface Props {
 }
 
 const {
+  heroImage = defaultHeroImage,
+  heroImageAlt = "",
   title,
   description = "",
   intro = description,
@@ -44,11 +51,12 @@ const {
       !hidePageHeader && (
         <header
           class:list={[
-            "page-header page-hero",
+            "page-header page-hero page-hero--image",
             Astro.slots.has("actions") && "page-header--actions",
           ]}
           data-component="page.header"
         >
+          <div class="page-hero__copy">
           {eyebrow && <p class="section-eyebrow section-eyebrow--pill">{eyebrow}</p>}
           <h1>{title}</h1>
           {intro && <p class="lead">{intro}</p>}
@@ -57,6 +65,8 @@ const {
               <slot name="actions" />
             </div>
           )}
+          </div>
+          <Image src={heroImage} alt={heroImageAlt} class="page-hero__image" widths={[480, 800, 1200]} sizes="(min-width: 1024px) 40vw, 100vw" loading="eager" />
         </header>
       )
     }
