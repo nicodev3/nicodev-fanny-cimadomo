@@ -27,9 +27,9 @@ import { fontProviders } from "astro/config";
 export const siteFonts = [
   {
     provider: fontProviders.google(),
-    name: "EB Garamond",
-    cssVariable: "--font-eb-garamond",
-    weights: [400, 500, 600],
+    name: "Fraunces",
+    cssVariable: "--font-fraunces",
+    weights: [400, 500, 600, 700],
     styles: ["normal", "italic"],
     subsets: ["latin"],
     fallbacks: ["Georgia", "serif"],
