@@ -34,7 +34,7 @@ const sent = Astro.url.searchParams.get("sent") === "1";
       value={`Message depuis le site — ${client.seo.siteName}`}
     />
 
-    <p class="sr-only" aria-hidden="true">
+    <p class="sr-only" inert>
       <label>
         Ne pas remplir ce champ
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />

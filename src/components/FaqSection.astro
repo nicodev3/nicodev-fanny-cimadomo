@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { class: className } = Astro.props;
-const items = resolvedFaqEntries(client.profession);
+const items = resolvedFaqEntries(client);
 const faqPageJsonLd =
   items.length === 0
     ? ""

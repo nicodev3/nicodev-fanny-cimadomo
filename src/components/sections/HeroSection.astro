@@ -46,6 +46,7 @@ const bookingExternal = bookingPrimaryIsExternal(bookingHref);
       >
         <CalendarDays class="size-4 shrink-0" size={16} aria-hidden="true" />
         {SITE_BOOKING_PRIMARY_LABEL}
+        {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
       </a>
       <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-secondary cta-secondary--sm">
         <MessagesSquare class="size-4 shrink-0" size={16} aria-hidden="true" />

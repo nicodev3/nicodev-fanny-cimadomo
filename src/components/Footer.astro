@@ -97,6 +97,7 @@ const deontologie = professionDeontologieFooterLink(client.profession);
         >
           <CalendarDays class="size-4 shrink-0" size={16} aria-hidden="true" />
           {SITE_BOOKING_PRIMARY_LABEL}
+          {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
         </a>
         <a class="text-base" href={SITE_BOOKING_SECONDARY_HREF}>{SITE_BOOKING_SECONDARY_LABEL}</a>
       </div>

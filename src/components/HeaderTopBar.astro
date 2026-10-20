@@ -30,13 +30,13 @@ const postalCity = `${b.postalCode} ${b.city}`;
     >
       {street} · {postalCity}
     </p>
-    <div class="flex min-h-11 flex-row items-center gap-3 sm:contents">
+    <div class="flex min-h-11 flex-row flex-wrap items-center gap-3 sm:contents">
       <a
-        class="inline-flex min-h-11 min-w-0 flex-1 items-center gap-2 px-1 text-sm leading-snug sm:min-h-0 sm:flex-none sm:gap-1.5 sm:px-0"
+        class="inline-flex min-h-11 items-center gap-2 px-1 text-sm leading-snug sm:min-h-0 sm:gap-1.5 sm:px-0"
         href={`tel:${b.phone.replace(/\s/g, "")}`}
       >
         <Phone class="size-4 shrink-0" size={16} aria-hidden="true" />
-        <span class="truncate">{b.phone}</span>
+        {b.phone}
       </a>
       <a
         class="cta-primary cta-primary--sm min-h-11 shrink-0 self-center max-sm:ml-auto sm:min-h-0 sm:self-auto"
@@ -45,6 +45,7 @@ const postalCity = `${b.postalCode} ${b.city}`;
       >
         <CalendarDays class="size-4 shrink-0" size={16} aria-hidden="true" />
         {SITE_BOOKING_PRIMARY_LABEL}
+        {bookingIsExternal && <span class="sr-only">(nouvel onglet)</span>}
       </a>
     </div>
   </div>

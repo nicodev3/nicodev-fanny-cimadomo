@@ -2,8 +2,9 @@
  * Design client — cabinet chaleureux, inspiré de l’aquarelle « pelote ».
  * Voir .cursor/skills/appliquer-design-stitch/SKILL.md
  *
- * Palette : papier crème, terracotta (actions), sauge (ornements / inverse),
- * miel (détails). Deux fauteuils de l’illustration : terracotta + sauge.
+ * Palette : lin, sauge (actions), terracotta discret (ornements).
+ * Moins saturé qu’un blush cosmétique : le fauteuil vert porte la marque,
+ * le terracotta reste un détail.
  * Polices : Fraunces (titres) + Manrope (texte), déclarées dans src/design/fonts.mjs.
  */
 
@@ -12,41 +13,41 @@
   /* Tokens sémantiques : nommés par rôle, jamais par apparence. */
 
   /* Texte */
-  --color-fg: #2c2622;
-  --color-heading: #3a2a24;
-  --color-text-secondary: #53463e;
-  --color-muted: #6b5e54;
-  --color-on-inverse: #f7f1e8;
+  --color-fg: #2a2c2a;
+  --color-heading: #2c322e;
+  --color-text-secondary: #4e5551;
+  --color-muted: #5f6864;
+  --color-on-inverse: #f4f6f3;
 
   /* Action et liens */
-  --color-primary: #a8442f;
-  --color-primary-hover: #8c3424;
-  --color-primary-fg: #fffdf8;
+  --color-primary: #3d5c4e;
+  --color-primary-hover: #2f4a3e;
+  --color-primary-fg: #f4f6f3;
 
   /* Accent de marque : détails et ornements uniquement */
-  --color-accent: #d46a4c;
-  --color-accent-strong: #3f6b5a;
-  --color-decor: #5e8a74;
-  --color-highlight: #e0a84a;
+  --color-accent: #a85d47;
+  --color-accent-strong: #8a5340;
+  --color-decor: #8a9a90;
+  --color-highlight: #a85d47;
 
   /* Surfaces */
-  --color-bg: #f8f3ea;
-  --color-surface: #fffdf8;
-  --color-surface-page: #f8f3ea;
-  --color-surface-subtle: #f3ebe0;
-  --color-surface-sunken: #ece3d6;
-  --color-surface-muted: #f0e4d4;
-  --color-surface-warm: #f4d5c4;
-  --color-surface-sage: #e4eee8;
-  --color-surface-inverse: #2c4a3e;
+  --color-bg: #f5f3ef;
+  --color-surface: #fcfcfa;
+  --color-surface-page: #f5f3ef;
+  --color-surface-subtle: #eeece8;
+  --color-surface-sunken: #e7e5e0;
+  --color-surface-muted: #ebe8e2;
+  --color-surface-warm: #ebe4dc;
+  --color-surface-sage: #e8ece9;
+  --color-surface-inverse: #2f453c;
 
   --font-sans: var(--font-manrope);
   --font-serif: var(--font-fraunces);
 
-  --radius-xl: 1.25rem;
+  --radius-xl: 1rem;
 
-  --shadow-soft: 0 1px 8px rgb(168 68 47 / 8%);
-  --shadow-card: 0 10px 32px rgb(44 74 62 / 10%);
+  --shadow-soft: 0 1px 8px rgb(47 69 60 / 7%);
+  --shadow-card: 0 8px 28px rgb(47 69 60 / 9%);
 }
 
 /* === Base === */
@@ -55,10 +56,6 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   background-color: var(--color-bg);
-  background-image:
-    radial-gradient(ellipse 70% 50% at 100% 0%, color-mix(in srgb, var(--color-surface-warm) 72%, transparent), transparent 70%),
-    radial-gradient(ellipse 55% 45% at 0% 28%, color-mix(in srgb, var(--color-surface-sage) 58%, transparent), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 85% 100%, color-mix(in srgb, var(--color-highlight) 18%, transparent), transparent 70%);
 }
 
 ::selection {
@@ -114,14 +111,29 @@ a {
 }
 
 html {
-  scroll-padding-top: 7rem;
+  scroll-padding-top: 16rem;
+}
+
+@media (min-width: 640px) {
+  html {
+    scroll-padding-top: 10rem;
+  }
 }
 
 h1,
 h2,
 h3,
 h4 {
-  scroll-margin-top: 7rem;
+  scroll-margin-top: 16rem;
+}
+
+@media (min-width: 640px) {
+  h1,
+  h2,
+  h3,
+  h4 {
+    scroll-margin-top: 10rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -164,7 +176,7 @@ h4 {
 /* === Boutons === */
 .cta-primary,
 .cta-secondary {
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   border: 2px solid transparent;
   font-family: var(--font-sans);
   font-size: 0.875rem;
@@ -172,7 +184,6 @@ h4 {
   letter-spacing: 0.02em;
   line-height: 1.4;
   text-decoration: none;
-  white-space: nowrap;
   transition:
     background-color 150ms ease-out,
     color 150ms ease-out,
@@ -202,13 +213,13 @@ h4 {
 .cta-secondary {
   background: var(--color-surface);
   color: var(--color-primary);
-  border-color: color-mix(in srgb, var(--color-primary) 28%, transparent);
+  border-color: var(--color-surface-sunken);
   box-shadow: none;
 }
 
 @media (hover: hover) {
   .cta-secondary:hover {
-    background: var(--color-surface-warm);
+    background: var(--color-surface-sage);
     color: var(--color-primary-hover);
     border-color: var(--color-primary);
   }
@@ -237,7 +248,7 @@ main a:not([class]) {
   background: var(--color-surface-subtle);
   color: var(--color-heading);
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .form-field::placeholder {
@@ -268,14 +279,13 @@ main a:not([class]) {
 
 /* === En-tête === */
 [data-component="ui.header-stack"] {
-  background: color-mix(in srgb, var(--color-bg) 90%, transparent);
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--color-primary) 10%, transparent);
-  backdrop-filter: blur(14px);
+  background: var(--color-bg);
+  box-shadow: 0 1px 0 var(--color-surface-sunken);
 }
 
 [data-component="ui.header-bar"] {
-  background: var(--color-surface-warm);
-  color: var(--color-heading);
+  background: var(--color-surface-subtle);
+  color: var(--color-muted);
 }
 
 [data-component="ui.header-bar"] a:not(.cta-primary) {
@@ -313,7 +323,7 @@ main a:not([class]) {
 }
 
 [data-component="ui.header"] > .site-container > div > a:first-child > span:last-child {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -386,10 +396,7 @@ main a:not([class]) {
   position: relative;
   overflow: hidden;
   border-radius: 1.75rem;
-  background:
-    radial-gradient(ellipse 80% 70% at 0% 0%, color-mix(in srgb, var(--color-surface-warm) 70%, transparent), transparent 58%),
-    radial-gradient(ellipse 55% 65% at 100% 100%, color-mix(in srgb, var(--color-surface-sage) 55%, transparent), transparent 52%),
-    var(--color-surface);
+  background: var(--color-surface);
   padding: 2.5rem 1.5rem 3rem;
   box-shadow: var(--shadow-soft);
 }
@@ -397,46 +404,6 @@ main a:not([class]) {
 @media (min-width: 1024px) {
   [data-component="section.hero"] {
     padding: 4rem 4rem 4.5rem;
-  }
-}
-
-[data-component="section.hero"]::before {
-  content: "";
-  position: absolute;
-  top: -5rem;
-  right: -3.5rem;
-  width: 16rem;
-  height: 16rem;
-  background: var(--color-surface-warm);
-  border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
-  opacity: 0.9;
-  pointer-events: none;
-}
-
-[data-component="section.hero"]::after {
-  content: "";
-  position: absolute;
-  bottom: -4.5rem;
-  left: -3rem;
-  width: 13rem;
-  height: 13rem;
-  background: var(--color-surface-sage);
-  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  opacity: 0.95;
-  pointer-events: none;
-}
-
-@media (min-width: 1024px) {
-  [data-component="section.hero"]::before {
-    width: 20rem;
-    height: 20rem;
-    top: -6rem;
-    right: -4rem;
-  }
-
-  [data-component="section.hero"]::after {
-    width: 16rem;
-    height: 16rem;
   }
 }
 
@@ -453,7 +420,7 @@ main a:not([class]) {
   gap: 0.5rem;
   padding: 0.25rem 1rem;
   border-radius: 9999px;
-  background: var(--color-surface-warm);
+  background: var(--color-surface-muted);
   color: var(--color-heading);
   font-size: 0.75rem;
   font-weight: 600;
@@ -559,7 +526,7 @@ main a:not([class]) {
 }
 
 .hero-profile__role {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -669,27 +636,22 @@ main a:not([class]) {
   background: var(--color-accent);
 }
 
-[data-component="section.services"] li:nth-child(3n + 2)::before {
-  background: var(--color-accent-strong);
-}
-
-[data-component="section.services"] li:nth-child(3n)::before {
-  background: var(--color-highlight);
+[data-component="section.services"] li:nth-child(even)::before {
+  background: var(--color-primary);
 }
 
 @media (hover: hover) {
   [data-component="section.services"] li:hover {
     box-shadow: var(--shadow-card);
-    transform: translateY(-0.25rem);
   }
 }
 
 /* === Accueil — Mon Soutien Psy === */
 [data-component="MonSoutienPsyCallout"] {
   margin-block: 0;
-  border-left: 4px solid var(--color-highlight);
+  border-left: 4px solid var(--color-primary);
   border-radius: 1.25rem;
-  background: color-mix(in srgb, var(--color-surface-warm) 55%, var(--color-surface));
+  background: var(--color-surface-sage);
   padding: 2rem 2rem;
 }
 
@@ -814,7 +776,7 @@ main a:not([class]) {
   max-width: 80rem;
   margin: 0 auto;
   border-left: 4px solid var(--color-accent);
-  background: color-mix(in srgb, var(--color-surface-muted) 80%, transparent);
+  background: var(--color-surface-muted);
   color: var(--color-heading);
   font-size: 0.875rem;
   text-align: left;
@@ -936,7 +898,7 @@ main a:not([class]) {
 .section-eyebrow--pill {
   padding: 0.25rem 1rem;
   border-radius: 9999px;
-  background: var(--color-surface-warm);
+  background: var(--color-surface-muted);
   color: var(--color-heading);
 }
 
@@ -962,11 +924,6 @@ main a:not([class]) {
   display: grid;
   gap: 0;
   padding: 0;
-}
-
-.page-hero--image::before,
-.page-hero--image::after {
-  display: none;
 }
 
 .page-hero__image {
@@ -997,55 +954,14 @@ main a:not([class]) {
   position: relative;
   overflow: hidden;
   border-radius: 1.75rem;
-  background:
-    radial-gradient(ellipse 80% 70% at 0% 0%, color-mix(in srgb, var(--color-surface-warm) 70%, transparent), transparent 58%),
-    radial-gradient(ellipse 55% 65% at 100% 100%, color-mix(in srgb, var(--color-surface-sage) 55%, transparent), transparent 52%),
-    var(--color-surface);
+  background: var(--color-surface);
   padding: 2.5rem 1.5rem 3rem;
   box-shadow: var(--shadow-soft);
-}
-
-.page-hero::before {
-  content: "";
-  position: absolute;
-  top: -5rem;
-  right: -3.5rem;
-  width: 14rem;
-  height: 14rem;
-  background: var(--color-surface-warm);
-  border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
-  opacity: 0.85;
-  pointer-events: none;
-}
-
-.page-hero::after {
-  content: "";
-  position: absolute;
-  bottom: -4rem;
-  left: -3rem;
-  width: 11rem;
-  height: 11rem;
-  background: var(--color-surface-sage);
-  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  opacity: 0.9;
-  pointer-events: none;
 }
 
 @media (min-width: 1024px) {
   .page-hero {
     padding: 4rem;
-  }
-
-  .page-hero::before {
-    width: 18rem;
-    height: 18rem;
-    top: -6rem;
-    right: -4rem;
-  }
-
-  .page-hero::after {
-    width: 14rem;
-    height: 14rem;
   }
 }
 
@@ -1209,8 +1125,8 @@ main a:not([class]) {
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  border-radius: 9999px;
-  background: var(--color-surface-warm);
+  border-radius: 0.75rem;
+  background: var(--color-surface-sage);
   color: var(--color-primary);
 }
 
@@ -1332,11 +1248,9 @@ main a:not([class]) {
   gap: 1.5rem;
   margin-top: 1.5rem;
   border-radius: 1.75rem;
-  background:
-    radial-gradient(ellipse 60% 80% at 100% 0%, color-mix(in srgb, var(--color-accent-strong) 35%, transparent), transparent 60%),
-    var(--color-surface-inverse);
+  background: var(--color-surface-inverse);
   padding: 2.5rem 1.5rem;
-  color: color-mix(in srgb, var(--color-on-inverse) 88%, transparent);
+  color: var(--color-on-inverse);
 }
 
 [data-component="ui.contact-band"] h2 {
@@ -1362,13 +1276,13 @@ main a:not([class]) {
 
 @media (hover: hover) {
   [data-component="ui.contact-band"] .cta-primary:hover {
-    background: var(--color-surface-warm);
+    background: var(--color-surface-sage);
     color: var(--color-heading);
   }
 }
 
 [data-component="ui.contact-band"] :focus-visible {
-  outline-color: var(--color-surface-warm);
+  outline-color: var(--color-surface-sage);
 }
 
 /* === Mise en page de lecture (pratiques, articles) === */
@@ -1750,12 +1664,8 @@ main a:not([class]) {
   background: var(--color-accent);
 }
 
-.motif-card:nth-child(3n + 2)::before {
-  background: var(--color-accent-strong);
-}
-
-.motif-card:nth-child(3n)::before {
-  background: var(--color-highlight);
+.motif-card:nth-child(even)::before {
+  background: var(--color-primary);
 }
 
 @media (hover: hover) {
@@ -2023,7 +1933,7 @@ main .contact-card__channels a {
 .pricing-card__tag {
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  background: var(--color-surface-warm);
+  background: var(--color-surface);
   color: var(--color-accent-strong);
   font-size: 0.6875rem;
   font-weight: 600;
@@ -2131,7 +2041,7 @@ main .contact-card__channels a {
 
 .conditions-note--alert {
   border-left: 4px solid var(--color-accent);
-  background: color-mix(in srgb, var(--color-surface-warm) 60%, var(--color-surface));
+  background: var(--color-surface-warm);
 }
 
 .conditions-note--alert > svg {

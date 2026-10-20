@@ -4,6 +4,8 @@
  */
 
 import type { ClientProfession } from "./profession.ts";
+import type { ClientConfig } from "./schema.ts";
+import { resolvedBookingPrimaryHref } from "./siteBooking.ts";
 
 export type FaqCustomEntry = { question: string; answer: string };
 
@@ -49,12 +51,38 @@ const FAQ_REIMBURSEMENT_ANSWER: Record<ClientProfession, string> = {
     "Le remboursement des séances de psychomotricité dépend de la situation (prescription, conventionnement, mutuelle, public concerné). Les modalités diffèrent souvent des actes de psychologie ; renseignez-vous auprès de votre caisse et de votre mutuelle.",
 };
 
-function faqPresetAnswerForProfession(
+function bookingPlatformName(href: string): string | null {
+  try {
+    const host = new URL(href).hostname.toLowerCase();
+    if (host.includes("doctolib")) return "Doctolib";
+    if (host.includes("perfactive")) return "Perfactive";
+  } catch {
+    /* URL interne ou invalide */
+  }
+  return null;
+}
+
+function faqBookingAnswer(client: ClientConfig): string {
+  const href = resolvedBookingPrimaryHref(client);
+  const platform = bookingPlatformName(href);
+  if (platform) {
+    return `Vous pouvez réserver en ligne à tout moment via ${platform}. Si vous préférez, un premier contact par e-mail permet de préciser votre besoin avant la première séance.`;
+  }
+  if (href.startsWith("http://") || href.startsWith("https://")) {
+    return "Vous pouvez prendre rendez-vous en ligne à tout moment via le lien de réservation du site. Si vous préférez, un premier contact par e-mail permet de préciser votre besoin avant la première séance.";
+  }
+  return "Prenez rendez-vous via le lien de réservation ou contactez-moi par e-mail pour préciser votre besoin avant la première séance.";
+}
+
+function faqPresetAnswerForClient(
   preset: (typeof FAQ_PRESETS)[number],
-  profession: ClientProfession,
+  client: ClientConfig,
 ): string {
   if (preset.id === "reimbursement") {
-    return FAQ_REIMBURSEMENT_ANSWER[profession];
+    return FAQ_REIMBURSEMENT_ANSWER[client.profession];
+  }
+  if (preset.id === "rdvBooking") {
+    return faqBookingAnswer(client);
   }
   return preset.answer;
 }
@@ -95,11 +123,14 @@ export function normalizeFaqCustomItems(val: unknown): FaqCustomEntry[] {
     .filter((x) => x.question.length > 0 && x.answer.length > 0);
 }
 
-/** Contenu FAQ affiché sur le site : l’intégralité du catalogue, en dur (pas de sélection client). */
-export function resolvedFaqEntries(profession: ClientProfession): FaqResolvedItem[] {
-  return FAQ_PRESETS.map((p) => ({
-    id: p.id,
-    question: p.question,
-    answer: faqPresetAnswerForProfession(p, profession),
-  }));
+/** Contenu FAQ affiché sur le site (catalogue template, réponses adaptées au client). */
+export function resolvedFaqEntries(client: ClientConfig): FaqResolvedItem[] {
+  const modes = client.practice.consultationModes;
+  return FAQ_PRESETS.filter((p) => p.id !== "visioSessions" || modes.includes("visio")).map(
+    (p) => ({
+      id: p.id,
+      question: p.question,
+      answer: faqPresetAnswerForClient(p, client),
+    }),
+  );
 }
