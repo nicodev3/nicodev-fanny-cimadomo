@@ -26,10 +26,10 @@ const { Content } = await render(entry);
   modifiedTime={entry.data.updatedAt}
 >
   <div class="reading-layout">
+    <PageAside />
     <article class="content-rich prose-card" data-component="content.article">
       <Content />
     </article>
-    <PageAside />
   </div>
   <ContactBand />
 </StandardPageLayout>

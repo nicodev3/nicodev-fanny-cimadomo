@@ -1,43 +1,89 @@
 ---
-import { Clock, MapPin, Phone } from "@lucide/astro";
+import { Clock, MapPin, Phone, ShieldCheck } from "@lucide/astro";
 import { Image } from "astro:assets";
 import BookingActions from "./BookingActions.astro";
 import { client } from "../../lib/client";
 import { enabledContactHoursRows } from "../../lib/client/contactHours";
 import photo from "../../assets/Fanny-CIMADOMO.webp";
 
-const { business, contact } = client;
+const { business, contact, credentials, aboutPage } = client;
 const hours = enabledContactHoursRows(contact.hours);
 const phoneHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
+const registrationLabel = credentials.license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
+const asideSummary = aboutPage.sidebarSummary?.trim() ?? "";
+const accessNote = contact.accessNote?.trim() ?? "";
+const nameId = "page-aside-practitioner-name";
 ---
 
-<aside class="page-aside" aria-label="Prendre rendez-vous" data-component="ui.page-aside">
+<aside class="page-aside" aria-labelledby={nameId} data-component="ui.page-aside">
   <div class="practitioner-card page-aside__card">
-    <div class="practitioner-card__photo page-aside__photo">
-      <Image src={photo} alt="" width={160} height={160} densities={[1, 2]} />
-    </div>
-    <p class="practitioner-card__role">{business.title} · {business.city}</p>
-    <p class="practitioner-card__name page-aside__name">{business.fullName}</p>
+    <header class="page-aside__header">
+      <div class="practitioner-card__photo page-aside__photo">
+        <Image
+          src={photo}
+          alt={`Portrait de ${business.fullName}`}
+          width={160}
+          height={160}
+          densities={[1, 2]}
+        />
+      </div>
+      <div class="page-aside__identity">
+        <p class="practitioner-card__role">{business.title} · {business.city}</p>
+        <h2 id={nameId} class="practitioner-card__name page-aside__name">{business.fullName}</h2>
+      </div>
+    </header>
+
+    {asideSummary && <p class="page-aside__summary">{asideSummary}</p>}
 
     <ul class="practitioner-card__facts">
+      {
+        credentials.license.rppsOrAdeli && (
+          <li>
+            <ShieldCheck size={16} aria-hidden="true" />
+            <span>
+              {registrationLabel} {credentials.license.rppsOrAdeli}
+            </span>
+          </li>
+        )
+      }
       <li>
         <MapPin size={16} aria-hidden="true" />
-        <span>{business.addressLine1}, {business.postalCode} {business.city}</span>
+        <address class="page-aside__address">
+          <span>{business.addressLine1}</span>
+          <span>{business.postalCode} {business.city}</span>
+          {accessNote && <span class="page-aside__access">{accessNote}</span>}
+        </address>
       </li>
       {
         hours.length > 0 && (
           <li>
             <Clock size={16} aria-hidden="true" />
-            <span>{hours.map((h) => `${h.label} ${h.value}`).join(" · ")}</span>
+            <span class="page-aside__hours">
+              {
+                hours.map((h) => (
+                  <span>
+                    <span class="page-aside__hours-day">{h.label}</span>
+                    {" "}
+                    {h.value}
+                  </span>
+                ))
+              }
+            </span>
           </li>
         )
       }
-      <li>
-        <Phone size={16} aria-hidden="true" />
-        <a href={phoneHref}>{business.phone}</a>
-      </li>
     </ul>
 
-    <BookingActions class="page-aside__actions" />
+    <div class="page-aside__cta">
+      <BookingActions class="page-aside__actions" />
+      <a
+        href={phoneHref}
+        class="page-aside__phone cta-secondary cta-secondary--sm"
+        aria-label={`Appeler le ${business.phone}`}
+      >
+        <Phone size={16} aria-hidden="true" />
+        {business.phone}
+      </a>
+    </div>
   </div>
 </aside>
