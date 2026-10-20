@@ -30,7 +30,7 @@ const summaryResetClass =
 
   <header class="relative z-50 bg-bg" data-component="ui.header">
     <div class="site-container py-3">
-      <div class="flex min-h-16 items-center justify-between gap-6">
+      <div class="flex min-h-16 items-center justify-between gap-4 lg:gap-6">
         <a
           href="/"
           class="inline-flex min-w-0 flex-col gap-0.5 self-center"
@@ -41,7 +41,7 @@ const summaryResetClass =
         </a>
 
         <nav
-          class="hidden max-w-[62vw] flex-wrap items-center justify-end gap-1 text-base md:flex"
+          class="hidden shrink-0 flex-nowrap items-center justify-end gap-1 lg:flex"
           aria-label="Navigation principale"
         >
           {
@@ -96,7 +96,7 @@ const summaryResetClass =
           }
         </nav>
 
-        <details class="relative md:hidden">
+        <details class="relative lg:hidden">
           <summary
             class:list={["flex h-11 w-11 items-center justify-center", summaryResetClass]}
             aria-label="Ouvrir ou fermer le menu de navigation"
