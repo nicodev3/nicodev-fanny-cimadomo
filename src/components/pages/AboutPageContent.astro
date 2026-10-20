@@ -5,28 +5,115 @@ import CredentialsPanel from "../CredentialsPanel.astro";
 import BookingActions from "../ui/BookingActions.astro";
 import ContactBand from "../ui/ContactBand.astro";
 import { client } from "../../lib/client";
+import { enabledContactHoursRows } from "../../lib/client/contactHours";
+import { bookingPrimaryIsExternal, resolvedBookingPrimaryHref } from "../../lib/client/siteBooking";
+import { REGISTERED_PRACTICE_PAGES, practicePageHref } from "../../lib/practicePageRegistry";
 import photo from "../../assets/Fanny-CIMADOMO.webp";
 
-const { business, credentials } = client;
+const { business, credentials, practice, pricing } = client;
 const registrationLabel = credentials.license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
+const session = pricing.items[0];
+const hours = enabledContactHoursRows(client.contact.hours);
+const hoursLine = hours.map((h) => `${h.label} ${h.value}`).join(" · ");
+const practiceLinks = REGISTERED_PRACTICE_PAGES.filter((page) => client.practicePageEnabled[page.id]);
+const bookingHref = resolvedBookingPrimaryHref(client);
+const bookingExternal = bookingPrimaryIsExternal(bookingHref);
+const heroIdentityParts = [
+  business.title,
+  business.city,
+  practice.audience.filter(Boolean).join(", "),
+  practice.consultationModes.includes("cabinet") ? "cabinet" : "",
+].filter(Boolean);
+const cadreSummary =
+  session &&
+  `Tarif (${session.price}\u00a0€${session.durationMinutes ? ` · ${session.durationMinutes}\u00a0min` : ""}), horaires et conditions`;
 ---
 
 <header class="page-hero about-hero" data-component="about.intro">
-  <div class="about-hero__portrait">
-    <Image
-      src={photo}
-      alt={`Portrait de ${business.fullName}, ${business.title.toLowerCase()} à ${business.city}`}
-      width={320}
-      height={320}
-      densities={[1, 1.5]}
-      loading="eager"
-    />
+  <div class="about-hero__head">
+    <div class="about-hero__portrait">
+      <Image
+        src={photo}
+        alt={`Portrait de ${business.fullName}, ${business.title.toLowerCase()} à ${business.city}`}
+        width={320}
+        height={320}
+        densities={[1, 1.5]}
+        loading="eager"
+      />
+    </div>
+    <div class="about-hero__identity">
+      <h1>{business.fullName}</h1>
+      <p class="about-hero__role">{heroIdentityParts.join(" · ")}</p>
+    </div>
   </div>
 
   <div class="page-hero__intro">
-    <p class="section-eyebrow section-eyebrow--pill">{business.title} · {business.city}</p>
-    <h1>{business.fullName}</h1>
     <p class="lead">{client.aboutPage.intro}</p>
+    {
+      practiceLinks.length > 0 && (
+        <nav class="about-practice-links" aria-label="Approches thérapeutiques">
+          <ul>
+            {practiceLinks.map((page) => (
+              <li>
+                <a href={practicePageHref(page.slug)}>{page.navLabel}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+
+    {
+      cadreSummary && (
+        <details class="about-cadre-details" data-component="about.cadre">
+          <summary>{cadreSummary}</summary>
+          <dl class="about-cadre">
+            {
+              session && (
+                <div>
+                  <dt class="sr-only">Honoraires</dt>
+                  <dd>
+                    {session.price}&nbsp;€
+                    {session.durationMinutes ? ` · ${session.durationMinutes} min` : ""}
+                    {session.note ? ` · ${session.note}` : ""}
+                    {" · "}
+                    <a href="/tarifs/">Détails tarifs et remboursement</a>
+                  </dd>
+                </div>
+              )
+            }
+            {
+              hoursLine && (
+                <div>
+                  <dt class="sr-only">Horaires</dt>
+                  <dd>
+                    {hoursLine}
+                    {" · "}
+                    <a
+                      href={bookingHref}
+                      {...bookingExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
+                    >
+                      Créneaux en ligne
+                    </a>
+                    {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
+                  </dd>
+                </div>
+              )
+            }
+            <div>
+              <dt class="sr-only">Cadre</dt>
+              <dd>
+                <a href="/tarifs/">Annulation et tarifs</a>
+                {" · "}
+                Annulation {client.conditions.cancellation.noticeHours}&nbsp;h à l’avance, hors
+                week-end
+              </dd>
+            </div>
+          </dl>
+        </details>
+      )
+    }
+
     <ul class="hero-facts">
       {
         credentials.license.rppsOrAdeli && (
@@ -47,4 +134,9 @@ const registrationLabel = credentials.license.registrationLabel === "rpps" ? "RP
 
 <CredentialsPanel />
 
-<ContactBand />
+<ContactBand
+  title="Honoraires et modalités pratiques"
+  text="Tarif, paiement, annulation et facture pour votre mutuelle : tout est détaillé sur la page dédiée."
+  ctaHref="/tarifs/"
+  ctaLabel="Voir les tarifs et le cadre"
+/>

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T15:40:00.000Z",
+  "title": "Design System: Fanny Cimadomo",
+  "extensions": {
+    "colorMeta": {
+      "sage": { "role": "primary", "displayName": "Sauge cabinet", "canonical": "#3d5c4e", "tonalRamp": ["#1e2e27", "#2f4a3e", "#3d5c4e", "#5a7568", "#8a9a90", "#c5cec8", "#e8ece9", "#f4f6f3"] },
+      "sage-hover": { "role": "primary", "displayName": "Sauge hover", "canonical": "#2f4a3e", "tonalRamp": ["#1e2e27", "#2f4a3e", "#3d5c4e", "#5a7568", "#8a9a90", "#c5cec8", "#e8ece9", "#f4f6f3"] },
+      "sage-on": { "role": "neutral", "displayName": "Lin sur sauge", "canonical": "#f4f6f3", "tonalRamp": ["#2a2c2a", "#4e5551", "#8a9a90", "#c5cec8", "#e7e5e0", "#eeece8", "#f5f3ef", "#f4f6f3"] },
+      "terracotta": { "role": "secondary", "displayName": "Terracotta", "canonical": "#a85d47", "tonalRamp": ["#5c3228", "#8a5340", "#a85d47", "#c48976", "#d4b0a3", "#ebe4dc", "#f5f3ef", "#fcfcfa"] },
+      "terracotta-strong": { "role": "secondary", "displayName": "Terracotta fort", "canonical": "#8a5340", "tonalRamp": ["#5c3228", "#8a5340", "#a85d47", "#c48976", "#d4b0a3", "#ebe4dc", "#f5f3ef", "#fcfcfa"] },
+      "linen": { "role": "neutral", "displayName": "Lin", "canonical": "#f5f3ef", "tonalRamp": ["#2a2c2a", "#4e5551", "#8a9a90", "#c5cec8", "#e7e5e0", "#eeece8", "#f5f3ef", "#fcfcfa"] },
+      "paper": { "role": "neutral", "displayName": "Papier", "canonical": "#fcfcfa", "tonalRamp": ["#2a2c2a", "#4e5551", "#8a9a90", "#c5cec8", "#e7e5e0", "#eeece8", "#f5f3ef", "#fcfcfa"] },
+      "paper-subtle": { "role": "neutral", "displayName": "Papier subtil", "canonical": "#eeece8", "tonalRamp": ["#2a2c2a", "#4e5551", "#8a9a90", "#c5cec8", "#e7e5e0", "#eeece8", "#f5f3ef", "#fcfcfa"] },
+      "paper-sunken": { "role": "neutral", "displayName": "Filet", "canonical": "#e7e5e0", "tonalRamp": ["#2a2c2a", "#4e5551", "#8a9a90", "#c5cec8", "#e7e5e0", "#eeece8", "#f5f3ef", "#fcfcfa"] },
+      "paper-warm": { "role": "neutral", "displayName": "Papier chaud", "canonical": "#ebe4dc", "tonalRamp": ["#2a2c2a", "#4e5551", "#8a9a90", "#c5cec8", "#e7e5e0", "#ebe4dc", "#f5f3ef", "#fcfcfa"] },
+      "paper-sage": { "role": "neutral", "displayName": "Sauge pâle", "canonical": "#e8ece9", "tonalRamp": ["#1e2e27", "#2f4a3e", "#3d5c4e", "#5a7568", "#8a9a90", "#c5cec8", "#e8ece9", "#f4f6f3"] },
+      "ink": { "role": "neutral", "displayName": "Encre", "canonical": "#2a2c2a", "tonalRamp": ["#2a2c2a", "#2c322e", "#4e5551", "#5f6864", "#8a9a90", "#c5cec8", "#e7e5e0", "#f5f3ef"] },
+      "ink-heading": { "role": "neutral", "displayName": "Encre titre", "canonical": "#2c322e", "tonalRamp": ["#2a2c2a", "#2c322e", "#4e5551", "#5f6864", "#8a9a90", "#c5cec8", "#e7e5e0", "#f5f3ef"] },
+      "ink-secondary": { "role": "neutral", "displayName": "Encre secondaire", "canonical": "#4e5551", "tonalRamp": ["#2a2c2a", "#2c322e", "#4e5551", "#5f6864", "#8a9a90", "#c5cec8", "#e7e5e0", "#f5f3ef"] },
+      "ink-muted": { "role": "neutral", "displayName": "Encre atténuée", "canonical": "#5f6864", "tonalRamp": ["#2a2c2a", "#2c322e", "#4e5551", "#5f6864", "#8a9a90", "#c5cec8", "#e7e5e0", "#f5f3ef"] },
+      "moss": { "role": "neutral", "displayName": "Mousse", "canonical": "#8a9a90", "tonalRamp": ["#1e2e27", "#2f4a3e", "#3d5c4e", "#5a7568", "#8a9a90", "#c5cec8", "#e8ece9", "#f4f6f3"] },
+      "inverse": { "role": "neutral", "displayName": "Inverse", "canonical": "#2f453c", "tonalRamp": ["#1e2e27", "#2f453c", "#3d5c4e", "#5a7568", "#8a9a90", "#c5cec8", "#e8ece9", "#f4f6f3"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "H1 uniquement." },
+      "headline": { "displayName": "Headline", "purpose": "H2 de section." },
+      "title": { "displayName": "Title", "purpose": "Questions FAQ, titres de motifs." },
+      "body": { "displayName": "Body", "purpose": "Texte courant, ~65ch." },
+      "label": { "displayName": "Label", "purpose": "Boutons et chrome." }
+    },
+    "shadows": [
+      { "name": "soft", "value": "0 1px 8px rgb(47 69 60 / 7%)", "purpose": "Bouton primaire au repos." },
+      { "name": "card", "value": "0 8px 28px rgb(47 69 60 / 9%)", "purpose": "Levée ponctuelle, jamais un halo centré." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "150ms ease-out", "purpose": "États hover / focus des contrôles." },
+      { "name": "plus-toggle", "value": "200ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Plus → moins de la FAQ." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Action principale : contacter, valider.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Me contacter</button>",
+      "css": ".ds-btn-primary { background: var(--color-primary); color: var(--color-primary-fg); border: 2px solid transparent; border-radius: 0.75rem; padding: 0.875rem 1.5rem; font-family: var(--font-sans); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.02em; box-shadow: var(--shadow-soft); cursor: pointer; } .ds-btn-primary:hover { background: var(--color-primary-hover); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; } .ds-btn-primary:active { transform: scale(0.96); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Action secondaire : RDV, parcours.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">Prendre rendez-vous</button>",
+      "css": ".ds-btn-secondary { background: var(--color-surface); color: var(--color-primary); border: 2px solid var(--color-surface-sunken); border-radius: 0.75rem; padding: 0.875rem 1.5rem; font-family: var(--font-sans); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; } .ds-btn-secondary:hover { background: var(--color-surface-sage); border-color: var(--color-primary); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Champ de formulaire.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Votre nom\">",
+      "css": ".ds-input { display: block; width: 100%; border: 0; border-radius: 0.75rem; background: var(--color-surface-subtle); color: var(--color-heading); font-family: var(--font-sans); font-size: 1rem; padding: 0.75rem 1rem; } .ds-input::placeholder { color: var(--color-decor); } .ds-input:focus { outline: 1px solid var(--color-primary); outline-offset: 0; }"
+    },
+    {
+      "name": "FAQ item",
+      "kind": "custom",
+      "refersTo": "faq-item",
+      "description": "Question en filet, plus/moins à droite.",
+      "html": "<details class=\"ds-faq\" open><summary>Quel est le tarif d’une séance ? <span class=\"ds-faq-toggle\" aria-hidden=\"true\"></span></summary><p>La consultation individuelle est à 65 € / 45 min, adultes.</p></details>",
+      "css": ".ds-faq { border-bottom: 1px solid var(--color-surface-sunken); } .ds-faq > summary { display: flex; justify-content: space-between; gap: 1.5rem; padding: 1.25rem 0; list-style: none; font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; cursor: pointer; } .ds-faq > summary::-webkit-details-marker { display: none; } .ds-faq > p { margin: 0; max-width: 65ch; padding: 0 2.5rem 1.25rem 0; color: var(--color-text-secondary); } .ds-faq-toggle { position: relative; width: 1rem; height: 1rem; color: var(--color-muted); } .ds-faq-toggle::before, .ds-faq-toggle::after { content: \"\"; position: absolute; top: 50%; left: 50%; background: currentColor; } .ds-faq-toggle::before { width: 100%; height: 2px; transform: translate(-50%, -50%); } .ds-faq-toggle::after { width: 2px; height: 100%; transform: translate(-50%, -50%); } .ds-faq[open] .ds-faq-toggle { color: var(--color-primary); } .ds-faq[open] .ds-faq-toggle::after { transform: translate(-50%, -50%) rotate(90deg); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le cabinet lin",
+    "overview": "Site d’une psychologue clinicienne à Chambéry. Le visuel doit se lire comme un cabinet réel : papier lin, sauge pour l’action, terracotta seulement en ornement. Fraunces porte les titres (WONK et SOFT à 0) ; Manrope porte le texte. La voix est *je* / *vous*, calme, factuelle.\n\nLa densité est confortable, pas marketing. Les listes et filets remplacent les grilles de cartes quand le contenu est de lecture (FAQ, motifs). La confiance clinique passe avant la conversion.",
+    "keyCharacteristics": [
+      "Surfaces unies (lin, papier, sauge pâle) — pas de nappes ni de dégradés",
+      "Une action primaire sauge ; le terracotta n’est pas un bouton",
+      "Titres serif, corps sans ; mesure de lecture ~65ch",
+      "Ombres rares, décalées, très légères",
+      "Rayon 0.75rem sur boutons, champs, photo"
+    ],
+    "rules": [
+      { "name": "The Solid-Surface Rule", "body": "Les fonds sont des aplatis. Pas de linear-gradient / radial-gradient décoratifs, pas de texte en dégradé.", "section": "colors" },
+      { "name": "The Sage-Is-Action Rule", "body": "La sauge porte l’action. Le terracotta orne ; il n’appelle pas le clic.", "section": "colors" },
+      { "name": "The No-Eyebrow Rule", "body": "Pas de kicker au-dessus d’un titre. Le titre parle tout seul.", "section": "typography" },
+      { "name": "The Hairline-Not-Card Rule", "body": "Une liste de lecture (FAQ) se sépare par un filet #e7e5e0, pas par des cartes ombrées.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do garder les faits dans src/data/client.json.",
+      "Do styler dans src/styles/stitch.css.",
+      "Do utiliser Fraunces + Manrope et les tokens :root.",
+      "Do préférer filets et proximité aux cartes."
+    ],
+    "donts": [
+      "Don't poser de dégradé (texte ou nappe).",
+      "Don't ajouter un kicker / eyebrow.",
+      "Don't mettre une bordure colorée gauche/droite > 1px.",
+      "Don't traiter le site comme une landing d’acquisition.",
+      "Don't inventer diplômes, tarifs, avis, ou Mon Soutien Psy."
+    ]
+  }
+}

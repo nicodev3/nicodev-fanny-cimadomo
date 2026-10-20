@@ -1,15 +1,17 @@
 ---
-import { ArrowRight, Clock, MapPin, Phone, ShieldCheck } from "@lucide/astro";
+import { ArrowRight, GraduationCap, MapPin, ShieldCheck } from "@lucide/astro";
 import { Image } from "astro:assets";
 import { client } from "../../lib/client";
-import { enabledContactHoursRows } from "../../lib/client/contactHours";
 import photo from "../../assets/Fanny-CIMADOMO.webp";
 
-const { business, credentials, contact } = client;
+const { business, credentials } = client;
 const registrationLabel = credentials.license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
 const degree = credentials.degrees[0];
-const hours = enabledContactHoursRows(contact.hours);
-const phoneHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
+const degreeLine = degree
+  ? /psychologie légale/i.test(degree.label)
+    ? `Master 2 psychologie clinique · psychologie légale${degree.year ? ` (${degree.year})` : ""}`
+    : `${degree.label}${degree.year ? ` (${degree.year})` : ""}`
+  : null;
 ---
 
 <aside class="hero-profile" aria-labelledby="practitioner-name">
@@ -24,13 +26,7 @@ const phoneHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
     />
   </div>
 
-  <p class="hero-profile__role">Psychologue clinicienne · {business.city}</p>
   <h2 id="practitioner-name" class="hero-profile__name">{business.fullName}</h2>
-
-  <p class="hero-profile__bio">
-    J’accompagne les adultes face à l’anxiété, au psychotraumatisme, au deuil ou à l’épuisement,
-    dans un cadre confidentiel et sans jugement.
-  </p>
 
   <ul class="hero-profile__facts">
     {
@@ -39,8 +35,15 @@ const phoneHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
           <ShieldCheck size={16} aria-hidden="true" />
           <span>
             {registrationLabel} {credentials.license.rppsOrAdeli}
-            {degree && ` · ${degree.institution}`}
           </span>
+        </li>
+      )
+    }
+    {
+      degreeLine && (
+        <li>
+          <GraduationCap size={16} aria-hidden="true" />
+          <span>{degreeLine}</span>
         </li>
       )
     }
@@ -48,24 +51,12 @@ const phoneHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
       <MapPin size={16} aria-hidden="true" />
       <span>{business.addressLine1}, {business.postalCode} {business.city}</span>
     </li>
-    {
-      hours.length > 0 && (
-        <li>
-          <Clock size={16} aria-hidden="true" />
-          <span>{hours.map((h) => `${h.label} ${h.value}`).join(" · ")}</span>
-        </li>
-      )
-    }
   </ul>
 
   <div class="hero-profile__actions">
     <a href="/a-propos/" class="cta-secondary cta-secondary--sm">
-      Découvrir mon parcours
+      Découvrir le parcours
       <ArrowRight size={16} aria-hidden="true" />
-    </a>
-    <a href={phoneHref} class="cta-secondary cta-secondary--sm" aria-label={`Appeler le ${business.phone}`}>
-      <Phone size={16} aria-hidden="true" />
-      {business.phone}
     </a>
   </div>
 </aside>

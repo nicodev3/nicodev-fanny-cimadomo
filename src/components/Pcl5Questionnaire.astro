@@ -111,17 +111,23 @@ const scale = [
 
 <style>
   .pcl5__item {
-    border: 1px solid var(--color-surface-warm, #ede0d7);
-    border-radius: 0.75rem;
-    padding: 1rem;
-    background: var(--color-surface, #fff);
+    margin: 0;
+    border: none;
+    border-top: 1px solid var(--color-surface-muted);
+    border-radius: 0;
+    padding: 1.25rem 0;
+    background: transparent;
+  }
+  .pcl5__item:first-of-type {
+    border-top: none;
+    padding-top: 0;
   }
   .pcl5__item legend {
     padding: 0 0.5rem;
     font-weight: 500;
   }
   .pcl5__item[data-missing] {
-    border-color: var(--color-accent-strong, #a4573a);
+    border-top-color: var(--color-accent-strong, #a4573a);
   }
   .pcl5__num {
     color: var(--color-accent-strong, #a4573a);

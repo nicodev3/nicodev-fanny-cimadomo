@@ -1,4 +1,5 @@
 ---
+import { Clock } from "@lucide/astro";
 import { enabledContactHoursRows } from "../lib/client/contactHours";
 import { client } from "../lib/client";
 
@@ -8,7 +9,10 @@ const hoursRows = enabledContactHoursRows(client.contact.hours);
 {
   hoursRows.length > 0 && (
     <div data-component="contact.hours-block">
-      <h2>Horaires</h2>
+      <h2 class="info-card__title">
+        <Clock size={18} aria-hidden="true" />
+        Horaires
+      </h2>
       <table>
         <tbody>
           {hoursRows.map((row) => (

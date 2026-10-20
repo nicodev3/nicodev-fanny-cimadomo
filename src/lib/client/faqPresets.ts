@@ -5,6 +5,7 @@
 
 import type { ClientProfession } from "./profession.ts";
 import type { ClientConfig } from "./schema.ts";
+import { enabledContactHoursRows } from "./contactHours.ts";
 import { resolvedBookingPrimaryHref } from "./siteBooking.ts";
 
 export type FaqCustomEntry = { question: string; answer: string };
@@ -32,7 +33,7 @@ export const FAQ_PRESETS = [
     id: "sessionPricing",
     question: "Quel est le tarif d’une séance ?",
     answer:
-      "Les tarifs sont indiqués sur la page Tarifs avec la durée des séances. Une facture peut être remise à la fin de chaque consultation pour vos démarches administratives.",
+      "Les tarifs et la durée des séances sont indiqués sur le site. Une facture peut être remise à la fin de chaque consultation pour vos démarches administratives.",
   },
   {
     id: "reimbursement",
@@ -40,13 +41,19 @@ export const FAQ_PRESETS = [
     answer:
       "Les consultations psychologiques ne sont généralement pas remboursées par la Sécurité sociale hors dispositifs spécifiques. En revanche, de nombreuses mutuelles proposent une prise en charge partielle.",
   },
+  {
+    id: "hoursCancellation",
+    question: "Quels sont les horaires et le délai d’annulation ?",
+    answer:
+      "Les horaires et le délai d’annulation sont indiqués sur le site. Merci de prévenir à l’avance en cas d’empêchement.",
+  },
 ] as const;
 
 export type FaqPresetId = (typeof FAQ_PRESETS)[number]["id"];
 
 const FAQ_REIMBURSEMENT_ANSWER: Record<ClientProfession, string> = {
   psychologue:
-    "Les consultations psychologiques ne sont généralement pas remboursées par la Sécurité sociale hors dispositifs spécifiques. En revanche, de nombreuses mutuelles proposent une prise en charge partielle.",
+    "Les consultations psychologiques ne sont généralement pas remboursées par la Sécurité sociale. Une facture vous est fournie pour vos démarches auprès de la mutuelle ; les modalités dépendent de votre contrat.",
   psychomotricien:
     "Le remboursement des séances de psychomotricité dépend de la situation (prescription, conventionnement, mutuelle, public concerné). Les modalités diffèrent souvent des actes de psychologie ; renseignez-vous auprès de votre caisse et de votre mutuelle.",
 };
@@ -74,15 +81,72 @@ function faqBookingAnswer(client: ClientConfig): string {
   return "Prenez rendez-vous via le lien de réservation ou contactez-moi par e-mail pour préciser votre besoin avant la première séance.";
 }
 
+function faqPricingAnswer(client: ClientConfig): string {
+  const items = client.pricing.items;
+  if (items.length === 0) {
+    return "Les tarifs et la durée des séances sont indiqués sur la page Tarifs. Une facture peut être remise à la fin de chaque consultation pour vos démarches administratives.";
+  }
+  const list = items
+    .map((item) => {
+      const duration = item.durationMinutes ? ` / ${item.durationMinutes} min` : "";
+      const note = item.note?.trim() ? `, ${item.note.trim().toLowerCase()}` : "";
+      return `${item.price} €${duration}${note}`;
+    })
+    .join(" ; ");
+  const parts = [
+    items.length === 1
+      ? `La consultation individuelle est à ${list}.`
+      : `Les séances : ${list}.`,
+    "Une facture peut être remise à la fin de chaque consultation pour vos démarches auprès de la mutuelle.",
+  ];
+  if (!client.practice.reimbursement.monSoutienPsy.enabled) {
+    parts.push("Ce cabinet ne propose pas le dispositif Mon Soutien Psy.");
+  }
+  return parts.join(" ");
+}
+
+function faqHoursCancellationAnswer(client: ClientConfig): string {
+  const hours = enabledContactHoursRows(client.contact.hours);
+  const hoursText = hours.map((h) => `${h.label} ${h.value}`).join(", ");
+  const atCabinet = client.practice.consultationModes.includes("cabinet") ? ", au cabinet" : "";
+  const notice = client.conditions.cancellation.noticeHours;
+  const parts: string[] = [];
+  if (hours.length === 1) {
+    parts.push(`Les consultations ont lieu le ${hoursText.toLowerCase()}${atCabinet}.`);
+  } else if (hours.length > 1) {
+    parts.push(`Les consultations ont lieu ${hoursText.toLowerCase()}${atCabinet}.`);
+  }
+  if (notice) {
+    parts.push(
+      `Merci de prévenir au moins ${notice} heures à l’avance, hors samedi, dimanche et jours fériés ; sinon la séance est due.`,
+    );
+  }
+  return parts.join(" ");
+}
+
+function faqReimbursementAnswer(client: ClientConfig): string {
+  const parts = [FAQ_REIMBURSEMENT_ANSWER[client.profession]];
+  if (!client.practice.reimbursement.monSoutienPsy.enabled) {
+    parts.push("Ce cabinet ne propose pas le dispositif Mon Soutien Psy.");
+  }
+  return parts.join(" ");
+}
+
 function faqPresetAnswerForClient(
   preset: (typeof FAQ_PRESETS)[number],
   client: ClientConfig,
 ): string {
   if (preset.id === "reimbursement") {
-    return FAQ_REIMBURSEMENT_ANSWER[client.profession];
+    return faqReimbursementAnswer(client);
   }
   if (preset.id === "rdvBooking") {
     return faqBookingAnswer(client);
+  }
+  if (preset.id === "sessionPricing") {
+    return faqPricingAnswer(client);
+  }
+  if (preset.id === "hoursCancellation") {
+    return faqHoursCancellationAnswer(client);
   }
   return preset.answer;
 }

@@ -1,61 +1,57 @@
 ---
-import { CalendarX, CircleAlert, Hourglass, Lock, UserX } from "@lucide/astro";
+import { CircleAlert } from "@lucide/astro";
 import { client } from "../lib/client";
 import { professionConditionsConfidentialitySummary } from "../lib/client/professionCopy.ts";
 import { CONDITIONS_LIMITS_ITEMS } from "../lib/constants";
 
 const confidentialitySummary = professionConditionsConfidentialitySummary(client.profession);
-
 const c = client.conditions;
+const sessionPrice = client.pricing.items[0]?.price;
+const dueAmount =
+  c.noShow.charged && sessionPrice
+    ? ` (${sessionPrice}\u00a0€)`
+    : "";
 ---
 
 <section class="page-block" data-component="panel.conditions" aria-labelledby="conditions-title">
-  <div class="section-head">
-    <p class="section-eyebrow">Cadre</p>
-    <h2 id="conditions-title">Conditions du suivi</h2>
-  </div>
+  <h2 id="conditions-title">Annulation, retard et absence</h2>
 
-  <ul class="card-grid card-grid--3">
-    <li class="info-card" data-component="conditions.cancellation">
-      <span class="icon-badge" aria-hidden="true"><CalendarX size={20} /></span>
+  <ul class="rule-list">
+    <li data-component="conditions.cancellation">
       <h3>Annulation</h3>
-      <p class="info-card__key">{c.cancellation.noticeHours} h à l’avance</p>
-      <p class="note">{c.cancellation.feePolicy}</p>
+      <p>
+        Prévenez-moi au moins {c.cancellation.noticeHours} heures à l’avance, hors samedi, dimanche
+        et jours fériés. {c.cancellation.feePolicy}
+      </p>
     </li>
 
-    <li class="info-card" data-component="conditions.delay">
-      <span class="icon-badge" aria-hidden="true"><Hourglass size={20} /></span>
+    <li data-component="conditions.delay">
       <h3>Retard</h3>
-      <p class="info-card__key">Tolérance : {c.delay.graceMinutes} min</p>
-      <p class="note">{c.delay.note}</p>
+      <p>
+        Au-delà de {c.delay.graceMinutes} minutes, {c.delay.note}
+      </p>
     </li>
 
-    <li class="info-card" data-component="conditions.no-show">
-      <span class="icon-badge" aria-hidden="true"><UserX size={20} /></span>
-      <h3>Absence non signalée</h3>
-      <p class="info-card__key">{c.noShow.charged ? "Séance due" : "Non facturée"}</p>
-      <p class="note">{c.noShow.note}</p>
+    <li data-component="conditions.no-show">
+      <h3>Absence</h3>
+      <p>
+        {c.noShow.note}
+        {dueAmount}.
+      </p>
     </li>
   </ul>
 
-  <div class="conditions-notes">
-    <p class="conditions-note" data-component="conditions.confidentiality">
-      <Lock size={18} aria-hidden="true" />
-      <span>{confidentialitySummary}</span>
-    </p>
+  <p class="conditions-confidentiality" data-component="conditions.confidentiality">
+    {confidentialitySummary}
+  </p>
 
-    <div
-      class="conditions-note conditions-note--alert"
-      data-component="conditions.limits"
-      role="note"
-    >
-      <CircleAlert size={18} aria-hidden="true" />
-      <div>
-        <p class="conditions-note__title">Limites du suivi</p>
-        <ul>
-          {CONDITIONS_LIMITS_ITEMS.map((item) => <li>{item}</li>)}
-        </ul>
-      </div>
+  <div class="conditions-note conditions-note--alert" data-component="conditions.limits" role="note">
+    <CircleAlert size={18} aria-hidden="true" />
+    <div>
+      <p class="conditions-note__title">Urgences</p>
+      <ul>
+        {CONDITIONS_LIMITS_ITEMS.map((item) => <li>{item}</li>)}
+      </ul>
     </div>
   </div>
 </section>

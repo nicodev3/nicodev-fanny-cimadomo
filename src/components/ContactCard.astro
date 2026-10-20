@@ -18,8 +18,10 @@ const accessNote = client.contact.accessNote ?? "";
 <section class="info-card contact-card" data-component="contact.card">
   <div class:list={["contact-card__grid", !stacked && "contact-card__grid--split"]}>
     <div class="contact-card__body">
-      <span class="icon-badge" aria-hidden="true"><MapPin size={20} /></span>
-      <h2>Le cabinet</h2>
+      <h2 class="info-card__title">
+        <MapPin size={18} aria-hidden="true" />
+        Le cabinet
+      </h2>
       <address class="contact-card__address">
         Cabinet {b.fullName}<br />
         {

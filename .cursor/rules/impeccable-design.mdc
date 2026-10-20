@@ -1,0 +1,15 @@
+---
+alwaysApply: true
+---
+
+Direction visuelle de ce repo : skill projet Impeccable (`/impeccable`).
+Google Stitch n’est pas une identité figée. Ne pas coller un écran Stitch ni invoquer `appliquer-design-stitch` sauf demande explicite « Stitch ».
+Ne pas invoquer `nicodev-anti-slop` / `redesign-existing-projects` en parallèle d’Impeccable.
+
+Garde-fous Nicodev (inchangés) :
+- contenu factuel dans `src/data/client.json` — ne pas inventer ;
+- styles dans `src/styles/stitch.css` (nom du fichier, pas un lock) ;
+- pas de HTML Stitch collé dans les `.astro` ;
+- classes Tailwind canoniques, pas de custom values de taille.
+
+Registre : cabinet / professionnel de santé, discret. Pas de landing marketing, `bolder`, `overdrive` ou `delight` sauf demande explicite.

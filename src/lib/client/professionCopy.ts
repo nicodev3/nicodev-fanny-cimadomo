@@ -31,7 +31,7 @@ export function professionConditionsConfidentialitySummary(profession: ClientPro
   if (profession === "psychomotricien") {
     return "Le cadre est confidentiel dans le respect du secret professionnel et des obligations légales attachées à l’exercice de la psychomotricité.";
   }
-  return "Le cadre est confidentiel dans le respect du code de déontologie du psychologue.";
+  return "Ce que vous me confiez reste confidentiel, dans les limites du code de déontologie des psychologues.";
 }
 
 /** Schéma.org : type principal pour le script JSON-LD du layout. */

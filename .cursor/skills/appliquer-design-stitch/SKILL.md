@@ -2,9 +2,10 @@
 name: appliquer-design-stitch
 description: >-
   Applique un export Google Stitch (HTML + Tailwind + screenshot) au socle Astro
-  Nicodev via data-component et stitch.css. Utiliser quand l'utilisateur mentionne
-  Stitch, design client, stitch.css, thème visuel, ou demande d'appliquer un écran
-  Stitch à un repo client forké du template.
+  Nicodev via data-component et stitch.css. Utiliser uniquement si l'utilisateur
+  mentionne explicitement Stitch ou un export Google Stitch. Ne pas invoquer pour
+  un redesign, un polish, un audit visuel ou un thème général — Impeccable
+  possède la direction visuelle de ce repo.
 ---
 
 # Appliquer un design Google Stitch

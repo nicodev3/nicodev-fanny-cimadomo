@@ -15,8 +15,10 @@ const regLabel = license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
 
 <div class="card-grid card-grid--2 legal-grid">
   <section class="info-card" data-component="legal.editor" aria-labelledby="legal-editor">
-    <span class="icon-badge" aria-hidden="true"><Building2 size={20} /></span>
-    <h2 id="legal-editor">Éditeur du site</h2>
+    <h2 id="legal-editor" class="info-card__title">
+      <Building2 size={18} aria-hidden="true" />
+      Éditeur du site
+    </h2>
     <dl class="definition-list">
       <div>
         <dt>Responsable</dt>
@@ -50,8 +52,10 @@ const regLabel = license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
   </section>
 
   <section class="info-card" data-component="legal.hosting" aria-labelledby="legal-hosting">
-    <span class="icon-badge" aria-hidden="true"><Server size={20} /></span>
-    <h2 id="legal-hosting">Hébergement</h2>
+    <h2 id="legal-hosting" class="info-card__title">
+      <Server size={18} aria-hidden="true" />
+      Hébergement
+    </h2>
     <dl class="definition-list">
       <div>
         <dt>Hébergeur</dt>
@@ -70,8 +74,10 @@ const regLabel = license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
     data-component="legal.privacy"
     aria-labelledby="legal-privacy"
   >
-    <span class="icon-badge" aria-hidden="true"><ShieldCheck size={20} /></span>
-    <h2 id="legal-privacy">Données personnelles</h2>
+    <h2 id="legal-privacy" class="info-card__title">
+      <ShieldCheck size={18} aria-hidden="true" />
+      Données personnelles
+    </h2>
     <p>
       Les informations transmises via email ou prise de rendez-vous sont utilisées uniquement pour
       répondre à votre demande. Pour toute question : <a href={`mailto:${b.email}`}>{b.email}</a>.
@@ -79,8 +85,10 @@ const regLabel = license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
   </section>
 
   <section class="info-card" data-component="legal.cookies" aria-labelledby="legal-cookies">
-    <span class="icon-badge" aria-hidden="true"><Cookie size={20} /></span>
-    <h2 id="legal-cookies">Cookies / traceurs</h2>
+    <h2 id="legal-cookies" class="info-card__title">
+      <Cookie size={18} aria-hidden="true" />
+      Cookies / traceurs
+    </h2>
     <p>{LEGAL_NO_TRACKING_NOTICE}</p>
   </section>
 </div>

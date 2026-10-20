@@ -43,6 +43,9 @@ function guardServerIslandPlaceholder() {
 export default defineConfig({
   site: client.seo.baseUrl,
   trailingSlash: "always",
+  devToolbar: {
+    enabled: false,
+  },
   integrations: [
     sitemap({
       filter: (page) => !NON_INDEXABLE_PATHS.some((path) => page.includes(path)),

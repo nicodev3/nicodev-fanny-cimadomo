@@ -1,5 +1,4 @@
 ---
-import { ChevronRight } from "@lucide/astro";
 import { client } from "../lib/client";
 import { resolvedFaqEntries } from "../lib/client/faqPresets.ts";
 
@@ -23,15 +22,19 @@ const faqPageJsonLd =
       }).replace(/</g, "\\u003c");
 ---
 
-<section class:list={["page-block", className]} data-component="panel.faq">
-  <h2>Questions fréquentes</h2>
-  <div>
+<section
+  class:list={["page-block", className]}
+  data-component="panel.faq"
+  aria-labelledby="faq-heading"
+>
+  <h2 id="faq-heading">Questions fréquentes</h2>
+  <div class="faq-list">
     {
       items.map((item) => (
         <details data-component="faq.item">
           <summary>
-            <span class="faq-chevron" aria-hidden="true"><ChevronRight size={18} /></span>
             <span>{item.question}</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
           </summary>
           <p>{item.answer}</p>
         </details>

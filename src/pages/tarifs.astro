@@ -6,15 +6,17 @@ export const pageNav = {
 
 import StandardPageLayout from "../layouts/StandardPageLayout.astro";
 import TarifsPageContent from "../components/pages/TarifsPageContent.astro";
+import { client } from "../lib/client";
+
+const item = client.pricing.items[0];
+const intro = item
+  ? `La consultation individuelle est à ${item.price}\u00a0€ pour ${item.durationMinutes} minutes, au cabinet à ${client.business.city}.`
+  : "";
+const description = intro
+  ? `${intro} Paiement, remboursement et délai d’annulation.`
+  : "Tarifs, paiement, remboursement et délai d’annulation.";
 ---
 
-<StandardPageLayout
-  title="Tarifs"
-  description="Les tarifs sont indiqués à titre informatif. N'hésitez pas à me contacter si besoin."
-  hidePageHeader
->
-  <TarifsPageContent
-    title="Tarifs"
-    intro="Les tarifs sont indiqués à titre informatif. N'hésitez pas à me contacter si besoin."
-  />
+<StandardPageLayout title="Tarifs" description={description} hidePageHeader>
+  <TarifsPageContent title="Tarifs" intro={intro} />
 </StandardPageLayout>

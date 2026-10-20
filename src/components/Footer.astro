@@ -1,5 +1,5 @@
 ---
-import { CalendarDays, ExternalLink, Mail, Phone } from "@lucide/astro";
+import { CalendarDays, ExternalLink, Mail, MessagesSquare, Phone } from "@lucide/astro";
 import { getArticleNavigation } from "../lib/contentNavigation";
 import { buildFooterSiteMapItems } from "../lib/footerSiteMap";
 import { getSiteNavigation } from "../lib/siteNavigation";
@@ -90,8 +90,12 @@ const deontologie = professionDeontologieFooterLink(client.profession);
       </address>
 
       <div class="flex flex-col items-start gap-2" data-component="footer.booking">
+        <a class="cta-primary cta-primary--footer" href={SITE_BOOKING_SECONDARY_HREF}>
+          <MessagesSquare class="size-4 shrink-0" size={16} aria-hidden="true" />
+          {SITE_BOOKING_SECONDARY_LABEL}
+        </a>
         <a
-          class="cta-primary cta-primary--footer"
+          class="cta-secondary cta-secondary--sm"
           href={bookingHref}
           {...bookingExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
         >
@@ -99,7 +103,6 @@ const deontologie = professionDeontologieFooterLink(client.profession);
           {SITE_BOOKING_PRIMARY_LABEL}
           {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
         </a>
-        <a class="text-base" href={SITE_BOOKING_SECONDARY_HREF}>{SITE_BOOKING_SECONDARY_LABEL}</a>
       </div>
 
       <div class="flex flex-col gap-3" data-component="footer.sitemap">

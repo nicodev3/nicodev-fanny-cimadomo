@@ -130,15 +130,15 @@
     "conditions": {
         "cancellation": {
             "noticeHours": 48,
-            "feePolicy": "Toute annulation ou report de séance doit être effectué au moins 48 heures à l'avance (jours ouvrés). N'hésitez pas à me contacter pour m'en faire part afin que nous puissions en échanger. Dans le cas contraire, la séance fera l'objet d'un dédommagement du montant de la consultation. Cette règle permet de respecter le temps de chacun et d'offrir une place à d'autres patients en attente."
+            "feePolicy": "Sinon la séance reste due, pour laisser la place à une personne en attente."
         },
         "delay": {
             "graceMinutes": 10,
-            "note": "En cas de retard important, la séance peut être écourtée pour respecter les rendez-vous suivants."
+            "note": "la séance peut être écourtée pour les rendez-vous suivants."
         },
         "noShow": {
             "charged": true,
-            "note": "Toute absence non signalée est considérée comme une séance due."
+            "note": "Une séance non prévenue est due"
         }
     },
     "seo": {
@@ -188,7 +188,7 @@
         "sexology": []
     },
     "aboutPage": {
-        "intro": "Psychologue clinicienne à Chambéry, j'accompagne des adultes par le biais de différents outils dans une approche intégrative. En effet, elle combine les thérapies cognitive-comportementales et émotionnelles (TCCE), la clinique du psychotraumatisme avec la thérapie EMDR, la systèmie ou encore des apports de la thérapie des schémas.",
+        "intro": "Psychologue clinicienne à Chambéry, j'accompagne des adultes en cabinet, dans une approche intégrative. Je m'appuie sur les thérapies cognitives et comportementales (TCC), la clinique du psychotraumatisme et l'EMDR (formation niveau 1 en cours), ainsi que des apports systémiques et de la thérapie des schémas.",
         "sidebarSummary": "Psychologue clinicienne à Chambéry, j'accompagne des adultes par le biais de différents outils dans une approche intégrative (TCC, EMDR, etc)."
     },
     "contact": {

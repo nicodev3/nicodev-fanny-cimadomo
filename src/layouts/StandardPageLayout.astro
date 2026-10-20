@@ -14,8 +14,6 @@ interface Props {
   description?: string;
   /** Chapô sous le titre ; par défaut la description SEO. */
   intro?: string;
-  /** Petite étiquette affichée au-dessus du titre. */
-  eyebrow?: string;
   /** La page fournit son propre en-tête (ex. à propos avec portrait). */
   hidePageHeader?: boolean;
   ogType?: "website" | "article";
@@ -29,7 +27,6 @@ const {
   title,
   description = "",
   intro = description,
-  eyebrow = "",
   hidePageHeader = false,
   ogType = "website",
   modifiedTime,
@@ -57,7 +54,6 @@ const {
           data-component="page.header"
         >
           <div class="page-hero__copy">
-          {eyebrow && <p class="section-eyebrow section-eyebrow--pill">{eyebrow}</p>}
           <h1>{title}</h1>
           {intro && <p class="lead">{intro}</p>}
           {Astro.slots.has("actions") && (

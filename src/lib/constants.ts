@@ -17,8 +17,8 @@ export const REIMBURSEMENT_MUTUELLE_NOTICE =
 
 /** Limites du suivi (liste figée, panneau conditions — non paramétrable par client.json). */
 export const CONDITIONS_LIMITS_ITEMS: readonly string[] = [
-  "Ce suivi ne remplace pas un service d'urgence.",
-  "En cas d'urgence immédiate, contactez le 15 (SAMU) ou le 112.",
+  "Les consultations ne remplacent pas un service d’urgence.",
+  "En cas d’urgence immédiate, contactez le 15 (SAMU) ou le 112.",
 ];
 
 /**

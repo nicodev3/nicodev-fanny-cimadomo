@@ -1,5 +1,4 @@
 ---
-import { Clock } from "@lucide/astro";
 import ContactCard from "../ContactCard.astro";
 import ContactHoursBlock from "../ContactHoursBlock.astro";
 import ContactForm from "../ContactForm.astro";
@@ -18,9 +17,6 @@ const waitingListNote = client.practice.waitingListNote ?? "";
     {
       hasHours && (
         <div class="info-card" data-component="contact.hours">
-          <span class="icon-badge" aria-hidden="true">
-            <Clock size={20} />
-          </span>
           <ContactHoursBlock />
           {waitingListNote && <p class="note">{waitingListNote}</p>}
         </div>

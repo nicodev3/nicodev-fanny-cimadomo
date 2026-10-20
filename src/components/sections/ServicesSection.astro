@@ -1,31 +1,49 @@
 ---
-import { client } from "../../lib/client";
-
 interface Props {
   /** Page listant le détail des motifs. */
   detailsPageHref?: string;
 }
 
 const { detailsPageHref = "/pourquoi-consulter/" } = Astro.props;
-const specialtyLabels = client.practice.specialties;
+
+const groups = [
+  {
+    title: "Anxiété, peurs et sommeil",
+    text: "Quand l’angoisse, les phobies ou le sommeil prennent trop de place.",
+  },
+  {
+    title: "Après un choc, un deuil, des violences",
+    text: "Trauma, harcèlement, violences, relations très dégradées.",
+  },
+  {
+    title: "Humeur, isolement et estime de soi",
+    text: "Dépression, solitude, questionnement identitaire.",
+  },
+  {
+    title: "Souffrance au travail",
+    text: "Épuisement professionnel, reconversion.",
+  },
+];
 ---
 
 <section class="space-y-10" data-component="section.services">
-  <h2>Motifs de consultation</h2>
-  {
-    specialtyLabels.length > 0 && (
-      <>
-        <ul class="flex flex-wrap gap-3">
-          {specialtyLabels.map((label) => (
-            <li class="px-4 py-2 text-sm leading-tight">{label}</li>
-          ))}
-        </ul>
-        <div class="pt-3">
-          <a href={detailsPageHref} class="cta-secondary cta-secondary--sm">
-            Voir tous les motifs
-          </a>
-        </div>
-      </>
-    )
-  }
+  <div class="max-w-xl space-y-4">
+    <h2>Pourquoi consulter</h2>
+    <p>
+      Quelques situations fréquentes au cabinet. La liste complète des motifs est sur une page dédiée.
+    </p>
+  </div>
+  <ul>
+    {
+      groups.map((group) => (
+        <li>
+          <h3>{group.title}</h3>
+          <p>{group.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+  <p>
+    <a href={detailsPageHref} class="cta-secondary cta-secondary--sm">Tous les motifs</a>
+  </p>
 </section>

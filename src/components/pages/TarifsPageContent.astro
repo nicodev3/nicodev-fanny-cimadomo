@@ -1,9 +1,8 @@
 ---
-import { Banknote, Check, Clock, MapPin, ReceiptText } from "@lucide/astro";
+import { Clock, MapPin } from "@lucide/astro";
 import ConditionsPanel from "../ConditionsPanel.astro";
 import MonSoutienPsyCallout from "../MonSoutienPsyCallout.astro";
 import BookingActions from "../ui/BookingActions.astro";
-import ContactBand from "../ui/ContactBand.astro";
 import { client } from "../../lib/client";
 import { getSiteCopy } from "../../lib/siteCopy";
 import { formatConsultationModesPhrase } from "../../lib/client/consultationModesDisplay";
@@ -28,6 +27,11 @@ const priceFormatter = new Intl.NumberFormat("fr-FR", {
   maximumFractionDigits: 2,
   minimumFractionDigits: 0,
 });
+const payments = client.pricing.payment.map((item) => item.toLowerCase());
+const paymentLine =
+  payments.length <= 1
+    ? (payments[0] ?? "")
+    : `${payments.slice(0, -1).join(", ")} ou ${payments.at(-1)}`;
 ---
 
 <section
@@ -36,41 +40,31 @@ const priceFormatter = new Intl.NumberFormat("fr-FR", {
   aria-labelledby="pricing-title"
 >
   <div class="page-hero__intro">
-    <p class="section-eyebrow section-eyebrow--pill">Honoraires &amp; modalités</p>
     <h1 id="pricing-title">{title}</h1>
     {intro && <p class="lead">{intro}</p>}
-    {
-      consultationModes && (
-        <p class="hero-meta">
-          <MapPin size={16} aria-hidden="true" />
-          Consultations {consultationModes} · {client.business.city}
-        </p>
-      )
-    }
-    <BookingActions />
   </div>
 
   <div class="pricing-hero__offers" data-component="pricing.list">
-    <h2 class="sr-only">Grille tarifaire</h2>
+    <h2 class="sr-only">{hasSinglePricingItem ? "Honoraires" : "Honoraires des séances"}</h2>
     <ul class="pricing-cards">
       {
         pricingItems.map((it) => (
           <li class="pricing-card" data-component="pricing.item">
-            {it.note && <p class="pricing-card__tag">{it.note}</p>}
             <h3 class="pricing-card__name">{it.name}</h3>
             <p class="pricing-card__price">
               <span class="pricing-card__amount">{priceFormatter.format(it.price)}</span>
               <span class="pricing-card__unit">/ séance</span>
             </p>
             <ul class="pricing-card__facts">
+              {it.note && <li>{it.note}</li>}
               <li>
                 <Clock size={16} aria-hidden="true" />
-                <span>Durée : {it.durationMinutes} minutes</span>
+                <span>{it.durationMinutes} minutes</span>
               </li>
               {consultationModes && (
                 <li>
                   <MapPin size={16} aria-hidden="true" />
-                  <span>Séance {consultationModes}</span>
+                  <span>Au cabinet, {client.business.city}</span>
                 </li>
               )}
             </ul>
@@ -83,40 +77,25 @@ const priceFormatter = new Intl.NumberFormat("fr-FR", {
 </section>
 
 <section
-  class="surface-panel"
+  class="surface-panel pricing-settlement"
   data-component="pricing.settlement"
   aria-labelledby="pricing-settlement-title"
 >
-  <div class="section-head">
-    <p class="section-eyebrow">Règlement</p>
-    <h2 id="pricing-settlement-title">Paiement et remboursement</h2>
-  </div>
+  <h2 id="pricing-settlement-title">Paiement et remboursement</h2>
 
-  <div class="card-grid card-grid--2">
-    <div class="info-card" data-component="pricing.payment">
-      <span class="icon-badge" aria-hidden="true"><Banknote size={20} /></span>
-      <h3>Moyens de paiement</h3>
-      <ul class="chip-list">
-        {
-          client.pricing.payment.map((payment) => (
-            <li>
-              <Check size={14} aria-hidden="true" />
-              {payment}
-            </li>
-          ))
-        }
-      </ul>
+  <div class="rule-split">
+    <div data-component="pricing.payment">
+      <h3>Paiement</h3>
+      <p>Vous pouvez régler par {paymentLine}.</p>
     </div>
 
-    <div class="info-card" data-component="pricing.reimbursement">
-      <span class="icon-badge" aria-hidden="true"><ReceiptText size={20} /></span>
+    <div data-component="pricing.reimbursement">
       <h3>Remboursement</h3>
       <p>
         Les consultations ne sont pas remboursées par la Sécurité sociale. {
           REIMBURSEMENT_MUTUELLE_NOTICE
-        }
+        } Une facture vous est fournie.
       </p>
-      <p class="note">Renseignez-vous auprès de votre mutuelle pour connaître ses modalités.</p>
     </div>
   </div>
 
@@ -125,4 +104,6 @@ const priceFormatter = new Intl.NumberFormat("fr-FR", {
 
 <ConditionsPanel />
 
-<ContactBand title="Une question sur les tarifs ?" />
+<div class="pricing-next">
+  <BookingActions />
+</div>

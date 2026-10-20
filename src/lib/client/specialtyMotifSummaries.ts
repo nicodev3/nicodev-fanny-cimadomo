@@ -21,7 +21,7 @@ const SPECIALTY_SUMMARIES_RAW: Record<string, string> = {
   "Deuil, violences, harcèlement et troubles relationnels sévères":
     "Donner sens à ce qui a brisé les repères (deuil, violences, harcèlement, ruptures ou troubles de l’attachement) sans rester seul avec la honte ou la colère. Le travail vise la sécurisation du présent et des appuis réalistes, y compris avec les institutions concernées.",
   "Troubles dépressifs et dysthymie":
-    "Sortir de la spirale rumination et d’anhédonie par des micro-actions réalistes et des exigences ajustées. Si des idées suicidaires apparaissent, mettons en sécurité le présent : en urgence absolue, contactez le 15 ou le 112 ; le cabinet ne remplace pas les urgences.",
+    "Quand plus rien n’a de goût et que les pensées tournent en boucle, on cherche des gestes simples, à votre rythme. Si des idées suicidaires apparaissent, la priorité est de vous mettre en sécurité : en urgence, appelez le 15 ou le 112 ; le cabinet ne remplace pas les urgences.",
   "Trouble bipolaire":
     "Mieux repérer les phases, les signaux précoces et les facteurs de vulnérabilité autour des variations d’humeur. L’accompagnement complète le suivi médical en renforçant la stabilité du quotidien et l’adhésion aux soins.",
   "Schizophrénie, trouble délirant et troubles dissociatifs":

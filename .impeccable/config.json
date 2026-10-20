@@ -1,0 +1,10 @@
+{
+  "buildPath": "code",
+  "telemetry": false,
+  "hook": {
+    "enabled": false
+  },
+  "detector": {
+    "ignoreRules": ["cream-palette"]
+  }
+}

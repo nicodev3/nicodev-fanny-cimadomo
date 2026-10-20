@@ -5,11 +5,15 @@ import { SITE_BOOKING_SECONDARY_HREF, SITE_BOOKING_SECONDARY_LABEL } from "../..
 interface Props {
   title?: string;
   text?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
 }
 
 const {
   title = "Une question avant de prendre rendez-vous ?",
   text = "Écrivez-moi : je vous réponds dans les meilleurs délais.",
+  ctaHref = SITE_BOOKING_SECONDARY_HREF,
+  ctaLabel = SITE_BOOKING_SECONDARY_LABEL,
 } = Astro.props;
 const headingId = "contact-band-title";
 ---
@@ -19,8 +23,8 @@ const headingId = "contact-band-title";
     <h2 id={headingId}>{title}</h2>
     <p>{text}</p>
   </div>
-  <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary cta-primary--sm">
+  <a href={ctaHref} class="cta-primary cta-primary--sm">
     <MessagesSquare size={16} aria-hidden="true" />
-    {SITE_BOOKING_SECONDARY_LABEL}
+    {ctaLabel}
   </a>
 </section>

@@ -9,7 +9,9 @@ interface Props {
 
 const { class: className, headingLevel = 3 } = Astro.props;
 const msp = client.practice.reimbursement.monSoutienPsy;
-const showMsp = professionSupportsMonSoutienPsy(client.profession) && msp.enabled;
+const professionAllowsMsp = professionSupportsMonSoutienPsy(client.profession);
+const showMsp = professionAllowsMsp && msp.enabled;
+const showAbsent = professionAllowsMsp && !msp.enabled;
 const HeadingTag = `h${headingLevel}` as "h2" | "h3" | "h4";
 ---
 
@@ -18,16 +20,22 @@ const HeadingTag = `h${headingLevel}` as "h2" | "h3" | "h4";
     <section
       class:list={["page-block", className]}
       data-component="MonSoutienPsyCallout"
-      aria-label="Dispositif Mon soutien psy"
+      aria-labelledby="msp-title"
     >
-      <p class="note">Dispositif de prise en charge</p>
-      <HeadingTag>Mon soutien psy</HeadingTag>
+      <HeadingTag id="msp-title">Mon Soutien Psy</HeadingTag>
       <p>
-        <strong>Mon Soutien Psy</strong> permet aux patients d’obtenir un accompagnement
-        psychologique pris en charge, sous conditions, grâce à une prescription médicale. Ce
-        dispositif vise à rendre la psychothérapie plus accessible financièrement.
+        Le dispositif Mon Soutien Psy permet, sous conditions et sur prescription médicale, un
+        accompagnement psychologique pris en charge.
       </p>
       <p>{msp.note.trim()}</p>
     </section>
+  )
+}
+
+{
+  showAbsent && (
+    <p class:list={["msp-absent", className]} data-component="msp.absent">
+      Je ne propose pas le dispositif Mon Soutien Psy.
+    </p>
   )
 }

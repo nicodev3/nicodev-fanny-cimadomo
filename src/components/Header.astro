@@ -1,12 +1,19 @@
 ---
-import { ChevronDown, Menu } from "@lucide/astro";
-import HeaderTopBar from "./HeaderTopBar.astro";
+import { CalendarDays, ChevronDown, Menu, Phone, X } from "@lucide/astro";
 import { client } from "../lib/client";
 import { splitContactNavItem } from "../lib/astroPageNavigation";
 import { getSiteNavigation } from "../lib/siteNavigation";
+import {
+  bookingPrimaryIsExternal,
+  resolvedBookingPrimaryHref,
+  SITE_BOOKING_PRIMARY_LABEL,
+} from "../lib/client/siteBooking";
 
 const b = client.business;
 const currentPath = Astro.url.pathname;
+const bookingHref = resolvedBookingPrimaryHref(client);
+const bookingExternal = bookingPrimaryIsExternal(bookingHref);
+const phoneHref = `tel:${b.phone.replace(/[^\d+]/g, "")}`;
 
 const { main, practices } = await getSiteNavigation();
 const { primary: primaryNavItems, contact: contactNavItem } = splitContactNavItem(main);
@@ -19,18 +26,17 @@ function navLinkIsActive(href: string): boolean {
 }
 const practicesSectionActive = practices.some((it) => navLinkIsActive(it.href));
 
-const navLinkClass = "inline-flex h-10 items-center px-3";
-const mobileNavLinkClass = "block px-3 py-2";
+const navLinkClass = "inline-flex h-10 items-center px-2";
+const mobileNavLinkClass = "flex min-h-11 items-center px-3 py-2";
+const desktopFlyoutLinkClass = "flex min-h-11 items-center px-4 py-2 text-sm";
 const summaryResetClass =
   "cursor-pointer list-none select-none marker:hidden [&::-webkit-details-marker]:hidden";
 ---
 
 <div class="sticky top-0 z-50 bg-bg" data-component="ui.header-stack">
-  <HeaderTopBar />
-
   <header class="relative z-50 bg-bg" data-component="ui.header">
     <div class="site-container py-3">
-      <div class="flex min-h-16 items-center justify-between gap-4 lg:gap-6">
+      <div class="flex min-h-16 items-center justify-between gap-3 lg:gap-6">
         <a
           href="/"
           class="inline-flex min-w-0 flex-col gap-0.5 self-center"
@@ -41,7 +47,7 @@ const summaryResetClass =
         </a>
 
         <nav
-          class="hidden shrink-0 flex-nowrap items-center justify-end gap-1 lg:flex"
+          class="hidden flex-1 flex-nowrap items-center justify-end gap-1 xl:flex"
           aria-label="Navigation principale"
         >
           {
@@ -57,22 +63,22 @@ const summaryResetClass =
           }
           {
             showPracticesNav && (
-              <details class="relative">
+              <details class="header-flyout relative">
                 <summary
                   class:list={[navLinkClass, summaryResetClass, "gap-1"]}
                   aria-current={practicesSectionActive ? "page" : undefined}
                 >
                   Mes pratiques
-                  <ChevronDown class="size-4" size={16} aria-hidden="true" />
+                  <ChevronDown class="header-flyout__chevron size-4" size={16} aria-hidden="true" />
                 </summary>
                 <div
-                  class="absolute right-0 top-full z-30 mt-1 min-w-56 max-w-xs py-2"
+                  class="header-flyout__panel absolute right-0 top-full z-30 mt-1 min-w-56 max-w-xs py-1"
                   role="group"
                   aria-label="Pages pratiques"
                 >
                   {practices.map((it) => (
                     <a
-                      class="block px-4 py-2 text-sm"
+                      class={desktopFlyoutLinkClass}
                       href={it.href}
                       aria-current={navLinkIsActive(it.href) ? "page" : undefined}
                     >
@@ -96,53 +102,98 @@ const summaryResetClass =
           }
         </nav>
 
-        <details class="relative lg:hidden">
-          <summary
-            class:list={["flex h-11 w-11 items-center justify-center", summaryResetClass]}
-            aria-label="Ouvrir ou fermer le menu de navigation"
-          >
-            <Menu class="size-6" size={24} aria-hidden="true" />
-          </summary>
-
-          <div class="absolute right-0 top-full z-20 mt-2 w-[min(20rem,calc(100vw-2rem))] p-3">
-            <nav class="flex flex-col gap-1" aria-label="Navigation mobile">
-              {
-                primaryNavItems.map((it) => (
-                  <a
-                    class={mobileNavLinkClass}
-                    href={it.href}
-                    aria-current={navLinkIsActive(it.href) ? "page" : undefined}
-                  >
-                    {it.label}
-                  </a>
-                ))
-              }
-              {
-                practices.map((it) => (
-                  <a
-                    class={mobileNavLinkClass}
-                    href={it.href}
-                    aria-current={navLinkIsActive(it.href) ? "page" : undefined}
-                  >
-                    {it.label}
-                  </a>
-                ))
-              }
-              {
-                contactNavItem && (
-                  <a
-                    class={mobileNavLinkClass}
-                    href={contactNavItem.href}
-                    aria-current={navLinkIsActive(contactNavItem.href) ? "page" : undefined}
-                  >
-                    {contactNavItem.label}
-                  </a>
-                )
-              }
-            </nav>
+        <div class="flex shrink-0 items-center gap-1 sm:gap-3">
+          <div class="flex items-center gap-1 sm:gap-3" data-component="ui.header-actions">
+            <a
+              class="inline-flex min-h-11 items-center gap-1.5 px-1 text-sm sm:px-0"
+              href={phoneHref}
+              aria-label={`Appeler ${b.phone}`}
+            >
+              <Phone class="size-4 shrink-0" size={16} aria-hidden="true" />
+              <span class="hidden sm:inline">{b.phone}</span>
+            </a>
+            <a
+              class="cta-secondary cta-secondary--sm"
+              href={bookingHref}
+              aria-label={SITE_BOOKING_PRIMARY_LABEL}
+              {...bookingExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
+            >
+              <CalendarDays class="size-4 shrink-0" size={16} aria-hidden="true" />
+              RDV
+              {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
+            </a>
           </div>
-        </details>
+
+          <details class="relative xl:hidden">
+            <summary
+              class:list={["header-menu-toggle flex h-11 w-11 items-center justify-center", summaryResetClass]}
+              aria-label="Ouvrir ou fermer le menu de navigation"
+            >
+              <Menu class="header-menu-icon size-6" size={24} aria-hidden="true" />
+              <X class="header-menu-close size-6" size={24} aria-hidden="true" />
+            </summary>
+
+            <div class="header-mobile-panel absolute right-0 top-full z-20 mt-2 w-[min(20rem,calc(100vw-2rem))] p-2">
+              <nav class="flex flex-col gap-0.5" aria-label="Navigation mobile">
+                {
+                  primaryNavItems.map((it) => (
+                    <a
+                      class={mobileNavLinkClass}
+                      href={it.href}
+                      aria-current={navLinkIsActive(it.href) ? "page" : undefined}
+                    >
+                      {it.label}
+                    </a>
+                  ))
+                }
+                {
+                  showPracticesNav &&
+                    practices.map((it) => (
+                      <a
+                        class={mobileNavLinkClass}
+                        href={it.href}
+                        aria-current={navLinkIsActive(it.href) ? "page" : undefined}
+                      >
+                        {it.label}
+                      </a>
+                    ))
+                }
+                {
+                  contactNavItem && (
+                    <a
+                      class={mobileNavLinkClass}
+                      href={contactNavItem.href}
+                      aria-current={navLinkIsActive(contactNavItem.href) ? "page" : undefined}
+                    >
+                      {contactNavItem.label}
+                    </a>
+                  )
+                }
+              </nav>
+            </div>
+          </details>
+        </div>
       </div>
     </div>
   </header>
 </div>
+
+<script is:inline>
+  (function () {
+    var header = document.querySelector('[data-component="ui.header"]');
+    if (!header) return;
+    document.addEventListener("click", function (event) {
+      var target = event.target;
+      if (!target || !("nodeType" in target)) return;
+      header.querySelectorAll("details[open]").forEach(function (details) {
+        if (!details.contains(target)) details.open = false;
+      });
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") return;
+      header.querySelectorAll("details[open]").forEach(function (details) {
+        details.open = false;
+      });
+    });
+  })();
+</script>

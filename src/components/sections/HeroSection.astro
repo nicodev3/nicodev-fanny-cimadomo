@@ -2,9 +2,9 @@
 import { CalendarDays, MessagesSquare } from "@lucide/astro";
 import { client } from "../../lib/client";
 import { getSiteCopy } from "../../lib/siteCopy";
-import { heroEyebrowTagline } from "../../lib/client/heroEyebrowTagline";
 import { heroConsultationTaglineAfterPour } from "../../lib/client/heroConsultationTagline";
 import { professionHeroConsultationPrefix } from "../../lib/client/professionCopy.ts";
+import { enabledContactHoursRows } from "../../lib/client/contactHours";
 import {
   bookingPrimaryIsExternal,
   resolvedBookingPrimaryHref,
@@ -16,42 +16,81 @@ const copy = await getSiteCopy("accueil");
 const introText = copy.data.chapo?.trim() ?? "";
 const introTextSecondary = copy.data.introduction?.trim() ?? "";
 
-/** Préfixe du sous-titre ; le reste dépend de `practice` (public, modes). */
 const heroConsultPrefix = professionHeroConsultationPrefix(client.profession);
 const heroConsultTagline = `${heroConsultPrefix}${heroConsultationTaglineAfterPour(client.practice)}`;
-const heroEyebrow = heroEyebrowTagline(client);
 const bookingHref = resolvedBookingPrimaryHref(client);
 const bookingExternal = bookingPrimaryIsExternal(bookingHref);
+
+const session = client.pricing.items[0];
+const hours = enabledContactHoursRows(client.contact.hours);
+const emdrTraining = client.credentials.trainings.find((t) => /emdr/i.test(t.label));
 ---
 
 <div data-component="HeroSection">
-  <div class="space-y-3">
-    {heroEyebrow && <p class="text-sm md:text-base">{heroEyebrow}</p>}
+  <div class="space-y-6">
     <h1>
       {client.business.title} à {client.business.city}
     </h1>
-    <p class="max-w-3xl text-lg">{heroConsultTagline}</p>
+    <p class="max-w-xl text-lg">{heroConsultTagline}</p>
   </div>
-  <div class="space-y-8 py-5">
-    <div class="max-w-3xl space-y-5">
-      {introText && <p>{introText}</p>}
-      {introTextSecondary && <p>{introTextSecondary}</p>}
-    </div>
-
-    <div class="flex flex-wrap items-center gap-3">
+  <div class="hero-intro">
+    <dl class="hero-cadre">
+      {
+        session && (
+          <div>
+            <dt class="sr-only">Honoraires</dt>
+            <dd>
+              {session.price}&nbsp;€
+              {session.durationMinutes ? ` · ${session.durationMinutes} min` : ""}
+              {session.note ? ` · ${session.note}` : ""}
+            </dd>
+          </div>
+        )
+      }
+      {
+        hours.length > 0 && (
+          <div>
+            <dt class="sr-only">Horaires</dt>
+            <dd>
+              {hours.map((h) => `${h.label} ${h.value}`).join(" · ")}
+              {client.practice.consultationModes.includes("cabinet") ? " · au cabinet" : ""}
+            </dd>
+          </div>
+        )
+      }
+      {
+        emdrTraining && (
+          <div>
+            <dt class="sr-only">EMDR</dt>
+            <dd>
+              {
+                client.practicePageEnabled.emdr ? (
+                  <a href="/emdr/">Je me forme actuellement à l’EMDR (niveau 1)</a>
+                ) : (
+                  "Je me forme actuellement à l’EMDR (niveau 1)"
+                )
+              }
+            </dd>
+          </div>
+        )
+      }
+    </dl>
+    {introText && <p class="hero-intro__copy">{introText}</p>}
+    <div class="hero-intro__actions">
+      <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary cta-primary--sm">
+        <MessagesSquare class="size-4 shrink-0" size={16} aria-hidden="true" />
+        {SITE_BOOKING_SECONDARY_LABEL}
+      </a>
       <a
         href={bookingHref}
-        class="cta-primary cta-primary--sm"
+        class="hero-booking-link hero-booking-link--solid"
         {...bookingExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
       >
         <CalendarDays class="size-4 shrink-0" size={16} aria-hidden="true" />
         {SITE_BOOKING_PRIMARY_LABEL}
         {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
       </a>
-      <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-secondary cta-secondary--sm">
-        <MessagesSquare class="size-4 shrink-0" size={16} aria-hidden="true" />
-        {SITE_BOOKING_SECONDARY_LABEL}
-      </a>
     </div>
+    {introTextSecondary && <p class="hero-intro__copy">{introTextSecondary}</p>}
   </div>
 </div>
