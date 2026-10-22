@@ -129,7 +129,7 @@ function faqHoursCancellationAnswer(client: ClientConfig): string {
   }
   if (notice) {
     parts.push(
-      `Merci de prévenir au moins ${notice} heures à l’avance, hors samedi, dimanche et jours fériés ; sinon la séance est due.`,
+      `Merci de prévenir au moins ${notice} heures à l’avance, hors samedi, dimanche et jours fériés ; sinon un dédommagement financier peut être demandé.`,
     );
   }
   return parts.join(" ");

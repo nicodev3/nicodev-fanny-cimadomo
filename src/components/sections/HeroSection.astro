@@ -23,7 +23,6 @@ const bookingExternal = bookingPrimaryIsExternal(bookingHref);
 
 const session = client.pricing.items[0];
 const hours = enabledContactHoursRows(client.contact.hours);
-const emdrTraining = client.credentials.trainings.find((t) => /emdr/i.test(t.label));
 ---
 
 <div data-component="HeroSection">
@@ -54,22 +53,6 @@ const emdrTraining = client.credentials.trainings.find((t) => /emdr/i.test(t.lab
             <dd>
               {hours.map((h) => `${h.label} ${h.value}`).join(" · ")}
               {client.practice.consultationModes.includes("cabinet") ? " · au cabinet" : ""}
-            </dd>
-          </div>
-        )
-      }
-      {
-        emdrTraining && (
-          <div>
-            <dt class="sr-only">EMDR</dt>
-            <dd>
-              {
-                client.practicePageEnabled.emdr ? (
-                  <a href="/emdr/">Je me forme actuellement à l’EMDR (niveau 1)</a>
-                ) : (
-                  "Je me forme actuellement à l’EMDR (niveau 1)"
-                )
-              }
             </dd>
           </div>
         )

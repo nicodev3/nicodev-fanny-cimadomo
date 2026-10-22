@@ -9,8 +9,8 @@ const registrationLabel = credentials.license.registrationLabel === "rpps" ? "RP
 const degree = credentials.degrees[0];
 const degreeLine = degree
   ? /psychologie légale/i.test(degree.label)
-    ? `Master 2 psychologie clinique · psychologie légale${degree.year ? ` (${degree.year})` : ""}`
-    : `${degree.label}${degree.year ? ` (${degree.year})` : ""}`
+    ? "Master 2 psychologie clinique · psychologie légale"
+    : degree.label
   : null;
 ---
 

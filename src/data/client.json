@@ -130,7 +130,7 @@
     "conditions": {
         "cancellation": {
             "noticeHours": 48,
-            "feePolicy": "Sinon la séance reste due, pour laisser la place à une personne en attente."
+            "feePolicy": "Sinon un dédommagement financier peut être demandé, pour laisser la place à une personne en attente."
         },
         "delay": {
             "graceMinutes": 10,
@@ -138,7 +138,7 @@
         },
         "noShow": {
             "charged": true,
-            "note": "Une séance non prévenue est due"
+            "note": "En l’absence de prévenance, un dédommagement financier peut être demandé"
         }
     },
     "seo": {
