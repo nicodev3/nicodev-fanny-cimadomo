@@ -1,5 +1,5 @@
 ---
-import { CalendarDays, MessagesSquare } from "@lucide/astro";
+import { CalendarDays, MessagesSquare, Phone } from "@lucide/astro";
 import { client } from "../../lib/client";
 import {
   bookingPrimaryIsExternal,
@@ -11,12 +11,17 @@ import { SITE_BOOKING_SECONDARY_HREF, SITE_BOOKING_SECONDARY_LABEL } from "../..
 interface Props {
   /** Masque le bouton « Me contacter » (ex. déjà sur la page contact). */
   hideContact?: boolean;
+  /** Ajoute « Appeler » (lien tel:) à côté de la réservation, si le canal téléphone est actif. */
+  showPhone?: boolean;
   class?: string;
 }
 
-const { hideContact = false, class: className } = Astro.props;
+const { hideContact = false, showPhone = false, class: className } = Astro.props;
 const bookingHref = resolvedBookingPrimaryHref(client);
 const bookingExternal = bookingPrimaryIsExternal(bookingHref);
+const phone = client.business.phone;
+const phoneVisible =
+  showPhone && Boolean(phone) && client.contact.channels.selected.includes("phone");
 ---
 
 <div class:list={["booking-actions", className]} data-component="ui.booking-actions">
@@ -29,6 +34,14 @@ const bookingExternal = bookingPrimaryIsExternal(bookingHref);
     {SITE_BOOKING_PRIMARY_LABEL}
     {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
   </a>
+  {
+    phoneVisible && (
+      <a href={`tel:${phone.replace(/\s/g, "")}`} class="cta-secondary cta-secondary--sm">
+        <Phone size={16} aria-hidden="true" />
+        <span>Appeler le <span class="whitespace-nowrap">{phone}</span></span>
+      </a>
+    )
+  }
   {
     !hideContact && (
       <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-secondary cta-secondary--sm">

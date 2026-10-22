@@ -18,6 +18,9 @@ const license = client.credentials.license;
 const registrationLabel = license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
 const bookingHref = resolvedBookingPrimaryHref(client);
 const bookingExternal = bookingPrimaryIsExternal(bookingHref);
+/** Sur la page contact, « Me contacter » renverrait vers la page courante : seule la réservation reste. */
+const onContactPage =
+  Astro.url.pathname.replace(/\/+$/, "") === SITE_BOOKING_SECONDARY_HREF.replace(/\/+$/, "");
 
 const { main, practices } = await getSiteNavigation();
 const publishedArticles = await getArticleNavigation({ includeDrafts: false });
@@ -90,12 +93,18 @@ const deontologie = professionDeontologieFooterLink(client.profession);
       </address>
 
       <div class="flex flex-col items-start gap-2" data-component="footer.booking">
-        <a class="cta-primary cta-primary--footer" href={SITE_BOOKING_SECONDARY_HREF}>
-          <MessagesSquare class="size-4 shrink-0" size={16} aria-hidden="true" />
-          {SITE_BOOKING_SECONDARY_LABEL}
-        </a>
+        {
+          !onContactPage && (
+            <a class="cta-primary cta-primary--footer" href={SITE_BOOKING_SECONDARY_HREF}>
+              <MessagesSquare class="size-4 shrink-0" size={16} aria-hidden="true" />
+              {SITE_BOOKING_SECONDARY_LABEL}
+            </a>
+          )
+        }
         <a
-          class="cta-secondary cta-secondary--sm"
+          class:list={[
+            onContactPage ? "cta-primary cta-primary--footer" : "cta-secondary cta-secondary--sm",
+          ]}
           href={bookingHref}
           {...bookingExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
         >

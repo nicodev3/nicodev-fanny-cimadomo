@@ -69,16 +69,27 @@ function bookingPlatformName(href: string): string | null {
   return null;
 }
 
+/** « par téléphone ou par e-mail » selon les canaux réellement proposés. */
+function faqDirectContactChannels(client: ClientConfig): string {
+  const selected = client.contact.channels.selected;
+  const phone = selected.includes("phone") && Boolean(client.business.phone);
+  const email = selected.includes("email") && Boolean(client.business.email);
+  if (phone && email) return "par téléphone ou par e-mail";
+  if (phone) return "par téléphone";
+  return "par e-mail";
+}
+
 function faqBookingAnswer(client: ClientConfig): string {
   const href = resolvedBookingPrimaryHref(client);
   const platform = bookingPlatformName(href);
+  const via = faqDirectContactChannels(client);
   if (platform) {
-    return `Vous pouvez réserver en ligne à tout moment via ${platform}. Si vous préférez, un premier contact par e-mail permet de préciser votre besoin avant la première séance.`;
+    return `Vous pouvez réserver en ligne à tout moment via ${platform}. Si vous préférez, un premier contact ${via} permet de préciser votre besoin avant la première séance.`;
   }
   if (href.startsWith("http://") || href.startsWith("https://")) {
-    return "Vous pouvez prendre rendez-vous en ligne à tout moment via le lien de réservation du site. Si vous préférez, un premier contact par e-mail permet de préciser votre besoin avant la première séance.";
+    return `Vous pouvez prendre rendez-vous en ligne à tout moment via le lien de réservation du site. Si vous préférez, un premier contact ${via} permet de préciser votre besoin avant la première séance.`;
   }
-  return "Prenez rendez-vous via le lien de réservation ou contactez-moi par e-mail pour préciser votre besoin avant la première séance.";
+  return `Prenez rendez-vous via le lien de réservation ou contactez-moi ${via} pour préciser votre besoin avant la première séance.`;
 }
 
 function faqPricingAnswer(client: ClientConfig): string {

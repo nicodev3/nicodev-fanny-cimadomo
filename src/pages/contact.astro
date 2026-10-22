@@ -14,9 +14,10 @@ import contactHero from "../assets/contact.png";
 <StandardPageLayout
   title="Contact"
   description="Retrouvez ici les informations pour prendre rendez-vous, accéder au cabinet et me contacter."
+  intro={"Vous pouvez réserver en ligne, m’appeler ou m’écrire. Pas besoin de tout expliquer dans un premier message : quelques mots suffisent, nous en parlerons ensemble."}
   heroImage={contactHero}
-  heroImageAlt="Illustration : un téléphone, une enveloppe et un calendrier dessinés, reliés par un trait pointillé corail, sur fond crème."
+  heroImageAlt=""
 >
-  <BookingActions slot="actions" hideContact />
+  <BookingActions slot="actions" hideContact showPhone />
   <ContactPageContent />
 </StandardPageLayout>

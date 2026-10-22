@@ -33,7 +33,7 @@ const faqPageJsonLd =
       items.map((item) => (
         <details data-component="faq.item">
           <summary>
-            <span>{item.question}</span>
+            <span>{item.question.replace(/ ([?!:;])/g, " $1")}</span>
             <span class="faq-toggle" aria-hidden="true"></span>
           </summary>
           <p>{item.answer}</p>

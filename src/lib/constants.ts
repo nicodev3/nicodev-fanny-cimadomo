@@ -21,6 +21,16 @@ export const CONDITIONS_LIMITS_ITEMS: readonly string[] = [
   "En cas d’urgence immédiate, contactez le 15 (SAMU) ou le 112.",
 ];
 
+/** Numéros nationaux d’urgence affichés sur la page contact (non paramétrables par client.json). */
+export const EMERGENCY_NUMBERS: readonly { number: string; label: string }[] = [
+  { number: "15", label: "SAMU, urgence médicale" },
+  { number: "112", label: "numéro d’urgence européen" },
+  {
+    number: "3114",
+    label: "numéro national de prévention du suicide, gratuit, 24 h/24 et 7 j/7",
+  },
+];
+
 /**
  * Identifiant du formulaire Formspree (`https://formspree.io/f/<id>`).
  * Renseigné par l’intégrateur dans le code, pas dans client.json.
