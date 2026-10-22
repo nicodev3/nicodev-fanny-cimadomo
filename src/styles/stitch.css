@@ -1,7 +1,7 @@
 /**
  * Design client — cabinet chaleureux, inspiré de l’aquarelle « pelote ».
  *
- * Palette : lin, sauge (actions), terracotta discret (ornements).
+ * Palette : lin, violet pastel RAL 4009 (actions), terracotta discret (ornements).
  * Polices : Fraunces (titres) + Manrope (texte), déclarées dans src/design/fonts.mjs.
  */
 
@@ -17,14 +17,14 @@
   --color-on-inverse: #f4f6f3;
 
   /* Action et liens */
-  --color-primary: #3d5c4e;
-  --color-primary-hover: #2f4a3e;
-  --color-primary-fg: #f4f6f3;
+  --color-primary: #6e5d6b;
+  --color-primary-hover: #5c4f5b;
+  --color-primary-fg: #faf8fa;
 
   /* Accent de marque : détails et ornements uniquement */
   --color-accent: #a85d47;
   --color-accent-strong: #8a5340;
-  --color-decor: #8a9a90;
+  --color-decor: #9a939f;
   --color-highlight: #a85d47;
 
   /* Surfaces */
@@ -35,16 +35,16 @@
   --color-surface-sunken: #e7e5e0;
   --color-surface-muted: #ebe8e2;
   --color-surface-warm: #ebe4dc;
-  --color-surface-sage: #e8ece9;
-  --color-surface-inverse: #2f453c;
+  --color-surface-sage: #ebe4ea;
+  --color-surface-inverse: #524858;
 
   --font-sans: var(--font-manrope);
   --font-serif: var(--font-fraunces);
 
   --radius-xl: 1rem;
 
-  --shadow-soft: 0 1px 8px rgb(47 69 60 / 7%);
-  --shadow-card: 0 8px 28px rgb(47 69 60 / 9%);
+  --shadow-soft: 0 1px 8px rgb(82 72 88 / 7%);
+  --shadow-card: 0 8px 28px rgb(82 72 88 / 9%);
 }
 
 /* === Base === */
@@ -609,20 +609,12 @@ main a:not([class]) {
   gap: 1.5rem;
 }
 
-[data-component="hero-layout"] .hero-profile {
-  order: -1;
-}
-
 @media (min-width: 1024px) {
   [data-component="hero-layout"] {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 22rem;
+    grid-template-columns: 22rem minmax(0, 1fr);
     gap: 3rem;
     align-items: center;
-  }
-
-  [data-component="hero-layout"] .hero-profile {
-    order: 0;
   }
 }
 
@@ -2174,6 +2166,7 @@ main .contact-card__channels a {
   height: 100%;
   min-height: 18rem;
   object-fit: cover;
+  object-position: 58% center;
 }
 
 [data-component="contact.hours-block"] {
