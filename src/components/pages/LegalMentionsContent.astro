@@ -1,5 +1,5 @@
 ---
-import { Building2, Cookie, Server, ShieldCheck } from "@lucide/astro";
+import { Building2, Cookie, Image as ImageIcon, Server, ShieldCheck } from "@lucide/astro";
 import { client } from "../../lib/client";
 import { businessAddressText } from "../../lib/client/businessAddress";
 import {
@@ -90,5 +90,17 @@ const regLabel = license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
       Cookies / traceurs
     </h2>
     <p>{LEGAL_NO_TRACKING_NOTICE}</p>
+  </section>
+
+  <section class="info-card" data-component="legal.visuals" aria-labelledby="legal-visuals">
+    <h2 id="legal-visuals" class="info-card__title">
+      <ImageIcon size={18} aria-hidden="true" />
+      Illustrations
+    </h2>
+    <p>
+      Certaines illustrations présentes sur ce site ont été créées à l’aide d’outils d’intelligence
+      artificielle. Elles sont utilisées à des fins illustratives et ne représentent pas nécessairement
+      des personnes ou des situations réelles.
+    </p>
   </section>
 </div>

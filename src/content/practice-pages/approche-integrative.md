@@ -1,6 +1,6 @@
 ---
 title: "Approche intégrative"
-description: "Comprendre l’approche intégrative proposée à Chambéry : TCC, EMDR, systémie et thérapie des schémas, adaptées à votre situation."
+description: "Une approche intégrative permet de croiser plusieurs regards et outils thérapeutiques pour construire avec vous un suivi adapté à vos besoins."
 draft: false
 ---
 
@@ -8,7 +8,7 @@ draft: false
 
 Une approche intégrative consiste à s’appuyer sur plusieurs courants de psychothérapie, plutôt que sur un seul modèle, pour construire un accompagnement cohérent. L’idée n’est pas d’empiler des techniques, mais de choisir, avec vous, ce qui est le plus utile à un moment donné : ce que vous traversez, ce que vous recherchez, et ce qui vous convient.
 
-À Chambéry, j’accompagne des adultes dans cette perspective. Le travail s’appuie notamment sur les thérapies cognitivo-comportementales et émotionnelles (TCCE), la clinique du psychotraumatisme avec l’EMDR, des apports de la systémie et de la thérapie des schémas.
+J’accompagne les adultes dans cette perspective. Le travail s’appuie notamment sur les thérapies cognitivo-comportementales et émotionnelles (TCCE), la clinique du psychotraumatisme avec l’EMDR, des apports de la systémie et de la thérapie des schémas.
 
 ## Pourquoi combiner plusieurs outils ?
 

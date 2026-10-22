@@ -1,6 +1,6 @@
 ---
 title: "EMDR"
-description: "Comprendre la thérapie EMDR, son déroulement et ses indications à Chambéry."
+description: "Comment fonctionne la thérapie EMDR ? Découvrez à qui elle s’adresse et comment se déroule un accompagnement."
 draft: false
 questionnaire: pcl5
 ---
@@ -10,6 +10,17 @@ questionnaire: pcl5
 La thérapie EMDR (désensibilisation et retraitement par les mouvements oculaires) est une approche psychothérapeutique développée par Francine Shapiro dans les années 1980. Elle est notamment utilisée dans la prise en charge du trouble de stress post-traumatique (TSPT) et des conséquences émotionnelles d’expériences difficiles.
 
 L’EMDR s’inscrit dans un accompagnement psychologique global. Le travail est adapté à votre situation, à votre rythme et à vos ressources, dans un cadre confidentiel.
+
+<div class="video-embed" role="group" aria-label="Vidéo de Lola Pernot sur la thérapie EMDR">
+  <iframe
+    src="https://www.youtube.com/embed/PfMB4GztS6U?si=XZ9teRx1EN0ijMTW"
+    title="La thérapie EMDR expliquée par Lola Pernot"
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+</div>
 
 ## Comment fonctionne l’EMDR ?
 

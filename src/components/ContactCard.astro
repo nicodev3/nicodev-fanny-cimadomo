@@ -1,15 +1,18 @@
 ---
 import { CalendarDays, Mail, MapPin, MessageCircle, Phone } from "@lucide/astro";
 import { client } from "../lib/client";
+import { Image } from "astro:assets";
+import cabinetPhoto from "../assets/cabinet-psychologue-chambery.webp";
 import { businessAddressText, businessStreetLines } from "../lib/client/businessAddress";
 import { resolvedBookingPrimaryHref } from "../lib/client/siteBooking";
 import { resolvedWhatsappHref } from "../lib/client/whatsapp";
 
 interface Props {
   stacked?: boolean;
+  showCabinetPhoto?: boolean;
 }
 
-const { stacked = false } = Astro.props;
+const { stacked = false, showCabinetPhoto = false } = Astro.props;
 const b = client.business;
 const channels = new Set(client.contact.channels.selected);
 const accessNote = client.contact.accessNote ?? "";
@@ -93,15 +96,29 @@ const accessNote = client.contact.accessNote ?? "";
         )
       }
     </div>
-    <div
-      class="contact-card__map"
-      data-component="contact.map"
-      data-map-address={businessAddressText(b)}
-      data-map-name={b.fullName}
-      role="region"
-      aria-label={`Plan d’accès au cabinet, ${businessAddressText(b)}`}
-    >
-    </div>
+    {
+      showCabinetPhoto ? (
+        <div class="contact-card__photo">
+          <Image
+            src={cabinetPhoto}
+            alt="Le cabinet : un canapé et deux fauteuils autour de tables basses, dans une pièce lumineuse."
+            widths={[480, 768, 1024]}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            loading="lazy"
+          />
+        </div>
+      ) : (
+        <div
+          class="contact-card__map"
+          data-component="contact.map"
+          data-map-address={businessAddressText(b)}
+          data-map-name={b.fullName}
+          role="region"
+          aria-label={`Plan d’accès au cabinet, ${businessAddressText(b)}`}
+        >
+        </div>
+      )
+    }
   </div>
 </section>
 

@@ -1513,6 +1513,21 @@ main a:not([class]) {
   font-size: 1.25rem;
 }
 
+.video-embed {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--color-surface-muted, #f1eee9);
+}
+
+.video-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .prose-card table {
   width: 100%;
   border-collapse: collapse;
@@ -1964,7 +1979,8 @@ main a:not([class]) {
 }
 
 @media (min-width: 768px) {
-  .contact-card__grid:has(.contact-card__map:not([hidden])) {
+  .contact-card__grid:has(.contact-card__map:not([hidden])),
+  .contact-card__grid:has(.contact-card__photo) {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
@@ -2032,6 +2048,20 @@ main .contact-card__channels a {
 .contact-card__map {
   min-height: 18rem;
   background: var(--color-surface-sunken);
+}
+
+.contact-card__photo {
+  min-height: 18rem;
+  overflow: hidden;
+  background: var(--color-surface-sunken);
+}
+
+.contact-card__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  object-fit: cover;
 }
 
 [data-component="contact.hours-block"] {

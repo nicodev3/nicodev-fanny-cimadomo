@@ -1,6 +1,6 @@
 ---
 title: "Thérapies TCC"
-description: "Comprendre les thérapies cognitivo-comportementales et émotionnelles (TCC, TCCE) proposées à Chambéry : fonctionnement, déroulement et indications."
+description: "Les thérapies cognitivo-comportementales et émotionnelles (TCC, TCCE) : une façon d’explorer ensemble vos pensées, vos émotions et vos réactions."
 draft: false
 ---
 
@@ -10,7 +10,7 @@ Les thérapies cognitivo-comportementales (TCC) s’intéressent aux liens entre
 
 Dans ma pratique, je m’appuie aussi sur les thérapies cognitivo-comportementales et émotionnelles (TCCE) : les émotions ne sont pas un obstacle à contourner, elles font partie du travail. Le suivi reste un accompagnement psychologique global, adapté à votre rythme, dans un cadre confidentiel.
 
-## Comment se travaille-t-on en TCC ?
+## Comment travaille-t-on en TCC ?
 
 Ensemble, nous observons des situations concrètes de votre quotidien : une angoisse avant un rendez-vous, une phobie, une rumination au travail, un repli après un conflit, des difficultés de sommeil. L’objectif n’est pas de « penser positif », mais de mieux voir ce qui se met en place, puis d’expérimenter des pistes plus ajustées.
 
