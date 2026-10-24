@@ -66,7 +66,7 @@ const KEY_LABELS: Record<string, string> = {
   noticeHours: "Délai d’annulation (heures)",
   feePolicy: "Politique d’annulation",
   graceMinutes: "Tolérance de retard (minutes)",
-  charged: "Facturation en cas d’absence",
+  charged: "Montant de dédommagement (absence)",
   schemaVersion: "Version du schéma",
   profession: "Métier exercé",
   items: "Éléments de liste",

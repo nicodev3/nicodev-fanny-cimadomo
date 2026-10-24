@@ -3,10 +3,9 @@ import ContactCard from "../ContactCard.astro";
 import ContactHoursBlock from "../ContactHoursBlock.astro";
 import ContactForm from "../ContactForm.astro";
 import FaqSection from "../FaqSection.astro";
+import ContactEmergencyBlock from "../ContactEmergencyBlock.astro";
 import { enabledContactHoursRows } from "../../lib/client/contactHours";
 import { client } from "../../lib/client";
-import { EMERGENCY_NUMBERS } from "../../lib/constants";
-import { LifeBuoy } from "@lucide/astro";
 
 const hasHours = enabledContactHoursRows(client.contact.hours).length > 0;
 const waitingListNote = client.practice.waitingListNote ?? "";
@@ -33,30 +32,7 @@ const waitingListNote = client.practice.waitingListNote ?? "";
       )
     }
 
-    <section
-      class="contact-emergency"
-      data-component="contact.emergency"
-      aria-labelledby="contact-emergency-title"
-    >
-      <h2 id="contact-emergency-title" class="info-card__title">
-        <LifeBuoy size={18} aria-hidden="true" />
-        En cas d’urgence
-      </h2>
-      <p>
-        Le cabinet n’est pas un service d’urgence et je ne peux pas répondre à une situation de
-        danger immédiat. Appelez&nbsp;:
-      </p>
-      <ul>
-        {
-          EMERGENCY_NUMBERS.map((item) => (
-            <li>
-              <a href={`tel:${item.number}`}>{item.number}</a>
-              <span>{item.label}</span>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
+    <ContactEmergencyBlock />
   </div>
 </section>
 

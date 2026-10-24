@@ -24,9 +24,6 @@ const heroIdentityParts = [
   practice.audience.filter(Boolean).join(", "),
   practice.consultationModes.includes("cabinet") ? "cabinet" : "",
 ].filter(Boolean);
-const cadreSummary =
-  session &&
-  `Tarif (${session.price}\u00a0€${session.durationMinutes ? ` · ${session.durationMinutes}\u00a0min` : ""}), horaires et conditions`;
 ---
 
 <header class="page-hero about-hero" data-component="about.intro">
@@ -49,43 +46,30 @@ const cadreSummary =
 
   <div class="page-hero__intro">
     <p class="lead">{client.aboutPage.intro}</p>
-    {
-      practiceLinks.length > 0 && (
-        <nav class="about-practice-links" aria-label="Approches thérapeutiques">
-          <ul>
-            {practiceLinks.map((page) => (
-              <li>
-                <a href={practicePageHref(page.slug)}>{page.navLabel}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )
-    }
 
     {
-      cadreSummary && (
-        <details class="about-cadre-details" data-component="about.cadre">
-          <summary>{cadreSummary}</summary>
+      session && (
+        <section class="about-cadre-panel" data-component="about.cadre" aria-labelledby="about-cadre-title">
+          <h2 id="about-cadre-title" class="about-cadre-panel__title">Cadre des consultations</h2>
           <dl class="about-cadre">
             {
               session && (
-                <div>
-                  <dt class="sr-only">Honoraires</dt>
+                <div class="about-cadre__row">
+                  <dt>Honoraires</dt>
                   <dd>
                     {session.price}&nbsp;€
                     {session.durationMinutes ? ` · ${session.durationMinutes} min` : ""}
                     {session.note ? ` · ${session.note}` : ""}
                     {" · "}
-                    <a href="/tarifs/">Détails tarifs et remboursement</a>
+                    <a href="/tarifs/">Tarifs et remboursement</a>
                   </dd>
                 </div>
               )
             }
             {
               hoursLine && (
-                <div>
-                  <dt class="sr-only">Horaires</dt>
+                <div class="about-cadre__row">
+                  <dt>Horaires</dt>
                   <dd>
                     {hoursLine}
                     {" · "}
@@ -100,17 +84,16 @@ const cadreSummary =
                 </div>
               )
             }
-            <div>
-              <dt class="sr-only">Cadre</dt>
+            <div class="about-cadre__row">
+              <dt>Annulation</dt>
               <dd>
-                <a href="/tarifs/">Annulation et tarifs</a>
+                {client.conditions.cancellation.noticeHours}&nbsp;h à l’avance, hors week-end
                 {" · "}
-                Annulation {client.conditions.cancellation.noticeHours}&nbsp;h à l’avance, hors
-                week-end
+                <a href="/tarifs/">Conditions complètes</a>
               </dd>
             </div>
           </dl>
-        </details>
+        </section>
       )
     }
 
@@ -128,6 +111,20 @@ const cadreSummary =
         <span>{`${business.addressLine1}, ${business.postalCode} ${business.city}`}</span>
       </li>
     </ul>
+    {
+      practiceLinks.length > 0 && (
+        <nav class="about-practice-links" aria-labelledby="about-practice-links-title">
+          <h3 id="about-practice-links-title" class="about-practice-links__title">Mes approches</h3>
+          <ul>
+            {practiceLinks.map((page) => (
+              <li>
+                <a href={practicePageHref(page.slug)}>{page.navLabel}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
     <BookingActions />
   </div>
 </header>

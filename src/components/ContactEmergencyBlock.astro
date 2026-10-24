@@ -1,0 +1,40 @@
+---
+import { LifeBuoy } from "@lucide/astro";
+import { EMERGENCY_NUMBERS } from "../lib/constants";
+
+interface Props {
+  class?: string;
+  headingLevel?: 2 | 3;
+  /** Préfixe d’id pour le titre (unicité si plusieurs instances sur une page). */
+  idPrefix?: string;
+}
+
+const { class: className, headingLevel = 2, idPrefix = "contact-emergency" } = Astro.props;
+const titleId = `${idPrefix}-title`;
+const HeadingTag = `h${headingLevel}` as "h2" | "h3";
+---
+
+<section
+  class:list={["contact-emergency", className]}
+  data-component="contact.emergency"
+  aria-labelledby={titleId}
+>
+  <HeadingTag id={titleId} class="info-card__title">
+    <LifeBuoy size={18} aria-hidden="true" />
+    En cas d’urgence
+  </HeadingTag>
+  <p>
+    Le cabinet n’est pas un service d’urgence et je ne peux pas répondre à une situation de danger
+    immédiat. Appelez&nbsp;:
+  </p>
+  <ul>
+    {
+      EMERGENCY_NUMBERS.map((item) => (
+        <li>
+          <a href={`tel:${item.number}`}>{item.number}</a>
+          <span>{item.label}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

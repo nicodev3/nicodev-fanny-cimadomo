@@ -10,7 +10,7 @@ import { PRACTICE_OFFER_FORM_FAMILIES } from "../practiceOfferFormFamilies.ts";
 import { ClientSchema, type ClientConfig } from "./schema.ts";
 import { professionSeoCabinetLabel } from "./professionCopy.ts";
 
-export const CURRENT_SCHEMA_VERSION = 25;
+export const CURRENT_SCHEMA_VERSION = 27;
 const DEFAULT_TEMPLATE_VERSION = "0.1.0";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -509,6 +509,28 @@ function migrateV24ToV25(input: unknown): unknown {
   return out;
 }
 
+/** v26 : expériences professionnelles listées sous les diplômes (page À propos). */
+function migrateV25ToV26(input: unknown): unknown {
+  const raw = requireRecord(input);
+  const credentials = isRecord(raw.credentials) ? { ...raw.credentials } : {};
+  if (!Array.isArray(credentials.professionalExperiences)) {
+    credentials.professionalExperiences = [];
+  }
+  return { ...raw, schemaVersion: 26, credentials };
+}
+
+/** v27 : texte d’introduction sur la page Pourquoi consulter. */
+function migrateV26ToV27(input: unknown): unknown {
+  const raw = requireRecord(input);
+  const whyConsultPage: Record<string, unknown> = isRecord(raw.whyConsultPage)
+    ? { ...raw.whyConsultPage }
+    : {};
+  if (typeof whyConsultPage.framing !== "string") {
+    whyConsultPage.framing = "";
+  }
+  return { ...raw, schemaVersion: 27, whyConsultPage };
+}
+
 /** Étape n : migre un fichier `schemaVersion === n` vers `n + 1`. */
 const MIGRATION_STEPS: readonly ((raw: unknown) => unknown)[] = [
   migrateV0ToV1,
@@ -536,6 +558,8 @@ const MIGRATION_STEPS: readonly ((raw: unknown) => unknown)[] = [
   migrateV22ToV23,
   migrateV23ToV24,
   migrateV24ToV25,
+  migrateV25ToV26,
+  migrateV26ToV27,
 ];
 
 if (MIGRATION_STEPS.length !== CURRENT_SCHEMA_VERSION) {

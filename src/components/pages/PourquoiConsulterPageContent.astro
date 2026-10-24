@@ -4,9 +4,17 @@ import { getSpecialtyMotifSummary } from "../../lib/client/specialtyMotifSummari
 import ContactBand from "../ui/ContactBand.astro";
 
 const specialtyLabels = client.practice.specialties;
+const framing = client.whyConsultPage.framing?.trim() ?? "";
 ---
 
 <section class="surface-panel" data-component="motifs.list" aria-label="Motifs de consultation">
+  {
+    framing && (
+      <div class="why-consult-framing" data-component="motifs.framing">
+        <p>{framing}</p>
+      </div>
+    )
+  }
   <ul class="motif-grid">
     {
       specialtyLabels.map((label) => (

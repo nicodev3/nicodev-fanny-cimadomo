@@ -69,7 +69,7 @@ export const CONTACT_CHANNEL_VALUES = [
 
 export const ClientSchema = z
   .object({
-    schemaVersion: z.literal(25),
+    schemaVersion: z.literal(27),
     /** Métier exercé : pilote libellés institutionnels, FAQ remboursement, Mon Soutien Psy, etc. */
     profession: z.enum(CLIENT_PROFESSIONS),
     business: z
@@ -203,6 +203,8 @@ export const ClientSchema = z
           )
           .default([]),
         affiliations: z.array(z.string().min(1)).default([]),
+        /** Expériences professionnelles (institution, libéral, etc.), une entrée par poste ou mission. */
+        professionalExperiences: z.array(z.string().min(1)).default([]),
         experienceYears: z.number().int().min(0).max(80).optional(),
       })
       .default({
@@ -213,6 +215,7 @@ export const ClientSchema = z
         degrees: [],
         trainings: [],
         affiliations: [],
+        professionalExperiences: [],
       }),
     conditions: z
       .object({
@@ -221,7 +224,9 @@ export const ClientSchema = z
           feePolicy: z
             .string()
             .min(1)
-            .default("Toute séance annulée hors délai peut être due, sauf cas de force majeure."),
+            .default(
+              "Sinon un dédommagement financier peut être demandé, sauf cas de force majeure.",
+            ),
         }),
         delay: z.object({
           graceMinutes: z.number().int().min(0).max(60).default(10),
@@ -237,13 +242,14 @@ export const ClientSchema = z
           note: z
             .string()
             .min(1)
-            .default("Toute absence non signalée est considérée comme une séance due."),
+            .default("En l’absence de prévenance, un dédommagement financier peut être demandé."),
         }),
       })
       .default({
         cancellation: {
           noticeHours: 24,
-          feePolicy: "Toute séance annulée hors délai peut être due, sauf cas de force majeure.",
+          feePolicy:
+            "Sinon un dédommagement financier peut être demandé, sauf cas de force majeure.",
         },
         delay: {
           graceMinutes: 10,
@@ -251,7 +257,7 @@ export const ClientSchema = z
         },
         noShow: {
           charged: true,
-          note: "Toute absence non signalée est considérée comme une séance due.",
+          note: "En l’absence de prévenance, un dédommagement financier peut être demandé.",
         },
       }),
     seo: z.object({
@@ -273,6 +279,12 @@ export const ClientSchema = z
         intro:
           "Une présentation de mon parcours et de ma façon d'accompagner les personnes en consultation.",
       }),
+    /** Chapô éditorial page « Pourquoi consulter » (homéostasie, cadre OMS, etc.). */
+    whyConsultPage: z
+      .object({
+        framing: optionalClientString(),
+      })
+      .default({ framing: "" }),
     contact: z
       .object({
         hours: z

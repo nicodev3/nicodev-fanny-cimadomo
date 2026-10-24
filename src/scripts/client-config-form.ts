@@ -1319,6 +1319,13 @@ function renderBusiness(
   );
   box.appendChild(degreesPanel);
 
+  const experiencesPanel = el("div", `${FORM_SECTION_PANEL_CLASS} space-y-4`);
+  experiencesPanel.appendChild(sectionHeading("Expériences professionnelles (une par ligne)"));
+  experiencesPanel.appendChild(
+    linesTextarea(state, "credentials.professionalExperiences", onRefresh, 6),
+  );
+  box.appendChild(experiencesPanel);
+
   const trainingsPanel = el("div", `${FORM_SECTION_PANEL_CLASS} space-y-4`);
   trainingsPanel.appendChild(sectionHeading("Formations continues"));
   trainingsPanel.appendChild(
@@ -1746,7 +1753,12 @@ function renderCabinet(
   );
   conditionsPanel.appendChild(sectionHeading("Absence non signalée"));
   conditionsPanel.appendChild(
-    checkboxInput(state, `${c}.noShow.charged`, condRefresh, "Facturer l’absence non signalée"),
+    checkboxInput(
+      state,
+      `${c}.noShow.charged`,
+      condRefresh,
+      "Indiquer un montant de dédommagement (absence non signalée)",
+    ),
   );
   conditionsPanel.appendChild(
     fieldWrap("Texte sur l’absence", textareaInput(state, `${c}.noShow.note`, condRefresh)),

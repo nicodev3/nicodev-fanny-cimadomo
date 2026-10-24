@@ -7,10 +7,20 @@ import { CONDITIONS_LIMITS_ITEMS } from "../lib/constants";
 const confidentialitySummary = professionConditionsConfidentialitySummary(client.profession);
 const c = client.conditions;
 const sessionPrice = client.pricing.items[0]?.price;
-const dueAmount =
-  c.noShow.charged && sessionPrice
-    ? ` (${sessionPrice}\u00a0€)`
+const compensationAmountSuffix =
+  c.noShow.charged && sessionPrice != null
+    ? `, pour un montant équivalent à ${sessionPrice}\u00a0€`
     : "";
+
+/** Ajoute le montant du dédommagement avant le point final, sans parler de « séance due ». */
+function withCompensationSuffix(text: string, suffix: string): string {
+  const trimmed = text.trimEnd();
+  if (!suffix) return trimmed;
+  if (trimmed.endsWith(".")) {
+    return `${trimmed.slice(0, -1)}${suffix}.`;
+  }
+  return `${trimmed}${suffix}.`;
+}
 ---
 
 <section class="page-block" data-component="panel.conditions" aria-labelledby="conditions-title">
@@ -21,7 +31,8 @@ const dueAmount =
       <h3>Annulation</h3>
       <p>
         Prévenez-moi au moins {c.cancellation.noticeHours} heures à l’avance, hors samedi, dimanche
-        et jours fériés. {c.cancellation.feePolicy}
+        et jours fériés.{" "}
+        {withCompensationSuffix(c.cancellation.feePolicy, compensationAmountSuffix)}
       </p>
     </li>
 
@@ -35,8 +46,7 @@ const dueAmount =
     <li data-component="conditions.no-show">
       <h3>Absence</h3>
       <p>
-        {c.noShow.note}
-        {dueAmount}.
+        {withCompensationSuffix(c.noShow.note, compensationAmountSuffix)}
       </p>
     </li>
   </ul>

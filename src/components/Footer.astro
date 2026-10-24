@@ -34,15 +34,15 @@ const deontologie = professionDeontologieFooterLink(client.profession);
 ---
 
 <footer data-component="ui.footer">
-  <p class="px-4 py-3 text-center text-sm leading-relaxed md:px-6">
+  <p class="px-4 py-3 text-center text-base leading-relaxed md:px-6">
     En cas d'urgence psychiatrique ou de risque immédiat, contactez le 15 (SAMU) ou le 112.
   </p>
   <div class="pt-8 md:pt-10">
     <div class="site-container mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
       <address class="space-y-1 not-italic" data-component="footer.contact">
         <p class="text-base leading-relaxed">{b.fullName}</p>
-        <p class="text-sm leading-relaxed">{b.title} • {b.city}</p>
-        <p class="text-sm leading-relaxed">
+        <p class="text-sm leading-relaxed text-muted">{b.title} • {b.city}</p>
+        <p class="text-base leading-relaxed">
           {
             businessStreetLines(b).map((line) => (
               <>
@@ -53,13 +53,13 @@ const deontologie = professionDeontologieFooterLink(client.profession);
           }
           {b.postalCode}&nbsp;{b.city}
         </p>
-        <p class="text-sm leading-relaxed">
+        <p class="text-base leading-relaxed">
           <a class="inline-flex items-center gap-1.5" href={`tel:${b.phone.replace(/\s/g, "")}`}>
             <Phone class="size-4 shrink-0" size={16} aria-hidden="true" />
             {b.phone}
           </a>
         </p>
-        <p class="text-sm leading-relaxed">
+        <p class="text-base leading-relaxed">
           <a class="inline-flex items-center gap-1.5" href={`mailto:${b.email}`}>
             <Mail class="size-4 shrink-0" size={16} aria-hidden="true" />
             {b.email}
@@ -67,7 +67,7 @@ const deontologie = professionDeontologieFooterLink(client.profession);
         </p>
         {
           license.rppsOrAdeli && (
-            <p class="text-sm leading-relaxed">
+            <p class="text-sm leading-relaxed text-muted">
               {registrationLabel} : {license.rppsOrAdeli}
             </p>
           )

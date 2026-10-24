@@ -3,9 +3,8 @@ import Header from "./Header.astro";
 import HeroSection from "./sections/HeroSection.astro";
 import PractitionerCard from "./sections/PractitionerCard.astro";
 import ServicesSection from "./sections/ServicesSection.astro";
+import ContactEmergencyBlock from "./ContactEmergencyBlock.astro";
 import FaqSection from "./FaqSection.astro";
-import MonSoutienPsyCallout from "./MonSoutienPsyCallout.astro";
-import { CONDITIONS_LIMITS_ITEMS } from "../lib/constants";
 ---
 
 <Header />
@@ -20,7 +19,6 @@ import { CONDITIONS_LIMITS_ITEMS } from "../lib/constants";
   <section data-component="section.services-wrapper">
     <ServicesSection />
   </section>
-  <p data-component="home.urgency">{CONDITIONS_LIMITS_ITEMS.join(" ")}</p>
-  <MonSoutienPsyCallout class="my-10" headingLevel={2} />
+  <ContactEmergencyBlock class="my-10" idPrefix="home-emergency" />
   <FaqSection class="my-10" />
 </main>

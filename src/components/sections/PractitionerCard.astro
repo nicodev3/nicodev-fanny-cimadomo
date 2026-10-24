@@ -2,10 +2,14 @@
 import { ArrowRight, GraduationCap, MapPin, ShieldCheck } from "@lucide/astro";
 import { Image } from "astro:assets";
 import { client } from "../../lib/client";
+import { professionSupportsMonSoutienPsy } from "../../lib/client/professionCopy";
 import photo from "../../assets/Fanny-CIMADOMO.webp";
 
 const { business, credentials } = client;
 const registrationLabel = credentials.license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
+const showMonSoutienPsyAbsent =
+  professionSupportsMonSoutienPsy(client.profession) &&
+  !client.practice.reimbursement.monSoutienPsy.enabled;
 const degree = credentials.degrees[0];
 const degreeLine = degree
   ? /psychologie légale/i.test(degree.label)
@@ -30,13 +34,20 @@ const degreeLine = degree
 
   <ul class="hero-profile__facts">
     {
-      credentials.license.rppsOrAdeli && (
+      showMonSoutienPsyAbsent ? (
         <li>
           <ShieldCheck size={16} aria-hidden="true" />
-          <span>
-            {registrationLabel} {credentials.license.rppsOrAdeli}
-          </span>
+          <span>Je ne propose pas le dispositif Mon Soutien Psy.</span>
         </li>
+      ) : (
+        credentials.license.rppsOrAdeli && (
+          <li>
+            <ShieldCheck size={16} aria-hidden="true" />
+            <span>
+              {registrationLabel} {credentials.license.rppsOrAdeli}
+            </span>
+          </li>
+        )
       )
     }
     {

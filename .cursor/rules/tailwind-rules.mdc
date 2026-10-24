@@ -4,3 +4,8 @@ alwaysApply: true
 Eviter autant que possible d'utiliser les custom values pour les tailles.
 Utiliser les classes canoniques de tailwind.
 
+Typographie :
+- **Texte courant** (paragraphes, listes lues, bandeaux informatifs) : minimum **16px** — classes `text-base` ou `1rem` dans `stitch.css`.
+- **14px uniquement** pour mentions, labels de formulaire, navigation, fil d'Ariane, méta secondaire (institution sous un diplôme), notes `.note`, pied de page légal, boutons (`text-sm` / `0.875rem`).
+- Ne pas utiliser `text-sm` pour un paragraphe de lecture ; ne pas descendre sous `0.875rem` pour du texte visible.
+

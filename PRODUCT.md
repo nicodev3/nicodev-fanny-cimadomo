@@ -36,7 +36,7 @@ Le différentiel factuel : formation en psychologie légale, clinique du trauma,
 - Consultation au cabinet, 173 rue Emile Romanet, 73000 Chambéry. Parking gratuit ; arrêt Croix de Bissy (lignes C / D).
 - Horaires déclarés : vendredi 9h–17h (les autres jours sont désactivés dans le questionnaire).
 - Tarif : consultation individuelle adultes, 65 € / 45 min. Paiement virement, chèque, espèces.
-- Annulation 48 h (jours ouvrés) sinon séance due ; retard important → séance écourtée.
+- Annulation 48 h (jours ouvrés) sinon dédommagement financier possible ; retard important → séance écourtée.
 - Mon Soutien Psy : **non** proposé. Mutuelles : facture fournie, le patient vérifie lui-même.
 
 ## Capabilities and Constraints
