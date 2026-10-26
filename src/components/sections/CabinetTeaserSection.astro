@@ -1,0 +1,38 @@
+---
+import { ArrowRight, MapPin } from "@lucide/astro";
+import { Image } from "astro:assets";
+import cabinetPhoto from "../../assets/cabinet-psychologue-chambery.webp";
+import { client } from "../../lib/client";
+const { business, contact } = client;
+const accessNote = contact.accessNote ?? "";
+---
+
+<section class="cabinet-teaser" data-component="section.cabinet-teaser" aria-labelledby="cabinet-teaser-heading">
+  <div class="cabinet-teaser__grid">
+    <div class="cabinet-teaser__body">
+      <h2 id="cabinet-teaser-heading">Le cabinet à {business.city}</h2>
+      <address class="cabinet-teaser__address">
+        <MapPin size={18} aria-hidden="true" />
+        <span>
+          {business.addressLine1}
+          <br />
+          {business.postalCode} {business.city}
+        </span>
+      </address>
+      {accessNote && <p class="cabinet-teaser__access note">{accessNote}</p>}
+      <a href="/contact/" class="cta-secondary cta-secondary--sm">
+        Coordonnées et plan
+        <ArrowRight size={16} aria-hidden="true" />
+      </a>
+    </div>
+    <div class="contact-card__photo cabinet-teaser__photo">
+      <Image
+        src={cabinetPhoto}
+        alt="Le cabinet : un canapé et deux fauteuils autour de tables basses, dans une pièce lumineuse."
+        widths={[480, 768, 1024]}
+        sizes="(min-width: 768px) 40vw, 100vw"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>

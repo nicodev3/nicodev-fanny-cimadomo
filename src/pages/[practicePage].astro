@@ -11,25 +11,7 @@ import {
   practicePageContentId,
   practicePageEntryMatchesContentId,
 } from "../lib/practicePageRegistry";
-import integrativeHero from "../assets/approche-integrative.png";
-import emdrHero from "../assets/emdr.png";
-import tccHero from "../assets/tcc.png";
-import type { ImageMetadata } from "astro";
-
-const PRACTICE_PAGE_HERO: Record<string, { image: ImageMetadata; alt: string }> = {
-  "approche-integrative": {
-    image: integrativeHero,
-    alt: "Illustration lumineuse : une silhouette à genoux tient une tresse de fils colorés qui sort d’un profil de visage aux formes pastel.",
-  },
-  emdr: {
-    image: emdrHero,
-    alt: "Illustration lumineuse : une silhouette assise en méditation, reliée par un fil corail et un arc de points à un profil de visage aux touches pastel.",
-  },
-  "therapies-tcc": {
-    image: tccHero,
-    alt: "Illustration : une silhouette dénoue un fil rouge issu d’un enchevêtrement de pensées dans un profil de visage.",
-  },
-};
+import { getPracticePageHero } from "../lib/practicePageHeroImages";
 
 export async function getStaticPaths() {
   const entries = await getCollection("practicePages", isPublishedEntry);
@@ -54,7 +36,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { practicePage } = Astro.params;
 const { Content } = await render(entry);
-const hero = practicePage ? PRACTICE_PAGE_HERO[practicePage] : undefined;
+const hero = practicePage ? getPracticePageHero(practicePage) : undefined;
 ---
 
 <StandardPageLayout

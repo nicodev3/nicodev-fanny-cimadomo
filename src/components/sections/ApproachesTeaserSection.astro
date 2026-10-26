@@ -1,0 +1,77 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { client } from "../../lib/client";
+import { isPublishedEntry } from "../../lib/contentNavigation";
+import { getPracticePageHero } from "../../lib/practicePageHeroImages";
+import {
+  practicePageContentId,
+  practicePageEntryMatchesContentId,
+  practicePageHref,
+  REGISTERED_PRACTICE_PAGES,
+} from "../../lib/practicePageRegistry";
+
+const entries = await getCollection("practicePages", isPublishedEntry);
+
+const items = REGISTERED_PRACTICE_PAGES.filter(
+  (page) => client.practicePageEnabled[page.id] === true,
+)
+  .map((page) => {
+    const contentId = practicePageContentId(page.slug);
+    const entry = entries.find((e) => practicePageEntryMatchesContentId(e.id, contentId));
+    if (!entry) return null;
+    const hero = getPracticePageHero(page.slug);
+    return {
+      slug: page.slug,
+      href: practicePageHref(page.slug),
+      title: entry.data.title,
+      description: entry.data.description ?? "",
+      hero,
+    };
+  })
+  .filter((item): item is NonNullable<typeof item> => item !== null);
+---
+
+{
+  items.length > 0 && (
+    <section class="approaches-teaser" data-component="section.approaches-teaser" aria-labelledby="approaches-teaser-heading">
+      <div class="approaches-teaser__intro max-w-xl space-y-4">
+        <h2 id="approaches-teaser-heading">Mes approches</h2>
+        <p>
+          Chaque approche est détaillée sur une page dédiée. Nous choisissons ensemble ce qui correspond à votre situation.
+        </p>
+      </div>
+      <ul class="approaches-teaser__list">
+        {items.map((item) => (
+          <li>
+            <article class="approaches-teaser__item">
+              {item.hero && (
+                <div class="approaches-teaser__media">
+                  <Image
+                    src={item.hero.image}
+                    alt={item.hero.alt}
+                    width={400}
+                    height={280}
+                    densities={[1, 2]}
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div class="approaches-teaser__body">
+                <h3>
+                  <a href={item.href}>{item.title}</a>
+                </h3>
+                {item.description && <p>{item.description}</p>}
+                <a href={item.href} class="approaches-teaser__more">
+                  En savoir plus
+                  <ArrowRight size={16} aria-hidden="true" />
+                </a>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

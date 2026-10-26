@@ -3,7 +3,10 @@ import Header from "./Header.astro";
 import HeroSection from "./sections/HeroSection.astro";
 import PractitionerCard from "./sections/PractitionerCard.astro";
 import ServicesSection from "./sections/ServicesSection.astro";
+import ApproachesTeaserSection from "./sections/ApproachesTeaserSection.astro";
+import CabinetTeaserSection from "./sections/CabinetTeaserSection.astro";
 import ContactEmergencyBlock from "./ContactEmergencyBlock.astro";
+import ContactBand from "./ui/ContactBand.astro";
 import FaqSection from "./FaqSection.astro";
 ---
 
@@ -19,6 +22,9 @@ import FaqSection from "./FaqSection.astro";
   <section data-component="section.services-wrapper">
     <ServicesSection />
   </section>
+  <ApproachesTeaserSection />
+  <CabinetTeaserSection />
+  <ContactBand />
   <ContactEmergencyBlock class="my-10" idPrefix="home-emergency" />
   <FaqSection class="my-10" />
 </main>
