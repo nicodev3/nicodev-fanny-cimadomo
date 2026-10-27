@@ -29,6 +29,13 @@ const scale = [
   { value: 3, label: "Beaucoup" },
   { value: 4, label: "Extrêmement" },
 ];
+
+const clusters = [
+  { id: "b", label: "Reviviscences", from: 1, to: 5, max: 20 },
+  { id: "c", label: "Évitement", from: 6, to: 7, max: 8 },
+  { id: "d", label: "Cognitions et humeur", from: 8, to: 14, max: 28 },
+  { id: "e", label: "Hyperactivation", from: 15, to: 20, max: 24 },
+];
 ---
 
 <section
@@ -49,7 +56,32 @@ const scale = [
   </p>
 
   <form class="pcl5__form space-y-6" novalidate>
-    <p>
+    <div class="pcl5__progress" hidden>
+      <div class="pcl5__progress-row">
+        <p id="pcl5-progress-label" class="pcl5__progress-label">
+          <span data-step-label>Question 1 sur 20</span>
+          <span class="pcl5__cluster" data-cluster>{clusters[0].label}</span>
+        </p>
+        <p class="pcl5__progress-count">
+          <span data-answered>0</span>
+          <span aria-hidden="true">/</span>
+          <span class="sr-only"> sur </span>20
+        </p>
+      </div>
+      <div
+        class="pcl5__track"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="20"
+        aria-valuenow="0"
+        aria-labelledby="pcl5-progress-label"
+        data-track
+      >
+        <div class="pcl5__fill" data-fill></div>
+      </div>
+    </div>
+
+    <p class="pcl5__consigne" data-consigne>
       <strong>Consigne.</strong> Voici une liste de problèmes que les gens ont parfois à la suite d’une
       expérience très stressante. Pensez à cette expérience et lisez attentivement chaque problème. Indiquez
       à quel point vous avez été gêné(e) par chacun d’eux <strong>au cours du dernier mois</strong>.
@@ -57,9 +89,11 @@ const scale = [
 
     <p class="pcl5__lead"><strong>Au cours du dernier mois, avez-vous été gêné(e) par :</strong></p>
 
+    <p class="sr-only" aria-live="polite" data-live></p>
+
     {
       items.map((text, i) => (
-        <fieldset class="pcl5__item" data-item>
+        <fieldset class="pcl5__item" data-item data-index={i}>
           <legend>
             <span class="pcl5__num">{i + 1}.</span> {text}
           </legend>
@@ -67,11 +101,11 @@ const scale = [
             {scale.map((s) => (
               <label class="pcl5__choice">
                 <input type="radio" name={`q${i + 1}`} value={s.value} />
-                <span>
+                <span class="pcl5__choice-face">
                   <span class="pcl5__score" aria-hidden="true">
                     {s.value}
                   </span>
-                  {s.label}
+                  <span class="pcl5__choice-label">{s.label}</span>
                 </span>
               </label>
             ))}
@@ -82,23 +116,48 @@ const scale = [
 
     <p class="pcl5__error" role="alert" hidden></p>
 
+    <div class="pcl5__nav" hidden>
+      <button type="button" class="cta-secondary" data-prev disabled>Précédent</button>
+      <button type="button" class="cta-primary" data-next disabled>Continuer</button>
+      <button type="reset" class="pcl5__restart">Recommencer</button>
+    </div>
+
     <div class="pcl5__actions">
       <button type="submit" class="cta-primary">Calculer mon score</button>
       <button type="reset" class="cta-secondary">Recommencer</button>
     </div>
   </form>
 
-  <div class="pcl5__result" role="status" aria-live="polite" tabindex="-1" hidden>
+  <div class="pcl5__result" role="status" aria-live="polite" tabindex="-1" hidden inert>
     <h3>Votre résultat</h3>
-    <p>
-      Score total : <strong><span data-total></span> / 80</strong>
+    <p class="pcl5__total">
+      <span data-total></span>
+      <span class="pcl5__total-unit"> sur 80</span>
     </p>
     <p data-message></p>
     <ul class="pcl5__details">
-      <li>Reviviscences (questions 1 à 5) : <span data-b></span> / 20</li>
-      <li>Évitement (questions 6 et 7) : <span data-c></span> / 8</li>
-      <li>Cognitions et humeur (questions 8 à 14) : <span data-d></span> / 28</li>
-      <li>Hyperactivation (questions 15 à 20) : <span data-e></span> / 24</li>
+      {
+        clusters.map((cluster) => {
+          const range =
+            cluster.to === cluster.from
+              ? `question ${cluster.from}`
+              : cluster.to === cluster.from + 1
+                ? `questions ${cluster.from} et ${cluster.to}`
+                : `questions ${cluster.from} à ${cluster.to}`;
+          return (
+            <li>
+              <span>
+                {cluster.label}
+                <span class="pcl5__details-range"> ({range})</span>
+              </span>
+              <span>
+                <span data-cluster-score={cluster.id}></span>
+                <span class="pcl5__over"> / {cluster.max}</span>
+              </span>
+            </li>
+          );
+        })
+      }
     </ul>
     <p class="note">
       Un score égal ou supérieur à 33 suggère la présence possible d’un trouble de stress
@@ -106,148 +165,238 @@ const scale = [
       souffrance réelle. En cas de détresse importante ou d’idées suicidaires, contactez le 3114
       (numéro national de prévention du suicide, 24 h/24) ou le 15.
     </p>
+    <div class="pcl5__result-actions">
+      <button type="button" class="cta-secondary" data-edit>Modifier mes réponses</button>
+    </div>
   </div>
 </section>
 
-<style>
-  .pcl5__item {
-    margin: 0;
-    border: none;
-    border-top: 1px solid var(--color-surface-muted);
-    border-radius: 0;
-    padding: 1.25rem 0;
-    background: transparent;
-  }
-  .pcl5__item:first-of-type {
-    border-top: none;
-    padding-top: 0;
-  }
-  .pcl5__item legend {
-    padding: 0 0.5rem;
-    font-weight: 500;
-  }
-  .pcl5__item[data-missing] {
-    border-top-color: var(--color-accent-strong, #a4573a);
-  }
-  .pcl5__num {
-    color: var(--color-accent-strong, #a4573a);
-    font-weight: 700;
-  }
-  .pcl5__choices {
-    display: grid;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  }
-  .pcl5__choice {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 2.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-  }
-  .pcl5__choice:has(input:checked) {
-    background: var(--color-surface-warm, #ede0d7);
-  }
-  .pcl5__choice input {
-    width: 1.1rem;
-    height: 1.1rem;
-    accent-color: var(--color-accent-strong, #a4573a);
-  }
-  .pcl5__score {
-    color: var(--color-muted, #6b635c);
-    margin-right: 0.35rem;
-    font-variant-numeric: tabular-nums;
-  }
-  .pcl5__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-  .pcl5__error {
-    color: var(--color-accent-strong, #a4573a);
-    font-weight: 600;
-  }
-  .pcl5__result {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    background: var(--color-surface-subtle, #f4f3f1);
-    box-shadow: var(--shadow-soft);
-  }
-  .pcl5__result > * + * {
-    margin-top: 0.75rem;
-  }
-  .pcl5__details {
-    list-style: disc;
-    padding-left: 1.25rem;
-  }
-</style>
-
 <script>
+  const clusters = [
+    { id: "b", label: "Reviviscences", from: 1, to: 5 },
+    { id: "c", label: "Évitement", from: 6, to: 7 },
+    { id: "d", label: "Cognitions et humeur", from: 8, to: 14 },
+    { id: "e", label: "Hyperactivation", from: 15, to: 20 },
+  ] as const;
+
   const root = document.querySelector<HTMLElement>('[data-component="questionnaire.pcl5"]');
   if (root) {
     const form = root.querySelector<HTMLFormElement>(".pcl5__form")!;
     const error = root.querySelector<HTMLElement>(".pcl5__error")!;
     const result = root.querySelector<HTMLElement>(".pcl5__result")!;
+    const progress = root.querySelector<HTMLElement>(".pcl5__progress")!;
+    const nav = root.querySelector<HTMLElement>(".pcl5__nav")!;
+    const actions = root.querySelector<HTMLElement>(".pcl5__actions")!;
+    const consigne = root.querySelector<HTMLElement>("[data-consigne]")!;
+    const fill = root.querySelector<HTMLElement>("[data-fill]")!;
+    const track = root.querySelector<HTMLElement>("[data-track]")!;
+    const stepLabel = root.querySelector<HTMLElement>("[data-step-label]")!;
+    const clusterEl = root.querySelector<HTMLElement>("[data-cluster]")!;
+    const answeredEl = root.querySelector<HTMLElement>("[data-answered]")!;
+    const live = root.querySelector<HTMLElement>("[data-live]")!;
+    const prevBtn = root.querySelector<HTMLButtonElement>("[data-prev]")!;
+    const nextBtn = root.querySelector<HTMLButtonElement>("[data-next]")!;
+    const editBtn = root.querySelector<HTMLButtonElement>("[data-edit]")!;
+    const items = [...root.querySelectorAll<HTMLElement>("[data-item]")];
+    const lastIndex = items.length - 1;
+    const advanceDelayMs = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? 0
+      : 280;
+
+    let index = 0;
+    let advanceTimer = 0;
+    let pointerOnChoice = false;
+
+    const clearAdvance = () => {
+      window.clearTimeout(advanceTimer);
+    };
+
+    const clusterFor = (itemIndex: number) =>
+      clusters.find((c) => itemIndex + 1 >= c.from && itemIndex + 1 <= c.to) ?? clusters[0];
+
+    const valueAt = (itemIndex: number) => {
+      const checked = form.querySelector<HTMLInputElement>(
+        `input[name="q${itemIndex + 1}"]:checked`,
+      );
+      return checked ? Number(checked.value) : null;
+    };
+
+    const answeredCount = () => items.reduce((n, _, i) => n + (valueAt(i) !== null ? 1 : 0), 0);
+
     const set = (sel: string, v: number) => {
       root.querySelector(sel)!.textContent = String(v);
     };
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+    const showStep = (announce: boolean) => {
+      items.forEach((item, i) => {
+        const current = i === index;
+        item.toggleAttribute("data-current", current);
+        item.hidden = !current;
+      });
+      consigne.hidden = index > 0;
+      const answered = answeredCount();
+      const cluster = clusterFor(index);
+      const currentValue = valueAt(index);
+      stepLabel.textContent = `Question ${index + 1} sur ${items.length}`;
+      clusterEl.textContent = cluster.label;
+      answeredEl.textContent = String(answered);
+      fill.style.width = `${(answered / items.length) * 100}%`;
+      track.setAttribute("aria-valuenow", String(answered));
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = currentValue === null;
+      nextBtn.textContent = index === lastIndex ? "Voir mon résultat" : "Continuer";
+      if (announce) {
+        live.textContent = `Question ${index + 1} sur ${items.length}, ${cluster.label}`;
+        progress.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        items[index].querySelector<HTMLInputElement>("input")?.focus({ preventScroll: true });
+      }
+    };
+
+    const collect = () => {
       const values: number[] = [];
       const missing: number[] = [];
-      for (let i = 1; i <= 20; i++) {
-        const checked = form.querySelector<HTMLInputElement>(`input[name="q${i}"]:checked`);
-        const fieldset = form.querySelectorAll<HTMLElement>("[data-item]")[i - 1];
-        if (checked) {
-          values.push(Number(checked.value));
-          fieldset.removeAttribute("data-missing");
-        } else {
+      items.forEach((item, i) => {
+        const value = valueAt(i);
+        if (value === null) {
           values.push(0);
-          missing.push(i);
-          fieldset.setAttribute("data-missing", "");
+          missing.push(i + 1);
+          item.setAttribute("data-missing", "");
+        } else {
+          values.push(value);
+          item.removeAttribute("data-missing");
         }
-      }
+      });
+      return { values, missing };
+    };
 
-      if (missing.length) {
-        error.hidden = false;
-        error.textContent = `Merci de répondre à toutes les questions (manquantes : ${missing.join(", ")}).`;
-        result.hidden = true;
-        form.querySelectorAll<HTMLElement>("[data-item]")[missing[0] - 1].scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        return;
-      }
-
-      error.hidden = true;
+    const showResult = (values: number[]) => {
       const sum = (from: number, to: number) =>
         values.slice(from - 1, to).reduce((a, b) => a + b, 0);
       const total = sum(1, 20);
 
       set("[data-total]", total);
-      set("[data-b]", sum(1, 5));
-      set("[data-c]", sum(6, 7));
-      set("[data-d]", sum(8, 14));
-      set("[data-e]", sum(15, 20));
+      set('[data-cluster-score="b"]', sum(1, 5));
+      set('[data-cluster-score="c"]', sum(6, 7));
+      set('[data-cluster-score="d"]', sum(8, 14));
+      set('[data-cluster-score="e"]', sum(15, 20));
       root.querySelector("[data-message]")!.textContent =
         total >= 33
           ? "Votre score se situe au-dessus du seuil de repérage (33). Il peut être utile d’en parler avec un(e) psychologue ou un(e) médecin pour faire le point."
           : "Votre score se situe en dessous du seuil de repérage (33). Si vous ressentez malgré tout une gêne, n’hésitez pas à en parler à un(e) professionnel(le).";
 
+      error.hidden = true;
+      form.hidden = true;
       result.hidden = false;
+      result.removeAttribute("inert");
       result.focus();
       result.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    const goToMissing = (missing: number[]) => {
+      error.hidden = false;
+      error.textContent =
+        missing.length === 1
+          ? `Il reste la question ${missing[0]} à renseigner.`
+          : `Merci de répondre à toutes les questions (manquantes : ${missing.join(", ")}).`;
+      result.hidden = true;
+      result.setAttribute("inert", "");
+      form.hidden = false;
+      index = missing[0] - 1;
+      showStep(true);
+    };
+
+    root.dataset.stepped = "";
+    progress.hidden = false;
+    nav.hidden = false;
+    actions.hidden = true;
+    items.forEach((item) => {
+      item.tabIndex = -1;
+    });
+    showStep(false);
+
+    const goNext = () => {
+      clearAdvance();
+      if (valueAt(index) === null) return;
+      if (index === lastIndex) {
+        form.requestSubmit();
+        return;
+      }
+      index += 1;
+      showStep(true);
+    };
+
+    form.addEventListener("change", (event) => {
+      const input = event.target;
+      if (!(input instanceof HTMLInputElement) || input.type !== "radio") return;
+      const item = input.closest<HTMLElement>("[data-item]");
+      item?.removeAttribute("data-missing");
+      error.hidden = true;
+      showStep(false);
+    });
+
+    form.addEventListener("pointerdown", (event) => {
+      const input = event.target;
+      pointerOnChoice =
+        input instanceof HTMLInputElement &&
+        input.type === "radio" &&
+        event.pointerType !== "";
+    });
+
+    form.addEventListener("click", (event) => {
+      const input = event.target;
+      if (!(input instanceof HTMLInputElement) || input.type !== "radio") return;
+      if (!pointerOnChoice) return;
+      pointerOnChoice = false;
+      clearAdvance();
+      advanceTimer = window.setTimeout(goNext, advanceDelayMs);
+    });
+
+    form.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      if (!(event.target instanceof HTMLInputElement) || event.target.type !== "radio") return;
+      if (nextBtn.disabled) return;
+      event.preventDefault();
+      goNext();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (index === 0) return;
+      clearAdvance();
+      index -= 1;
+      showStep(true);
+    });
+
+    nextBtn.addEventListener("click", () => {
+      goNext();
+    });
+
+    editBtn.addEventListener("click", () => {
+      result.hidden = true;
+      result.setAttribute("inert", "");
+      form.hidden = false;
+      index = lastIndex;
+      showStep(true);
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const { values, missing } = collect();
+      if (missing.length) {
+        goToMissing(missing);
+        return;
+      }
+      showResult(values);
     });
 
     form.addEventListener("reset", () => {
+      clearAdvance();
+      index = 0;
       error.hidden = true;
       result.hidden = true;
-      form.querySelectorAll("[data-missing]").forEach((el) => el.removeAttribute("data-missing"));
+      result.setAttribute("inert", "");
+      form.hidden = false;
+      items.forEach((item) => item.removeAttribute("data-missing"));
+      window.setTimeout(() => showStep(true), 0);
     });
   }
 </script>
