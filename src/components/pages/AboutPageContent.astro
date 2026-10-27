@@ -6,6 +6,7 @@ import BookingActions from "../ui/BookingActions.astro";
 import ContactBand from "../ui/ContactBand.astro";
 import { client } from "../../lib/client";
 import { enabledContactHoursRows } from "../../lib/client/contactHours";
+import { heroConsultationTaglineAfterPour } from "../../lib/client/heroConsultationTagline";
 import { bookingPrimaryIsExternal, resolvedBookingPrimaryHref } from "../../lib/client/siteBooking";
 import { REGISTERED_PRACTICE_PAGES, practicePageHref } from "../../lib/practicePageRegistry";
 import {
@@ -21,12 +22,16 @@ const hoursLine = hours.map((h) => `${h.label} ${h.value}`).join(" · ");
 const practiceLinks = REGISTERED_PRACTICE_PAGES.filter((page) => client.practicePageEnabled[page.id]);
 const bookingHref = resolvedBookingPrimaryHref(client);
 const bookingExternal = bookingPrimaryIsExternal(bookingHref);
-const heroIdentityParts = [
-  business.title,
-  business.city,
-  practice.audience.filter(Boolean).join(", "),
-  practice.consultationModes.includes("cabinet") ? "cabinet" : "",
-].filter(Boolean);
+const heroRole = [
+  business.city ? `${business.title} à ${business.city}` : business.title,
+  `consultations pour ${heroConsultationTaglineAfterPour(practice).replace(/\.$/, "")}`,
+]
+  .filter(Boolean)
+  .join(" · ");
+const introParagraphs = client.aboutPage.intro
+  .split(/\n\n/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean);
 ---
 
 <header class="page-hero about-hero" data-component="about.intro">
@@ -37,100 +42,105 @@ const heroIdentityParts = [
         alt={practitionerPortraitAlt(business.fullName, business.title)}
         width={320}
         height={Math.round(320 * (photo.height / photo.width))}
-        densities={[1, 1.5]}
+        densities={[1, 2]}
+        sizes="(min-width: 1024px) 12rem, 10rem"
         loading="eager"
       />
     </div>
     <div class="about-hero__identity">
-      <h1>{business.fullName}</h1>
-      <p class="about-hero__role">{heroIdentityParts.join(" · ")}</p>
+      <div class="about-hero__who">
+        <h1>{business.fullName}</h1>
+        <p class="about-hero__role">{heroRole}</p>
+      </div>
+      {
+        introParagraphs.map((paragraph, index) => (
+          <p class={index === 0 ? "lead" : "about-hero__follow"}>{paragraph}</p>
+        ))
+      }
     </div>
   </div>
-
-  <div class="page-hero__intro">
-    <p class="lead">{client.aboutPage.intro}</p>
-
-    {
-      session && (
-        <section class="about-cadre-panel" data-component="about.cadre" aria-labelledby="about-cadre-title">
-          <h2 id="about-cadre-title" class="about-cadre-panel__title">Cadre des consultations</h2>
-          <dl class="about-cadre">
-            {
-              session && (
-                <div class="about-cadre__row">
-                  <dt>Honoraires</dt>
-                  <dd>
-                    {session.price}&nbsp;€
-                    {session.durationMinutes ? ` · ${session.durationMinutes} min` : ""}
-                    {session.note ? ` · ${session.note}` : ""}
-                    {" · "}
-                    <a href="/tarifs/">Tarifs et remboursement</a>
-                  </dd>
-                </div>
-              )
-            }
-            {
-              hoursLine && (
-                <div class="about-cadre__row">
-                  <dt>Horaires</dt>
-                  <dd>
-                    {hoursLine}
-                    {" · "}
-                    <a
-                      href={bookingHref}
-                      {...bookingExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
-                    >
-                      Créneaux en ligne
-                    </a>
-                    {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
-                  </dd>
-                </div>
-              )
-            }
-            <div class="about-cadre__row">
-              <dt>Annulation</dt>
-              <dd>
-                {client.conditions.cancellation.noticeHours}&nbsp;h à l’avance, hors week-end
-                {" · "}
-                <a href="/tarifs/">Conditions complètes</a>
-              </dd>
-            </div>
-          </dl>
-        </section>
-      )
-    }
-
-    <ul class="hero-facts">
-      {
-        credentials.license.rppsOrAdeli && (
-          <li>
-            <ShieldCheck size={16} aria-hidden="true" />
-            {registrationLabel} {credentials.license.rppsOrAdeli}
-          </li>
-        )
-      }
-      <li>
-        <MapPin size={16} aria-hidden="true" />
-        <span>{`${business.addressLine1}, ${business.postalCode} ${business.city}`}</span>
-      </li>
-    </ul>
-    {
-      practiceLinks.length > 0 && (
-        <nav class="about-practice-links" aria-labelledby="about-practice-links-title">
-          <h3 id="about-practice-links-title" class="about-practice-links__title">Mes approches</h3>
-          <ul>
-            {practiceLinks.map((page) => (
-              <li>
-                <a href={practicePageHref(page.slug)}>{page.navLabel}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )
-    }
-    <BookingActions />
-  </div>
+  {
+    practiceLinks.length > 0 && (
+      <nav class="about-practice-links" aria-labelledby="about-practice-links-title">
+        <h2 id="about-practice-links-title" class="about-practice-links__title">Mes approches</h2>
+        <ul>
+          {practiceLinks.map((page) => (
+            <li>
+              <a href={practicePageHref(page.slug)}>{page.navLabel}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+  <BookingActions />
 </header>
+
+<section
+  class="about-practical"
+  data-component="about.cadre"
+  aria-labelledby={session ? "about-cadre-title" : undefined}
+>
+  {
+    session && (
+      <div class="about-cadre-panel">
+        <h2 id="about-cadre-title" class="about-cadre-panel__title">Cadre des consultations</h2>
+        <dl class="about-cadre">
+          <div class="about-cadre__row">
+            <dt>Honoraires</dt>
+            <dd>
+              {session.price}&nbsp;€
+              {session.durationMinutes ? ` · ${session.durationMinutes} min` : ""}
+              {session.note ? ` · ${session.note}` : ""}
+              {" · "}
+              <a href="/tarifs/">Tarifs et remboursement</a>
+            </dd>
+          </div>
+          {
+            hoursLine && (
+              <div class="about-cadre__row">
+                <dt>Horaires</dt>
+                <dd>
+                  {hoursLine}
+                  {" · "}
+                  <a
+                    href={bookingHref}
+                    {...bookingExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
+                  >
+                    Créneaux en ligne
+                  </a>
+                  {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
+                </dd>
+              </div>
+            )
+          }
+          <div class="about-cadre__row">
+            <dt>Annulation</dt>
+            <dd>
+              {client.conditions.cancellation.noticeHours}&nbsp;h à l’avance, hors week-end
+              {" · "}
+              <a href="/tarifs/">Conditions complètes</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    )
+  }
+  <ul class="hero-facts">
+    {
+      credentials.license.rppsOrAdeli && (
+        <li>
+          <ShieldCheck size={16} aria-hidden="true" />
+          {registrationLabel} {credentials.license.rppsOrAdeli}
+        </li>
+      )
+    }
+    <li>
+      <MapPin size={16} aria-hidden="true" />
+      <span>{`${business.addressLine1}, ${business.postalCode} ${business.city}`}</span>
+    </li>
+  </ul>
+</section>
 
 <CredentialsPanel />
 

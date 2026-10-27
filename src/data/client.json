@@ -80,7 +80,7 @@
                 "year": "2025"
             },
             {
-                "label": "Repérage et diagnostique du TSPT chez l'enfant et l'adolescent",
+                "label": "Repérage et diagnostic du TSPT (trouble de stress post-traumatique) chez l'enfant et l'adolescent",
                 "provider": "Centre Régional du Psychotraumatisme de Bordeaux",
                 "year": "2025"
             },
@@ -95,7 +95,7 @@
                 "year": "2024"
             },
             {
-                "label": "Sensibilisation à la systèmie et aux objets flottants",
+                "label": "Sensibilisation à la systémique et aux objets flottants",
                 "provider": "Institut d’études systémiques",
                 "year": "2023"
             },
@@ -127,11 +127,11 @@
         ],
         "affiliations": [],
         "professionalExperiences": [
-            "Psychologue de l'Education Nationale",
-            "Psychologue de la Protection Judiciaire de la Jeunesse",
-            "Psychologue en protection de l'enfance (MECS et AEMO-R)",
+            "Psychologue de l'Éducation nationale",
+            "Psychologue de la Protection judiciaire de la jeunesse",
+            "Psychologue en protection de l'enfance (MECS, maison d'enfants à caractère social, et AEMO-R, action éducative en milieu ouvert renforcée)",
             "Accueillante en Espace Rencontre Protégé",
-            "Psychologue en hospitalisation ado",
+            "Psychologue en hospitalisation pour adolescents",
             "Psychologue réserviste pour le Service de Santé des Armées",
             "Jury de concours"
         ]
@@ -197,8 +197,8 @@
         "sexology": []
     },
     "aboutPage": {
-        "intro": "Psychologue clinicienne à Chambéry, j'accompagne des adultes en cabinet, dans une approche intégrative. Je m'appuie sur les thérapies cognitives et comportementales (TCC), la clinique du psychotraumatisme et l'EMDR (formation niveau 1 en cours), ainsi que des apports systémiques et de la thérapie des schémas.",
-        "sidebarSummary": "Psychologue clinicienne, j’accompagne les adultes en m’appuyant sur plusieurs approches thérapeutiques, selon leurs besoins et à leur rythme."
+        "intro": "Je vous accueille à Chambéry, en cabinet, dans un cadre d’écoute, de respect et de confidentialité. Nous avançons à votre rythme.\n\nJ’accompagne des adultes avec une approche intégrative : thérapies cognitives et comportementales (TCC), clinique du psychotraumatisme et EMDR (formation niveau 1 en cours), apports de la systémique et de la thérapie des schémas.",
+        "sidebarSummary": "Psychologue clinicienne à Chambéry. J’accompagne les adultes en cabinet, dans un cadre d’écoute et de confidentialité, à leur rythme."
     },
     "whyConsultPage": {
         "framing": "Pour l’Organisation mondiale de la Santé, la santé est « un état de complet bien-être physique, mental et social, et ne consiste pas seulement en une absence de maladie ou d’infirmité ». L’homéostasie désigne, quant à elle, la capacité de l’organisme à maintenir un équilibre dynamique : lorsque cet équilibre est fragilisé, consulter permet de comprendre ce qui se joue pour vous et de retrouver progressivement des marges de manœuvre, à votre rythme."
