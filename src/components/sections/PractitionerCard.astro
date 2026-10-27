@@ -3,7 +3,10 @@ import { ArrowRight, GraduationCap, MapPin, ShieldCheck } from "@lucide/astro";
 import { Image } from "astro:assets";
 import { client } from "../../lib/client";
 import { professionSupportsMonSoutienPsy } from "../../lib/client/professionCopy";
-import photo from "../../assets/Fanny-CIMADOMO.webp";
+import {
+  practitionerPortrait as photo,
+  practitionerPortraitAlt,
+} from "../../lib/practitionerPortrait";
 
 const { business, credentials } = client;
 const registrationLabel = credentials.license.registrationLabel === "rpps" ? "RPPS" : "ADELI";
@@ -22,9 +25,9 @@ const degreeLine = degree
   <div class="hero-profile__photo">
     <Image
       src={photo}
-      alt={`Portrait de ${business.fullName}`}
-      width={272}
-      height={272}
+      alt={practitionerPortraitAlt(business.fullName, business.title)}
+      width={320}
+      height={Math.round(320 * (photo.height / photo.width))}
       densities={[1, 2]}
       loading="eager"
     />

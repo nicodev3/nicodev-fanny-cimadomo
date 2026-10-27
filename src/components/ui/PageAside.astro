@@ -4,7 +4,10 @@ import { Image } from "astro:assets";
 import BookingActions from "./BookingActions.astro";
 import { client } from "../../lib/client";
 import { enabledContactHoursRows } from "../../lib/client/contactHours";
-import photo from "../../assets/Fanny-CIMADOMO.webp";
+import {
+  practitionerPortrait as photo,
+  practitionerPortraitAlt,
+} from "../../lib/practitionerPortrait";
 
 const { business, contact, credentials, aboutPage } = client;
 const hours = enabledContactHoursRows(contact.hours);
@@ -21,9 +24,9 @@ const nameId = "page-aside-practitioner-name";
       <div class="practitioner-card__photo page-aside__photo">
         <Image
           src={photo}
-          alt={`Portrait de ${business.fullName}`}
+          alt={practitionerPortraitAlt(business.fullName, business.title)}
           width={160}
-          height={160}
+          height={Math.round(160 * (photo.height / photo.width))}
           densities={[1, 2]}
         />
       </div>
