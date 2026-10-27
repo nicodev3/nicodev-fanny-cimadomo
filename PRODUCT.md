@@ -44,7 +44,7 @@ Le différentiel factuel : formation en psychologie légale, clinique du trauma,
 - Socle Astro Nicodev : pages, header/footer, formulaire, pages d’approche (`TCC`, `EMDR`, `approche intégrative` activées).
 - Styles visuels dans `src/styles/stitch.css` (fichier CSS du fork, **pas** un lock Stitch). Markup Astro + `client.json` restent la structure.
 - Pas de visio. Pas d’espace patient. Pas de blog métier obligatoire.
-- `seo.baseUrl` est encore le placeholder `https://exemple.fr` : ne pas traiter l’URL canonique comme définitive.
+- `seo.baseUrl` est `https://fcpsy.fr` : transfert Wix vers OVH en cours, domaine pas encore actif.
 - Décision ouverte : le visuel Stitch n’est **pas** une identité figée.
 
 ## Brand Commitments

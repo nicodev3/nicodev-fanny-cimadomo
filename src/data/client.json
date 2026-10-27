@@ -152,8 +152,8 @@
     },
     "seo": {
         "description": "Psychologue à Chambéry, Fanny Cimadomo accompagne les adultes en cabinet, avec une approche intégrative (TCC, EMDR) et un suivi confidentiel.",
-        "baseUrl": "https://exemple.fr",
-        "ogImage": "https://exemple.fr/og.jpg"
+        "baseUrl": "https://fcpsy.fr",
+        "ogImage": "https://fcpsy.fr/og.jpg"
     },
     "practicePageEnabled": {
         "tcc": true,
