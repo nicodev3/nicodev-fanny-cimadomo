@@ -1,5 +1,5 @@
 ---
-import { CalendarDays, MessagesSquare, Phone } from "@lucide/astro";
+import { CalendarDays, ExternalLink, Mail, Phone } from "@lucide/astro";
 import { client } from "../../lib/client";
 import {
   bookingPrimaryIsExternal,
@@ -32,6 +32,7 @@ const phoneVisible =
   >
     <CalendarDays size={16} aria-hidden="true" />
     {SITE_BOOKING_PRIMARY_LABEL}
+    {bookingExternal && <ExternalLink size={14} class="opacity-70" aria-hidden="true" />}
     {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
   </a>
   {
@@ -45,7 +46,7 @@ const phoneVisible =
   {
     !hideContact && (
       <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-secondary cta-secondary--sm">
-        <MessagesSquare size={16} aria-hidden="true" />
+        <Mail size={16} aria-hidden="true" />
         {SITE_BOOKING_SECONDARY_LABEL}
       </a>
     )

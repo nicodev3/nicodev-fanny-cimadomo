@@ -1,5 +1,5 @@
 ---
-import { CalendarDays, MessagesSquare } from "@lucide/astro";
+import { CalendarDays, ExternalLink, Mail } from "@lucide/astro";
 import { client } from "../../lib/client";
 import { getSiteCopy } from "../../lib/siteCopy";
 import { heroConsultationTaglineAfterPour } from "../../lib/client/heroConsultationTagline";
@@ -41,7 +41,6 @@ const hours = enabledContactHoursRows(client.contact.hours);
             <dd>
               {session.price}&nbsp;€
               {session.durationMinutes ? ` · ${session.durationMinutes} min` : ""}
-              {session.note ? ` · ${session.note}` : ""}
             </dd>
           </div>
         )
@@ -52,7 +51,6 @@ const hours = enabledContactHoursRows(client.contact.hours);
             <dt class="sr-only">Horaires</dt>
             <dd>
               {hours.map((h) => `${h.label} ${h.value}`).join(" · ")}
-              {client.practice.consultationModes.includes("cabinet") ? " · au cabinet" : ""}
             </dd>
           </div>
         )
@@ -62,7 +60,7 @@ const hours = enabledContactHoursRows(client.contact.hours);
     {introText && <p class="hero-intro__copy">{introText}</p>}
     <div class="hero-intro__actions">
       <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary cta-primary--sm">
-        <MessagesSquare class="size-4 shrink-0" size={16} aria-hidden="true" />
+        <Mail class="size-4 shrink-0" size={16} aria-hidden="true" />
         {SITE_BOOKING_SECONDARY_LABEL}
       </a>
       <a
@@ -72,6 +70,7 @@ const hours = enabledContactHoursRows(client.contact.hours);
       >
         <CalendarDays class="size-4 shrink-0" size={16} aria-hidden="true" />
         {SITE_BOOKING_PRIMARY_LABEL}
+        {bookingExternal && <ExternalLink class="size-3.5 shrink-0 opacity-70" size={14} aria-hidden="true" />}
         {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
       </a>
     </div>

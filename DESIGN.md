@@ -115,7 +115,7 @@ Palette lin / mauve / terracotta extraite de `src/styles/stitch.css`. Le vert sa
 - **Mauve pâle** (`#ebe4ea`, token `--color-surface-sage`, nom historique): bandeaux, pied, îlot urgence, survol des boutons secondaires
 - **Papier atténué** (`#ebe8e2`): bandeau d’urgence du pied de page
 - **Décor** (`#9a939f`): traits et motifs décoratifs, jamais du texte
-- **Inverse** (`#524858`, texte `#f4f6f3`): bandeau « Une question avant de prendre rendez-vous ? »
+- **Inverse** (`#524858`, texte `#f4f6f3`): réservé ; plus utilisé comme fond de bandeau sur les pages publiques
 
 ### Named Rules
 **The Solid-Surface Rule.** Les fonds sont des aplatis. Pas de `linear-gradient` / `radial-gradient` décoratifs, pas de texte en dégradé.
@@ -168,6 +168,9 @@ Rayon 0.75rem sur contrôles et photo portrait. Filets 1px `paper-sunken`. Pas d
 
 ### Cards / Containers
 Surfaces papier ou transparentes. Les motifs d’accueil et la FAQ ne sont pas des cartes.
+
+- **Bandeau contact** (« Une question avant de prendre rendez-vous ? ») : rangée entre deux filets `paper-sunken`, sans fond ni rayon. Ce n’est jamais la surface la plus lourde de la page.
+- **Cartes d’approche** : un seul lien (le titre) étendu à toute la carte ; « En savoir plus » est un repère visuel mauve, pas un second lien.
 
 ### Inputs / Fields
 Fond `paper-subtle`, rayon 0.75rem, focus outline 1px mauve. Focus clavier global : contour 2px terracotta, décalé de 2px.

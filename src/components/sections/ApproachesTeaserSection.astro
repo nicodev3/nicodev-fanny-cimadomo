@@ -41,10 +41,15 @@ const items = REGISTERED_PRACTICE_PAGES.filter(
     <section class="approaches-teaser" data-component="section.approaches-teaser" aria-labelledby="approaches-teaser-heading">
       <div class="approaches-teaser__intro max-w-xl space-y-4">
         <h2 id="approaches-teaser-heading">Mes approches</h2>
-        {approachesIntro && <p>{approachesIntro}</p>}
-        <p>
-          Chaque approche est détaillée sur une page dédiée. Nous choisissons ensemble ce qui correspond à votre situation.
-        </p>
+        {
+          approachesIntro ? (
+            <p>{approachesIntro}</p>
+          ) : (
+            <p>
+              Chaque approche est détaillée sur une page dédiée. Nous choisissons ensemble ce qui correspond à votre situation.
+            </p>
+          )
+        }
       </div>
       <ul class="approaches-teaser__list">
         {items.map((item) => (

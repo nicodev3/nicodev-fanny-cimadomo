@@ -24,7 +24,7 @@ export const EMERGENCY_NUMBERS: readonly { number: string; label: string; shortL
   { number: "112", label: "numéro d’urgence européen", shortLabel: "urgence européenne" },
   {
     number: "3114",
-    label: "numéro national de prévention du suicide, gratuit, 24 h/24 et 7 j/7",
+    label: "numéro national de prévention du suicide, gratuit, 24 h/24 et 7 j/7",
     shortLabel: "prévention du suicide",
   },
 ];

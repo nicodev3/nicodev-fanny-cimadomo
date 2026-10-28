@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, GraduationCap, MapPin, ShieldCheck } from "@lucide/astro";
+import { ArrowRight, GraduationCap, ShieldCheck } from "@lucide/astro";
 import { Image } from "astro:assets";
 import { client } from "../../lib/client";
 import {
@@ -50,10 +50,6 @@ const degreeLine = degree
         </li>
       )
     }
-    <li>
-      <MapPin size={16} aria-hidden="true" />
-      <span>{business.addressLine1}, {business.postalCode} {business.city}</span>
-    </li>
   </ul>
 
   <div class="hero-profile__actions">

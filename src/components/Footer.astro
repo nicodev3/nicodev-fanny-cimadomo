@@ -1,5 +1,5 @@
 ---
-import { CalendarDays, ExternalLink, Mail, MessagesSquare, Phone } from "@lucide/astro";
+import { CalendarDays, ExternalLink, Mail, Phone } from "@lucide/astro";
 import { getArticleNavigation } from "../lib/contentNavigation";
 import { buildFooterSiteMapItems } from "../lib/footerSiteMap";
 import { getSiteNavigation } from "../lib/siteNavigation";
@@ -111,7 +111,7 @@ const deontologie = professionDeontologieFooterLink(client.profession);
         {
           !onContactPage && (
             <a class="cta-primary cta-primary--footer" href={SITE_BOOKING_SECONDARY_HREF}>
-              <MessagesSquare class="size-4 shrink-0" size={16} aria-hidden="true" />
+              <Mail class="size-4 shrink-0" size={16} aria-hidden="true" />
               {SITE_BOOKING_SECONDARY_LABEL}
             </a>
           )
@@ -125,6 +125,7 @@ const deontologie = professionDeontologieFooterLink(client.profession);
         >
           <CalendarDays class="size-4 shrink-0" size={16} aria-hidden="true" />
           {SITE_BOOKING_PRIMARY_LABEL}
+          {bookingExternal && <ExternalLink class="size-3.5 shrink-0 opacity-70" size={14} aria-hidden="true" />}
           {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
         </a>
       </div>

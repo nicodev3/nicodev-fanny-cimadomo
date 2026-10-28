@@ -1,5 +1,5 @@
 ---
-import { MessagesSquare } from "@lucide/astro";
+import { ArrowRight, Mail } from "@lucide/astro";
 import { SITE_BOOKING_SECONDARY_HREF, SITE_BOOKING_SECONDARY_LABEL } from "../../lib/constants";
 
 interface Props {
@@ -16,6 +16,8 @@ const {
   ctaLabel = SITE_BOOKING_SECONDARY_LABEL,
 } = Astro.props;
 const headingId = "contact-band-title";
+/** Enveloppe pour un contact écrit ; flèche pour un simple renvoi vers une autre page. */
+const isContactLink = ctaHref === SITE_BOOKING_SECONDARY_HREF;
 ---
 
 <section class="contact-band" data-component="ui.contact-band" aria-labelledby={headingId}>
@@ -24,7 +26,8 @@ const headingId = "contact-band-title";
     <p>{text}</p>
   </div>
   <a href={ctaHref} class="cta-primary cta-primary--sm">
-    <MessagesSquare size={16} aria-hidden="true" />
+    {isContactLink && <Mail size={16} aria-hidden="true" />}
     {ctaLabel}
+    {!isContactLink && <ArrowRight size={16} aria-hidden="true" />}
   </a>
 </section>

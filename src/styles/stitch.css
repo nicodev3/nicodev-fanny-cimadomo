@@ -878,6 +878,14 @@ main a:not([class]) {
   height: auto;
 }
 
+/* Mobile : illustrations recadrées en bandeau pour ne pas allonger la lecture */
+@media (max-width: 639.98px) {
+  .approaches-teaser__media img {
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+  }
+}
+
 .approaches-teaser__body {
   display: flex;
   flex: 1;
@@ -913,7 +921,7 @@ main a:not([class]) {
 
 @media (hover: hover) {
   .approaches-teaser__item:hover h3 a {
-    color: var(--color-accent-strong);
+    color: var(--color-primary);
   }
 
   .approaches-teaser__item:hover .approaches-teaser__more {
@@ -936,7 +944,7 @@ main a:not([class]) {
   align-items: center;
   gap: 0.375rem;
   margin-top: 0.25rem;
-  color: var(--color-accent-strong);
+  color: var(--color-primary);
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
@@ -1664,15 +1672,14 @@ main [data-component="section.cabinet-teaser"] .cta-secondary {
   align-items: flex-start;
   gap: 1.5rem;
   margin-top: 1.5rem;
-  border-radius: 1.75rem;
-  background: var(--color-surface-inverse);
-  padding: 2.5rem 1.5rem;
-  color: var(--color-on-inverse);
+  border-block: 1px solid var(--color-surface-sunken);
+  padding: 2.5rem 0;
+  color: var(--color-text-secondary);
 }
 
 [data-component="ui.contact-band"] h2 {
   margin-bottom: 0.5rem;
-  color: var(--color-on-inverse);
+  color: var(--color-heading);
   font-size: clamp(1.75rem, 1.5vw + 1.25rem, 2.25rem);
 }
 
@@ -1686,25 +1693,12 @@ main [data-component="section.cabinet-teaser"] .cta-secondary {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 3rem 4rem;
+    padding: 3rem 0;
   }
 }
 
 [data-component="ui.contact-band"] .cta-primary {
   flex-shrink: 0;
-  background: var(--color-on-inverse);
-  color: var(--color-heading);
-}
-
-@media (hover: hover) {
-  [data-component="ui.contact-band"] .cta-primary:hover {
-    background: var(--color-surface-sage);
-    color: var(--color-heading);
-  }
-}
-
-[data-component="ui.contact-band"] :focus-visible {
-  outline-color: var(--color-surface-sage);
 }
 
 /* === Mise en page de lecture (pratiques, articles) === */
