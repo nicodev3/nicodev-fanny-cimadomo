@@ -1,5 +1,5 @@
 ---
-name: Fanny Cimadomo
+name: Fanny CIMADOMO
 description: Site vitrine d’un cabinet de psychologie à Chambéry — lin, mauve, terracotta discret.
 colors:
   mauve: "#6e5d6b"
@@ -81,7 +81,7 @@ components:
     typography: "{typography.body}"
 ---
 
-# Design System: Fanny Cimadomo
+# Design System: Fanny CIMADOMO
 
 ## Overview
 

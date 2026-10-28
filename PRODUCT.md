@@ -14,7 +14,7 @@ Job principal du visiteur : **comprendre si Fanny est la bonne professionnelle**
 
 ## Product Purpose
 
-Site vitrine du cabinet de Fanny Cimadomo, psychologue clinicienne. Il doit permettre de :
+Site vitrine du cabinet de Fanny CIMADOMO, psychologue clinicienne. Il doit permettre de :
 
 - vérifier le cadre (cabinet, confidentialité, public adultes, approches) ;
 - juger la pertinence (spécialités, formation, EMDR en cours, TCC / approche intégrative) ;
@@ -49,7 +49,7 @@ Le différentiel factuel : formation en psychologie légale, clinique du trauma,
 
 ## Brand Commitments
 
-- Nom : Fanny Cimadomo. Titre : Psychologue / psychologue clinicienne. Ville : Chambéry.
+- Nom : Fanny CIMADOMO (nom de famille toujours en capitales, dans le texte comme dans les titres). Titre : Psychologue / psychologue clinicienne. Ville : Chambéry.
 - Voix : la praticienne parle d’elle en *je*, s’adresse au visiteur en *vous* (écoute, respect, confidentialité, rythme du patient).
 - **Registre cabinet / professionnel de santé** : discret, digne, lisible. Interdit : landing marketing agressive, urgence commerciale, « delight » de produit SaaS, promesse thérapeutique.
 - Les écrans Google Stitch ne sont pas un brief visuel contraignant.

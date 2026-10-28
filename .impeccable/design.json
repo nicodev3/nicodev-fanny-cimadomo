@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-10-20T15:40:00.000Z",
-  "title": "Design System: Fanny Cimadomo",
+  "title": "Design System: Fanny CIMADOMO",
   "extensions": {
     "colorMeta": {
       "mauve": { "role": "primary", "displayName": "Mauve cabinet", "canonical": "#6e5d6b", "tonalRamp": ["#3a3139", "#5c4f5b", "#6e5d6b", "#8a7a87", "#a99ca6", "#cfc6cd", "#ebe4ea", "#faf8fa"] },
