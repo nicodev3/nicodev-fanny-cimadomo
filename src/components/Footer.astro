@@ -11,7 +11,11 @@ import {
   resolvedBookingPrimaryHref,
   SITE_BOOKING_PRIMARY_LABEL,
 } from "../lib/client/siteBooking";
-import { SITE_BOOKING_SECONDARY_HREF, SITE_BOOKING_SECONDARY_LABEL } from "../lib/constants";
+import {
+  EMERGENCY_NUMBERS,
+  SITE_BOOKING_SECONDARY_HREF,
+  SITE_BOOKING_SECONDARY_LABEL,
+} from "../lib/constants";
 
 const b = client.business;
 const license = client.credentials.license;
@@ -35,7 +39,18 @@ const deontologie = professionDeontologieFooterLink(client.profession);
 
 <footer data-component="ui.footer">
   <p class="px-4 py-3 text-center text-base leading-relaxed md:px-6">
-    En cas d'urgence psychiatrique ou de risque immédiat, contactez le 15 (SAMU) ou le 112.
+    En cas d’urgence psychiatrique ou de risque immédiat, appelez le{" "}
+    {
+      EMERGENCY_NUMBERS.map((item, i) => (
+        <>
+          {i > 0 && (i === EMERGENCY_NUMBERS.length - 1 ? " ou " : ", ")}
+          <a href={`tel:${item.number}`} class="footer-emergency__number">
+            {item.number}
+          </a>{" "}
+          ({item.shortLabel})
+        </>
+      ))
+    }.
   </p>
   <div class="pt-8 md:pt-10">
     <div class="site-container mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -54,13 +69,13 @@ const deontologie = professionDeontologieFooterLink(client.profession);
           {b.postalCode}&nbsp;{b.city}
         </p>
         <p class="text-base leading-relaxed">
-          <a class="inline-flex items-center gap-1.5" href={`tel:${b.phone.replace(/\s/g, "")}`}>
+          <a class="inline-flex items-center gap-1.5 pointer-coarse:min-h-11" href={`tel:${b.phone.replace(/\s/g, "")}`}>
             <Phone class="size-4 shrink-0" size={16} aria-hidden="true" />
             {b.phone}
           </a>
         </p>
         <p class="text-base leading-relaxed">
-          <a class="inline-flex items-center gap-1.5" href={`mailto:${b.email}`}>
+          <a class="inline-flex items-center gap-1.5 pointer-coarse:min-h-11" href={`mailto:${b.email}`}>
             <Mail class="size-4 shrink-0" size={16} aria-hidden="true" />
             {b.email}
           </a>
@@ -74,11 +89,11 @@ const deontologie = professionDeontologieFooterLink(client.profession);
         }
         {
           client.social.links.length > 0 && (
-            <ul class="flex flex-wrap gap-x-3 gap-y-1 pt-2">
+            <ul class="flex flex-wrap gap-x-4 gap-y-1 pt-2">
               {client.social.links.map((link) => (
                 <li>
                   <a
-                    class="text-sm leading-relaxed"
+                    class="inline-flex items-center text-sm leading-relaxed pointer-coarse:min-h-11"
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -116,10 +131,10 @@ const deontologie = professionDeontologieFooterLink(client.profession);
 
       <div class="flex flex-col gap-3" data-component="footer.sitemap">
         <h2 class="text-base">Plan du site</h2>
-        <nav class="flex flex-col gap-3" aria-label="Navigation pied de page">
+        <nav class="flex flex-col gap-3 pointer-coarse:gap-0" aria-label="Navigation pied de page">
           {
             siteMapItems.map((item) => (
-              <a class="text-sm" href={item.href}>
+              <a class="inline-flex items-center text-sm pointer-coarse:min-h-11" href={item.href}>
                 {item.label}
               </a>
             ))
@@ -137,14 +152,14 @@ const deontologie = professionDeontologieFooterLink(client.profession);
         {b.siret && <span> • SIRET : {b.siret}</span>}
       </span>
 
-      <ul class="flex flex-wrap gap-x-3 gap-y-1">
-        <li><a href="/mentions-legales/">Mentions légales</a></li>
-        <li><a href="/mentions-legales/#donnees-personnelles">Données personnelles</a></li>
+      <ul class="flex flex-wrap gap-x-4 gap-y-1">
+        <li><a class="inline-flex items-center pointer-coarse:min-h-11" href="/mentions-legales/">Mentions légales</a></li>
+        <li><a class="inline-flex items-center pointer-coarse:min-h-11" href="/mentions-legales/#donnees-personnelles">Données personnelles</a></li>
         {
           deontologie && (
             <li>
               <a
-                class="inline-flex items-center gap-1"
+                class="inline-flex items-center gap-1 pointer-coarse:min-h-11"
                 href={deontologie.href}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -373,6 +373,15 @@ main a:not([class]) {
   transition: color 0.2s ease;
 }
 
+/* Petits écrans : le nom peut passer à la ligne plutôt que déborder sur le téléphone */
+@media (max-width: 29.99rem) {
+  [data-component="ui.header"] > .site-container > div > a:first-child > span:first-child {
+    font-size: 1.125rem;
+    white-space: normal;
+    text-wrap: balance;
+  }
+}
+
 @media (hover: hover) {
   [data-component="ui.header"] > .site-container > div > a:first-child:hover > span:first-child {
     color: var(--color-primary);
@@ -620,8 +629,17 @@ main a:not([class]) {
   [data-component="hero-layout"] {
     display: grid;
     grid-template-columns: 22rem minmax(0, 1fr);
+    grid-template-areas: "profile hero";
     gap: 3rem;
     align-items: center;
+  }
+
+  [data-component="hero-layout"] > [data-component="HeroSection"] {
+    grid-area: hero;
+  }
+
+  [data-component="hero-layout"] > .hero-profile {
+    grid-area: profile;
   }
 }
 
@@ -707,6 +725,57 @@ main a:not([class]) {
   justify-content: center;
 }
 
+/* Sous 1024px : le hero passe en premier, la carte devient un bloc compact photo + faits */
+@media (max-width: 1023.98px) {
+  .hero-profile {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "photo name"
+      "photo facts"
+      "actions actions";
+    align-items: start;
+    gap: 0.5rem 1rem;
+    padding: 1rem;
+  }
+
+  .hero-profile__photo {
+    grid-area: photo;
+  }
+
+  .hero-profile__name {
+    grid-area: name;
+    font-size: 1.25rem;
+  }
+
+  .hero-profile__facts {
+    grid-area: facts;
+  }
+
+  .hero-profile__actions {
+    grid-area: actions;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 359.98px) {
+  .hero-profile {
+    grid-template-columns: 4.25rem minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .hero-profile {
+    grid-template-columns: 7rem minmax(0, 1fr);
+    max-width: 40rem;
+  }
+
+  .hero-profile__actions a {
+    width: auto;
+  }
+}
+
 /* === Accueil — services / motifs === */
 [data-component="section.services-wrapper"] {
   padding-block: 3rem;
@@ -788,7 +857,9 @@ main a:not([class]) {
   }
 }
 
+/* Carte entière cliquable : un seul lien (le titre), étendu par ::after */
 .approaches-teaser__item {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -824,9 +895,30 @@ main a:not([class]) {
   text-decoration: none;
 }
 
+.approaches-teaser__body h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+}
+
+.approaches-teaser__body h3 a:focus-visible {
+  outline: none;
+}
+
+.approaches-teaser__body h3 a:focus-visible::after {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
 @media (hover: hover) {
-  .approaches-teaser__body h3 a:hover {
+  .approaches-teaser__item:hover h3 a {
     color: var(--color-accent-strong);
+  }
+
+  .approaches-teaser__item:hover .approaches-teaser__more {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 }
 
@@ -850,11 +942,6 @@ main a:not([class]) {
   text-decoration: none;
 }
 
-@media (hover: hover) {
-  .approaches-teaser__more:hover {
-    text-decoration: underline;
-  }
-}
 
 /* === Accueil — teaser cabinet === */
 [data-component="section.cabinet-teaser"] {
@@ -899,6 +986,10 @@ main a:not([class]) {
 .cabinet-teaser__access {
   margin: 0;
   white-space: pre-line;
+}
+
+.cabinet-teaser__msp {
+  margin: 0;
 }
 
 .cabinet-teaser__photo {
@@ -1068,6 +1159,15 @@ main [data-component="section.cabinet-teaser"] .cta-secondary {
   color: var(--color-heading);
   font-size: 1rem;
   text-align: left;
+}
+
+[data-component="ui.footer"] .footer-emergency__number {
+  padding: 0.75rem 0.375rem;
+  margin: -0.75rem -0.375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 [data-component="ui.footer"] h2 {

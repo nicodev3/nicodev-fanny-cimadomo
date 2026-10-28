@@ -36,10 +36,10 @@ const summaryResetClass =
 <div class="sticky top-0 z-50 bg-bg" data-component="ui.header-stack">
   <header class="relative z-50 bg-bg" data-component="ui.header">
     <div class="site-container py-3">
-      <div class="flex min-h-16 items-center justify-between gap-3 lg:gap-6">
+      <div class="flex min-h-16 items-center justify-between gap-2 sm:gap-3 lg:gap-6">
         <a
           href="/"
-          class="inline-flex min-w-0 flex-col gap-0.5 self-center"
+          class="inline-flex min-h-11 min-w-0 flex-col justify-center gap-0.5 self-center"
           aria-label={`Accueil — ${b.fullName}, ${b.title}`}
         >
           <span class="leading-tight">{b.fullName}</span>
@@ -105,7 +105,7 @@ const summaryResetClass =
         <div class="flex shrink-0 items-center gap-1 sm:gap-3">
           <div class="flex items-center gap-1 sm:gap-3" data-component="ui.header-actions">
             <a
-              class="inline-flex min-h-11 items-center gap-1.5 px-1 text-sm sm:px-0"
+              class="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 text-sm sm:justify-start"
               href={phoneHref}
               aria-label={`Appeler ${b.phone}`}
             >

@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { client } from "../../lib/client";
 import { isPublishedEntry } from "../../lib/contentNavigation";
+import { getSiteCopy } from "../../lib/siteCopy";
 import { getPracticePageHero } from "../../lib/practicePageHeroImages";
 import {
   practicePageContentId,
@@ -13,6 +14,8 @@ import {
 } from "../../lib/practicePageRegistry";
 
 const entries = await getCollection("practicePages", isPublishedEntry);
+/** Texte « introduction » de l’accueil : présente l’approche intégrative en tête de section. */
+const approachesIntro = (await getSiteCopy("accueil")).data.introduction?.trim() ?? "";
 
 const items = REGISTERED_PRACTICE_PAGES.filter(
   (page) => client.practicePageEnabled[page.id] === true,
@@ -38,6 +41,7 @@ const items = REGISTERED_PRACTICE_PAGES.filter(
     <section class="approaches-teaser" data-component="section.approaches-teaser" aria-labelledby="approaches-teaser-heading">
       <div class="approaches-teaser__intro max-w-xl space-y-4">
         <h2 id="approaches-teaser-heading">Mes approches</h2>
+        {approachesIntro && <p>{approachesIntro}</p>}
         <p>
           Chaque approche est détaillée sur une page dédiée. Nous choisissons ensemble ce qui correspond à votre situation.
         </p>
@@ -63,10 +67,10 @@ const items = REGISTERED_PRACTICE_PAGES.filter(
                   <a href={item.href}>{item.title}</a>
                 </h3>
                 {item.description && <p>{item.description}</p>}
-                <a href={item.href} class="approaches-teaser__more">
+                <span class="approaches-teaser__more" aria-hidden="true">
                   En savoir plus
                   <ArrowRight size={16} aria-hidden="true" />
-                </a>
+                </span>
               </div>
             </article>
           </li>

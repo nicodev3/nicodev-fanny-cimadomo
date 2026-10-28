@@ -1,24 +1,26 @@
 ---
 name: Fanny Cimadomo
-description: Site vitrine d’un cabinet de psychologie à Chambéry — lin, sauge, terracotta discret.
+description: Site vitrine d’un cabinet de psychologie à Chambéry — lin, mauve, terracotta discret.
 colors:
-  sage: "#3d5c4e"
-  sage-hover: "#2f4a3e"
-  sage-on: "#f4f6f3"
+  mauve: "#6e5d6b"
+  mauve-hover: "#5c4f5b"
+  mauve-on: "#faf8fa"
   terracotta: "#a85d47"
   terracotta-strong: "#8a5340"
   linen: "#f5f3ef"
   paper: "#fcfcfa"
   paper-subtle: "#eeece8"
   paper-sunken: "#e7e5e0"
+  paper-muted: "#ebe8e2"
   paper-warm: "#ebe4dc"
-  paper-sage: "#e8ece9"
+  paper-mauve: "#ebe4ea"
   ink: "#2a2c2a"
   ink-heading: "#2c322e"
   ink-secondary: "#4e5551"
   ink-muted: "#5f6864"
-  moss: "#8a9a90"
-  inverse: "#2f453c"
+  decor: "#9a939f"
+  inverse: "#524858"
+  on-inverse: "#f4f6f3"
 typography:
   display:
     fontFamily: "Fraunces, Georgia, serif"
@@ -57,18 +59,18 @@ spacing:
   xl: "3rem"
 components:
   button-primary:
-    backgroundColor: "{colors.sage}"
-    textColor: "{colors.sage-on}"
+    backgroundColor: "{colors.mauve}"
+    textColor: "{colors.mauve-on}"
     rounded: "{rounded.md}"
     padding: "14px 24px"
     typography: "{typography.label}"
   button-primary-hover:
-    backgroundColor: "{colors.sage-hover}"
-    textColor: "{colors.sage-on}"
+    backgroundColor: "{colors.mauve-hover}"
+    textColor: "{colors.mauve-on}"
     rounded: "{rounded.md}"
   button-secondary:
     backgroundColor: "{colors.paper}"
-    textColor: "{colors.sage}"
+    textColor: "{colors.mauve}"
     rounded: "{rounded.md}"
     padding: "14px 24px"
     typography: "{typography.label}"
@@ -85,23 +87,23 @@ components:
 
 **Creative North Star: "Le cabinet lin"**
 
-Site d’une psychologue clinicienne à Chambéry. Le visuel doit se lire comme un cabinet réel : papier lin, sauge pour l’action, terracotta seulement en ornement. Fraunces porte les titres (WONK et SOFT à 0) ; Manrope porte le texte. La voix est *je* / *vous*, calme, factuelle.
+Site d’une psychologue clinicienne à Chambéry. Le visuel doit se lire comme un cabinet réel : papier lin, mauve (violet pastel, RAL 4009) pour l’action, terracotta seulement en ornement. Fraunces porte les titres (WONK et SOFT à 0) ; Manrope porte le texte. La voix est *je* / *vous*, calme, factuelle.
 
 La densité est confortable, pas marketing. Les listes et filets remplacent les grilles de cartes quand le contenu est de lecture (FAQ, motifs). La confiance clinique passe avant la conversion.
 
 **Key Characteristics:**
-- Surfaces unies (lin, papier, sauge pâle) — pas de nappes ni de dégradés
-- Une action primaire sauge ; le terracotta n’est pas un bouton
+- Surfaces unies (lin, papier, mauve pâle) — pas de nappes ni de dégradés
+- Une action primaire mauve ; le terracotta n’est pas un bouton
 - Titres serif, corps sans ; mesure de lecture ~65ch
 - Ombres rares, décalées, très légères
 - Rayon 0.75rem sur boutons, champs, photo
 
 ## Colors
 
-Palette lin / sauge / terracotta extraite de `src/styles/stitch.css`.
+Palette lin / mauve / terracotta extraite de `src/styles/stitch.css`. Le vert sauge des premières versions est abandonné : il ne doit plus réapparaître.
 
 ### Primary
-- **Sauge cabinet** (`#3d5c4e`): boutons, liens, états ouverts utiles. Hover `#2f4a3e`. Texte sur sauge `#f4f6f3`.
+- **Mauve cabinet** (`#6e5d6b`, token `--color-primary`): boutons, liens, états ouverts utiles. Hover `#5c4f5b`. Texte sur mauve `#faf8fa`. Contraste 5.5:1 sur lin, 5.9:1 sur papier.
 
 ### Secondary
 - **Terracotta** (`#a85d47`, fort `#8a5340`): icônes, filets d’accent, jamais un fond de section ni un dégradé de texte.
@@ -110,12 +112,15 @@ Palette lin / sauge / terracotta extraite de `src/styles/stitch.css`.
 - **Lin** (`#f5f3ef`): fond de page
 - **Papier** (`#fcfcfa`): surfaces relevées
 - **Encre** (`#2a2c2a` / titres `#2c322e` / secondaire `#4e5551`)
-- **Sauge pâle** (`#e8ece9`): bandeaux, pied, îlots calmes
+- **Mauve pâle** (`#ebe4ea`, token `--color-surface-sage`, nom historique): bandeaux, pied, îlot urgence, survol des boutons secondaires
+- **Papier atténué** (`#ebe8e2`): bandeau d’urgence du pied de page
+- **Décor** (`#9a939f`): traits et motifs décoratifs, jamais du texte
+- **Inverse** (`#524858`, texte `#f4f6f3`): bandeau « Une question avant de prendre rendez-vous ? »
 
 ### Named Rules
 **The Solid-Surface Rule.** Les fonds sont des aplatis. Pas de `linear-gradient` / `radial-gradient` décoratifs, pas de texte en dégradé.
 
-**The Sage-Is-Action Rule.** La sauge porte l’action. Le terracotta orne ; il n’appelle pas le clic.
+**The Mauve-Is-Action Rule.** Le mauve porte l’action. Le terracotta orne ; il n’appelle pas le clic.
 
 ## Typography
 
@@ -140,10 +145,10 @@ Conteneur `max-width: 80rem`. Rythme : groupes serrés, sections à `padding-blo
 
 ## Elevation & Depth
 
-Plat par défaut. Deux ombres, toujours décalées, teintées sauge :
+Plat par défaut. Deux ombres, toujours décalées, teintées mauve :
 
-- **Soft** (`0 1px 8px rgb(47 69 60 / 7%)`): bouton primaire au repos
-- **Card** (`0 8px 28px rgb(47 69 60 / 9%)`): levée ponctuelle, pas un halo centré
+- **Soft** (`0 1px 8px rgb(82 72 88 / 7%)`): bouton primaire au repos
+- **Card** (`0 8px 28px rgb(82 72 88 / 9%)`): levée ponctuelle, pas un halo centré
 
 ### Named Rules
 **The Hairline-Not-Card Rule.** Une liste de lecture (FAQ) se sépare par un filet `#e7e5e0`, pas par des cartes ombrées.
@@ -156,22 +161,22 @@ Rayon 0.75rem sur contrôles et photo portrait. Filets 1px `paper-sunken`. Pas d
 
 ### Buttons
 - **Shape:** 0.75rem, bordure 2px
-- **Primary:** fond sauge, texte lin, ombre soft
-- **Hover:** sauge plus foncée
-- **Secondary:** papier, texte sauge, bordure sunken ; hover fond sauge pâle + bordure sauge
+- **Primary:** fond mauve, texte clair, ombre soft
+- **Hover:** mauve plus foncé
+- **Secondary:** papier, texte mauve, bordure sunken ; hover fond mauve pâle + bordure mauve
 - **Active:** `scale(0.96)`
 
 ### Cards / Containers
 Surfaces papier ou transparentes. Les motifs d’accueil et la FAQ ne sont pas des cartes.
 
 ### Inputs / Fields
-Fond `paper-subtle`, rayon 0.75rem, focus outline 1px sauge.
+Fond `paper-subtle`, rayon 0.75rem, focus outline 1px mauve. Focus clavier global : contour 2px terracotta, décalé de 2px.
 
 ### Navigation
 Barre unique sticky, papier. Téléphone et RDV toujours visibles. Menu hamburger pour le reste sous `xl`.
 
 ### FAQ
-Liste éditoriale : titre à gauche dès 1024px, questions en filets, plus/moins à droite. Ouvert : réponse corps, pas de fond sauge.
+Liste éditoriale : titre à gauche dès 1024px, questions en filets, plus/moins à droite. Ouvert : réponse corps, pas de fond coloré.
 
 ## Do's and Don'ts
 
@@ -183,6 +188,7 @@ Liste éditoriale : titre à gauche dès 1024px, questions en filets, plus/moins
 
 ### Don't:
 - **Don't** poser de dégradé (texte ou nappe).
+- **Don't** réintroduire le vert sauge (`#3d5c4e` et dérivés).
 - **Don't** ajouter un kicker / eyebrow.
 - **Don't** mettre une bordure colorée gauche/droite > 1px.
 - **Don't** traiter le site comme une landing d’acquisition.

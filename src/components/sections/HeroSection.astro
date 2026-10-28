@@ -14,7 +14,6 @@ import { SITE_BOOKING_SECONDARY_HREF, SITE_BOOKING_SECONDARY_LABEL } from "../..
 
 const copy = await getSiteCopy("accueil");
 const introText = copy.data.chapo?.trim() ?? "";
-const introTextSecondary = copy.data.introduction?.trim() ?? "";
 
 const heroConsultPrefix = professionHeroConsultationPrefix(client.profession);
 const heroConsultTagline = `${heroConsultPrefix}${heroConsultationTaglineAfterPour(client.practice)}`;
@@ -33,6 +32,7 @@ const hours = enabledContactHoursRows(client.contact.hours);
     <p class="max-w-xl text-lg">{heroConsultTagline}</p>
   </div>
   <div class="hero-intro">
+    {(session || hours.length > 0) && (
     <dl class="hero-cadre">
       {
         session && (
@@ -58,6 +58,7 @@ const hours = enabledContactHoursRows(client.contact.hours);
         )
       }
     </dl>
+    )}
     {introText && <p class="hero-intro__copy">{introText}</p>}
     <div class="hero-intro__actions">
       <a href={SITE_BOOKING_SECONDARY_HREF} class="cta-primary cta-primary--sm">
@@ -74,6 +75,5 @@ const hours = enabledContactHoursRows(client.contact.hours);
         {bookingExternal && <span class="sr-only">(nouvel onglet)</span>}
       </a>
     </div>
-    {introTextSecondary && <p class="hero-intro__copy">{introTextSecondary}</p>}
   </div>
 </div>

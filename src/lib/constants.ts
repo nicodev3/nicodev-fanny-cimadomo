@@ -15,20 +15,29 @@ export const LEGAL_NO_TRACKING_NOTICE =
 export const REIMBURSEMENT_MUTUELLE_NOTICE =
   "Certaines mutuelles remboursent une partie des séances.";
 
+/**
+ * Numéros nationaux d’urgence (non paramétrables par client.json).
+ * Source unique : bloc urgence, accroche du hero, pied de page, panneau conditions.
+ */
+export const EMERGENCY_NUMBERS: readonly { number: string; label: string; shortLabel: string }[] = [
+  { number: "15", label: "SAMU, urgence médicale", shortLabel: "SAMU" },
+  { number: "112", label: "numéro d’urgence européen", shortLabel: "urgence européenne" },
+  {
+    number: "3114",
+    label: "numéro national de prévention du suicide, gratuit, 24 h/24 et 7 j/7",
+    shortLabel: "prévention du suicide",
+  },
+];
+
+/** « 15 (SAMU), 112 (urgence européenne) ou 3114 (prévention du suicide) » */
+export const EMERGENCY_NUMBERS_SENTENCE = EMERGENCY_NUMBERS.map(
+  (item) => `${item.number} (${item.shortLabel})`,
+).join(", ").replace(/, ([^,]*)$/, " ou $1");
+
 /** Limites du suivi (liste figée, panneau conditions — non paramétrable par client.json). */
 export const CONDITIONS_LIMITS_ITEMS: readonly string[] = [
   "Les consultations ne remplacent pas un service d’urgence.",
-  "En cas d’urgence immédiate, contactez le 15 (SAMU) ou le 112.",
-];
-
-/** Numéros nationaux d’urgence affichés sur la page contact (non paramétrables par client.json). */
-export const EMERGENCY_NUMBERS: readonly { number: string; label: string }[] = [
-  { number: "15", label: "SAMU, urgence médicale" },
-  { number: "112", label: "numéro d’urgence européen" },
-  {
-    number: "3114",
-    label: "numéro national de prévention du suicide, gratuit, 24 h/24 et 7 j/7",
-  },
+  `En cas d’urgence immédiate, contactez le ${EMERGENCY_NUMBERS_SENTENCE}.`,
 ];
 
 /**

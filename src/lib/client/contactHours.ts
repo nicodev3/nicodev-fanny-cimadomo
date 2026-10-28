@@ -51,6 +51,11 @@ export function emptyContactHours(): ContactHours {
   return o;
 }
 
+/** Plage horaire typographique : « 9h00 - 17h00 » → « 9h00–17h00 » (tiret demi-cadratin). */
+export function formatContactHoursValue(value: string): string {
+  return value.trim().replace(/(\d)\s*[-–]\s*(?=\d)/g, "$1–");
+}
+
 /** Jours activés avec un horaire renseigné, dans l’ordre de la semaine (affichage). */
 export function enabledContactHoursRows(
   hours: ContactHours,
@@ -59,7 +64,7 @@ export function enabledContactHoursRows(
     const slot = hours[day];
     const value = slot.value.trim();
     return slot.enabled && value.length > 0
-      ? [{ day, label: CONTACT_HOURS_WEEKDAY_LABELS[day], value }]
+      ? [{ day, label: CONTACT_HOURS_WEEKDAY_LABELS[day], value: formatContactHoursValue(value) }]
       : [];
   });
 }

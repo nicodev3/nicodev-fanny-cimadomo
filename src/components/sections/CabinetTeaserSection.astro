@@ -3,8 +3,12 @@ import { ArrowRight, MapPin } from "@lucide/astro";
 import { Image } from "astro:assets";
 import cabinetPhoto from "../../assets/cabinet-psychologue-chambery.webp";
 import { client } from "../../lib/client";
+import { professionSupportsMonSoutienPsy } from "../../lib/client/professionCopy";
 const { business, contact } = client;
 const accessNote = contact.accessNote ?? "";
+const showMonSoutienPsyAbsent =
+  professionSupportsMonSoutienPsy(client.profession) &&
+  !client.practice.reimbursement.monSoutienPsy.enabled;
 ---
 
 <section class="cabinet-teaser" data-component="section.cabinet-teaser" aria-labelledby="cabinet-teaser-heading">
@@ -20,6 +24,14 @@ const accessNote = contact.accessNote ?? "";
         </span>
       </address>
       {accessNote && <p class="cabinet-teaser__access note">{accessNote}</p>}
+      {
+        showMonSoutienPsyAbsent && (
+          <p class="cabinet-teaser__msp note">
+            Je ne propose pas le dispositif Mon Soutien Psy.{" "}
+            <a href="/tarifs/">Tarifs et remboursement</a>
+          </p>
+        )
+      }
       <a href="/contact/" class="cta-secondary cta-secondary--sm">
         Coordonnées et plan
         <ArrowRight size={16} aria-hidden="true" />
