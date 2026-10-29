@@ -15,7 +15,7 @@
       "paper-sunken": { "role": "neutral", "displayName": "Filet", "canonical": "#e7e5e0", "tonalRamp": ["#2a2c2a", "#4e5551", "#9a939f", "#cfc6cd", "#e7e5e0", "#eeece8", "#f5f3ef", "#fcfcfa"] },
       "paper-warm": { "role": "neutral", "displayName": "Papier chaud", "canonical": "#ebe4dc", "tonalRamp": ["#2a2c2a", "#4e5551", "#9a939f", "#cfc6cd", "#e7e5e0", "#ebe4dc", "#f5f3ef", "#fcfcfa"] },
       "paper-muted": { "role": "neutral", "displayName": "Papier atténué", "canonical": "#ebe8e2", "tonalRamp": ["#2a2c2a", "#4e5551", "#9a939f", "#cfc6cd", "#e7e5e0", "#eeece8", "#f5f3ef", "#fcfcfa"] },
-      "paper-mauve": { "role": "neutral", "displayName": "Mauve pâle", "canonical": "#ebe4ea", "tonalRamp": ["#3a3139", "#5c4f5b", "#6e5d6b", "#8a7a87", "#a99ca6", "#cfc6cd", "#ebe4ea", "#faf8fa"] },
+      "paper-mauve": { "role": "neutral", "displayName": "Beige sable", "canonical": "#ebe2d5", "tonalRamp": ["#3a3139", "#5c4f5b", "#6e5d6b", "#8a7a87", "#a99ca6", "#cfc6cd", "#ebe4ea", "#faf8fa"] },
       "ink": { "role": "neutral", "displayName": "Encre", "canonical": "#2a2c2a", "tonalRamp": ["#2a2c2a", "#2c322e", "#4e5551", "#5f6864", "#9a939f", "#cfc6cd", "#e7e5e0", "#f5f3ef"] },
       "ink-heading": { "role": "neutral", "displayName": "Encre titre", "canonical": "#2c322e", "tonalRamp": ["#2a2c2a", "#2c322e", "#4e5551", "#5f6864", "#9a939f", "#cfc6cd", "#e7e5e0", "#f5f3ef"] },
       "ink-secondary": { "role": "neutral", "displayName": "Encre secondaire", "canonical": "#4e5551", "tonalRamp": ["#2a2c2a", "#2c322e", "#4e5551", "#5f6864", "#9a939f", "#cfc6cd", "#e7e5e0", "#f5f3ef"] },

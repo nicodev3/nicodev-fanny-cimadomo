@@ -35,7 +35,7 @@
   --color-surface-sunken: #e7e5e0;
   --color-surface-muted: #ebe8e2;
   --color-surface-warm: #ebe4dc;
-  --color-surface-sage: #ebe4ea;
+  --color-surface-sage: #ebe2d5;
   --color-surface-inverse: #524858;
 
   --font-sans: var(--font-manrope);
@@ -2462,8 +2462,8 @@ main [data-component="section.cabinet-teaser"] .cta-secondary {
 .about-hero__follow {
   margin: 0;
   color: var(--color-text-secondary);
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 1.125rem;
+  line-height: 1.7;
   text-wrap: pretty;
 }
 

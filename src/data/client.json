@@ -139,7 +139,7 @@
     "conditions": {
         "cancellation": {
             "noticeHours": 48,
-            "feePolicy": "Sinon un dédommagement financier peut être demandé, pour laisser la place à une personne en attente."
+            "feePolicy": "Cela me permet de proposer le créneau à une personne en attente. À défaut, un dédommagement financier peut être demandé."
         },
         "delay": {
             "graceMinutes": 10,
@@ -201,7 +201,7 @@
         "sidebarSummary": "Psychologue clinicienne à Chambéry. J’accompagne les adultes en cabinet, dans un cadre d’écoute et de confidentialité, à leur rythme."
     },
     "whyConsultPage": {
-        "framing": "Pour l’Organisation mondiale de la Santé, la santé est « un état de complet bien-être physique, mental et social, et ne consiste pas seulement en une absence de maladie ou d’infirmité ». L’homéostasie désigne, quant à elle, la capacité de l’organisme à maintenir un équilibre dynamique : lorsque cet équilibre est fragilisé, consulter permet de comprendre ce qui se joue pour vous et de retrouver progressivement des marges de manœuvre, à votre rythme."
+        "framing": "Pour l’Organisation mondiale de la Santé, la santé est « un état de complet bien-être physique, mental et social, et ne consiste pas seulement en une absence de maladie ou d’infirmité ». L’homéostasie désigne, quant à elle, la capacité de l’organisme à maintenir un équilibre dynamique : lorsque cet équilibre est fragilisé, consulter permet de comprendre ce qui se joue pour vous et de mobiliser progressivement vos ressources, à votre rythme."
     },
     "contact": {
         "hours": {
