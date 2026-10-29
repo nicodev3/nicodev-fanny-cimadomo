@@ -112,7 +112,7 @@ Palette lin / mauve / terracotta extraite de `src/styles/stitch.css`. Le vert sa
 - **Lin** (`#f5f3ef`): fond de page
 - **Papier** (`#fcfcfa`): surfaces relevées
 - **Encre** (`#2a2c2a` / titres `#2c322e` / secondaire `#4e5551`)
-- **Mauve pâle** (`#ebe4ea`, token `--color-surface-sage`, nom historique): bandeaux, pied, îlot urgence, survol des boutons secondaires
+- **Beige sable** (`#ebe2d5`, token `--color-surface-sage`, nom historique): bandeaux, pied, îlot urgence, survol des boutons secondaires
 - **Papier atténué** (`#ebe8e2`): bandeau d’urgence du pied de page
 - **Décor** (`#9a939f`): traits et motifs décoratifs, jamais du texte
 - **Inverse** (`#524858`, texte `#f4f6f3`): réservé ; plus utilisé comme fond de bandeau sur les pages publiques
