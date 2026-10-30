@@ -238,7 +238,6 @@
         "accessNote": "Parking et stationnement gratuit\nArrêt Croix de Bissy (lignes C / D)",
         "channels": {
             "selected": [
-                "form",
                 "email",
                 "phone"
             ]

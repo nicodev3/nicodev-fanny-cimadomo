@@ -1,4 +1,4 @@
-import portrait from "../assets/fanny-cimadomo-psychologue.jpeg";
+import portrait from "../assets/fanny-cimadomo-psychologue.jpg";
 
 export const practitionerPortrait = portrait;
 

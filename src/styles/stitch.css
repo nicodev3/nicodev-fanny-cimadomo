@@ -2454,7 +2454,7 @@ main [data-component="section.cabinet-teaser"] .cta-secondary {
 .about-hero__identity .lead {
   margin: 0;
   color: var(--color-text-secondary);
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.7;
   text-wrap: pretty;
 }
@@ -2462,7 +2462,7 @@ main [data-component="section.cabinet-teaser"] .cta-secondary {
 .about-hero__follow {
   margin: 0;
   color: var(--color-text-secondary);
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.7;
   text-wrap: pretty;
 }
